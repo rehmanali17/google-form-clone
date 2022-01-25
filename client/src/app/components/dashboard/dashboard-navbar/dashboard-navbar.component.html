@@ -1,0 +1,28 @@
+<div class="navbar">
+    <div class="menu-items">
+        <button mat-icon-button>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <img class="logo" src="../../../../assets/forms.png" alt="" />
+        <h3 class="menu-item-title">Forms</h3>
+    </div>
+    <div class="search-forms-field">
+        <button mat-icon-button>
+            <mat-icon>search</mat-icon>
+        </button>
+        <input type="text" class="search-form-input" placeholder="Search" />
+    </div>
+    <div class="account-btns">
+        <button mat-icon-button>
+            <mat-icon>apps</mat-icon>
+        </button>
+        <div class="user-image-container" [matMenuTriggerFor]="accountOptions">
+            <img class="user-image" src="{{ pictureURL }}" alt="User name" />
+        </div>
+        <mat-menu #accountOptions="matMenu" yPosition="below">
+            <button (click)="handleLogOut()" mat-menu-item>
+                <mat-icon>exit_to_app</mat-icon>&nbsp;Sign Out
+            </button>
+        </mat-menu>
+    </div>
+</div>

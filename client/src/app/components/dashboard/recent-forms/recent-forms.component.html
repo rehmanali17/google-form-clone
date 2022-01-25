@@ -1,0 +1,22 @@
+<div class="recent-forms-section">
+    <div class="recent-forms-banner">
+        <p class="initiate-form">Start a new form</p>
+        <div class="action-btns">
+            <div>Template Gallery &nbsp; <mat-icon>unfold_more</mat-icon></div>
+            <button mat-icon-button [matMenuTriggerFor]="recentFormsOptions">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #recentFormsOptions="matMenu" yPosition="below">
+                <button mat-menu-item>Hide all templates</button>
+            </mat-menu>
+        </div>
+    </div>
+    <div class="recent-forms-gallery">
+        <app-recent-forms-card></app-recent-forms-card>
+        <app-recent-forms-card></app-recent-forms-card>
+        <app-recent-forms-card></app-recent-forms-card>
+        <app-recent-forms-card></app-recent-forms-card>
+        <app-recent-forms-card></app-recent-forms-card>
+        <app-recent-forms-card></app-recent-forms-card>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+.custom-container {
+    width: 100%;
+    display: grid;
+    place-items: center;
+
+    .form-information-container {
+        // margin-top: 200px;
+        width: 50%;
+        border: 1px solid #dadce0;
+        border-radius: 8px;
+        height: 170px;
+        border-top: 10px solid #7349bc;
+        padding: 0 22px;
+        box-sizing: border-box;
+        margin-bottom: 12px;
+
+        &:focus-within {
+            border-left: 6px solid #4284f3;
+        }
+
+        // .left-border {
+        //     position: absolute;
+        //     top: 0;
+        //     left: 0;
+        //     width: 60px;
+        //     background: #4284f3;
+        // }
+
+        .form-title {
+            width: 100%;
+
+            mat-form-field {
+                width: 100%;
+                font-weight: 400;
+                font-size: 32px;
+            }
+        }
+
+        .form-description {
+            width: 100%;
+            position: relative;
+            top: -40px;
+
+            mat-form-field {
+                width: 100%;
+                font-weight: 400;
+                font-size: 16px;
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+@mixin flex-display {
+    display: flex;
+    align-items: center;
+}
+
+.drag-indicator-container {
+    display: grid;
+    place-content: center;
+
+    .drag-indicator {
+        height: fit-content;
+        width: fit-content;
+        transform: rotate(90deg);
+        cursor: all-scroll;
+    }
+}
+
+.form-question-container {
+    @include flex-display();
+    justify-content: space-between;
+    font-size: 16px;
+    button {
+        position: relative;
+        top: -8px;
+    }
+
+    mat-form-field:nth-child(1) {
+        width: 60%;
+    }
+}

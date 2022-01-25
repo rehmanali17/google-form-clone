@@ -1,0 +1,89 @@
+@mixin flex-display {
+    display: flex;
+    align-items: center;
+}
+@mixin set-width-height($width, $height) {
+    width: $width;
+    height: $height;
+}
+.navbar {
+    @include flex-display();
+    width: 100%;
+    padding: 8px 20px;
+    box-sizing: border-box;
+
+    .menu-items {
+        @include flex-display();
+        width: 25%;
+        .logo {
+            @include set-width-height(30px, 30px);
+            margin: 0 10px;
+        }
+        .menu-item-title {
+            margin: 0;
+            font-size: 22px;
+            margin-top: 3px;
+            color: #5f6368;
+            cursor: pointer;
+
+            &:active {
+                border-bottom: 2px solid #5f6368;
+            }
+        }
+    }
+
+    .search-forms-field {
+        @include flex-display();
+        background: #f0f3f4;
+        padding: 2px 8px;
+        width: 50%;
+        height: 48px;
+        box-sizing: border-box;
+        border-radius: 10px;
+
+        &:focus-within {
+            background: white;
+            box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background: #e2e5e6;
+            transition: 0.1s linear;
+        }
+
+        .search-form-input {
+            border: none;
+            outline: none;
+            background: inherit;
+            font-size: 20px;
+            font-weight: lighter;
+            margin-left: 5px;
+        }
+    }
+    .account-btns {
+        @include flex-display();
+        justify-content: flex-end;
+        width: 25%;
+
+        button:hover {
+            background: #f0f0f0;
+        }
+
+        .user-image-container {
+            @include set-width-height(40px, 40px);
+            margin: 0 8px 0 8px;
+            display: grid;
+            place-items: center;
+
+            .user-image {
+                @include set-width-height(75%, 75%);
+                cursor: pointer;
+                border-radius: 50%;
+
+                &:hover {
+                    border: 4px solid #f0f0f0;
+                }
+            }
+        }
+    }
+}

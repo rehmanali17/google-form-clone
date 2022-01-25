@@ -1,0 +1,28 @@
+<div class="answer-container">
+    <mat-form-field *ngIf="questionType === 'short'" id="short-answer" appearance="legacy">
+        <input matInput disabled value="Short answer text" />
+    </mat-form-field>
+    <mat-form-field *ngIf="questionType === 'long'" id="long-answer" appearance="legacy">
+        <input matInput disabled value="Long answer text" />
+    </mat-form-field>
+    <div *ngIf="questionType === 'multiple-choice'" id="multiple-choice-container">
+        <div id="multiple-choice">
+            <div class="choice">
+                <mat-icon class="custom-icon-color">radio_button_unchecked</mat-icon>
+                <mat-form-field appearance="legacy">
+                    <input matInput value="Option" />
+                </mat-form-field>
+                <button mat-icon-button>
+                    <mat-icon>crop_original</mat-icon>
+                </button>
+                <button mat-icon-button>
+                    <mat-icon>clear</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="multiple-choice-actions">
+            <mat-icon class="custom-icon-color">radio_button_unchecked</mat-icon>
+            <span>Add Option</span>
+        </div>
+    </div>
+</div>

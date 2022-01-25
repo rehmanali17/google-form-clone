@@ -1,0 +1,27 @@
+.card {
+    width: 170px;
+    height: 170px;
+
+    .card-image {
+        width: 100%;
+        height: 75%;
+        border: 1px solid #dadce0;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
+    .card-image:hover {
+        border: 1px solid #8430ce;
+    }
+
+    .card-title {
+        font-weight: 500;
+        font-size: 14px;
+        color: #202124;
+        margin-left: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

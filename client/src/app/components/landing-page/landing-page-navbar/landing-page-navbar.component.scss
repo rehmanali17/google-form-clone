@@ -1,0 +1,105 @@
+@mixin flex-display {
+    @apply flex items-center;
+}
+
+.navbar {
+    @include flex-display();
+    @apply w-full px-3 pt-1 box-border border-b-2 border-solid;
+    border-color: #d9dce0;
+
+    .menu-items {
+        @include flex-display();
+        @apply w-1/2;
+
+        .logo-container {
+            @apply p-3;
+            @include flex-display();
+
+            .logo {
+                @apply w-8 h-8 mx-1.5;
+            }
+
+            .menu-item-title {
+                @apply m-0 cursor-pointer mt-0.5;
+                font-size: 22px;
+                color: #5f6368;
+            }
+            &:hover {
+                background: #f8f9fa;
+                transition: 0.1s linear;
+            }
+        }
+
+        .misc-links {
+            @include flex-display();
+            @apply ml-10 mt-1 gap-7;
+
+            div {
+                @apply cursor-pointer py-3;
+                color: #5f6368;
+                font-size: 16px;
+                letter-spacing: 0.25px;
+
+                &:hover {
+                    color: #202124;
+                }
+            }
+
+            div:nth-child(1) {
+                color: #202124;
+                border-bottom: 2px solid #175abc;
+            }
+        }
+    }
+
+    .auth-btns {
+        @include flex-display();
+        @apply w-1/2 justify-end gap-4;
+
+        .tools {
+            @include flex-display();
+            @apply p-3 border border-solid border-transparent
+        rounded cursor-pointer tracking-wide;
+            color: #5f6368;
+            font-size: 16px;
+
+            &:hover {
+                background: #f8f9fa;
+                transition: 0.1s linear;
+            }
+        }
+
+        .sign-in-btn {
+            @apply p-3 rounded cursor-pointer tracking-wide;
+            color: #1a73e8;
+
+            &:hover {
+                background: #f6fafe;
+                transition: 0.1s linear;
+            }
+        }
+
+        .go-to-forms-btn {
+            @apply px-6 py-3 border border-solid rounded cursor-pointer bg-white tracking-wide;
+            border-color: #dadce0;
+            color: #1a73e8;
+
+            &:hover {
+                background: #f6f9fe;
+                border-color: #175abc;
+                transition: 0.1s linear;
+            }
+        }
+
+        .try-forms-btn {
+            @apply px-6 py-3 border border-solid border-transparent rounded cursor-pointer tracking-wide;
+            background-color: #1a73e8;
+            color: #fff;
+
+            &:hover {
+                background: #175abc;
+                transition: 0.1s linear;
+            }
+        }
+    }
+}

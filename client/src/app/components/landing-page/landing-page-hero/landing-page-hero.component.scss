@@ -1,0 +1,88 @@
+@mixin flex-display {
+    @apply flex items-center;
+}
+
+.hero-section {
+    @include flex-display();
+    @apply box-border w-full pt-24 pb-4 px-16 border-b-2 border-solid;
+    border-color: #d9dce0;
+    background: #fbfbfb;
+
+    .intro-content {
+        @apply w-1/2 mb-20 pr-20;
+
+        .info-heading {
+            color: #202124;
+            font-size: 60px;
+            line-height: 72px;
+        }
+
+        .info-para {
+            @apply py-6 pr-20;
+            font-size: 20px;
+            line-height: 28px;
+            color: #5f6368;
+            font-weight: 300;
+        }
+
+        .call-to-action {
+            @include flex-display();
+            @apply gap-6 py-3;
+            font-size: 16px;
+
+            .go-to-forms-btn {
+                @apply px-7 py-3 border border-solid rounded cursor-pointer bg-white tracking-wide;
+                border-color: #dadce0;
+                color: #1a73e8;
+
+                &:hover {
+                    background: #f6f9fe;
+                    border-color: #175abc;
+                    transition: 0.1s linear;
+                }
+            }
+
+            .try-forms-btn {
+                @apply px-6 py-3 border border-solid border-transparent rounded cursor-pointer tracking-wide;
+                background-color: #1a73e8;
+                color: #fff;
+
+                &:hover {
+                    background: #175abc;
+                    transition: 0.1s linear;
+                }
+            }
+        }
+
+        .link-to-signup {
+            @include flex-display();
+            @apply py-6 gap-2;
+
+            div {
+                font-size: 16px;
+                font-weight: 300;
+            }
+
+            div:nth-child(1) {
+                color: rgb(95, 99, 104);
+            }
+            div:nth-child(2) {
+                @apply cursor-pointer;
+                color: #1a73e8;
+
+                &:hover {
+                    background: #f6f9fe;
+                    transition: 0.1s linear;
+                }
+            }
+        }
+    }
+
+    .sample-image-container {
+        @apply w-2/3 mb-20;
+
+        .sample-image {
+            width: 90%;
+        }
+    }
+}

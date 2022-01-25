@@ -1,0 +1,93 @@
+@mixin flex-display {
+    display: flex;
+    align-items: center;
+}
+@mixin set-width-height($width, $height) {
+    width: $width;
+    height: $height;
+}
+.outer-navbar {
+    width: 100%;
+    padding: 12px 20px 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid #bdbdbd;
+    margin-bottom: 12px;
+    background: white;
+
+    .navbar {
+        @include flex-display();
+
+        button[mat-icon-button]:hover {
+            background: #f9f9f9;
+        }
+
+        button[mat-flat-button] {
+            background: #673ab7;
+
+            &:hover {
+                background: #7349bc;
+                transition: 0.1s linear;
+            }
+        }
+
+        .menu-items {
+            @include flex-display();
+            width: 50%;
+            gap: 10px;
+            .logo {
+                @include set-width-height(40px, 40px);
+                margin: 0 10px;
+            }
+            .menu-item-title {
+                margin: 0;
+                font-size: 18px;
+                font-weight: 400;
+                line-height: 24px;
+                color: #202124;
+            }
+        }
+
+        .action-btns {
+            @include flex-display();
+            justify-content: flex-end;
+            width: 50%;
+            gap: 10px;
+            .user-image-container {
+                @include set-width-height(40px, 40px);
+                margin: 0 8px 0 8px;
+                display: grid;
+                place-items: center;
+
+                .user-image {
+                    @include set-width-height(75%, 75%);
+                    cursor: pointer;
+                    border-radius: 50%;
+
+                    &:hover {
+                        border: 4px solid #f0f0f0;
+                    }
+                }
+            }
+        }
+    }
+
+    .genre {
+        @include flex-display();
+        width: 100%;
+        justify-content: center;
+        gap: 16px;
+
+        div {
+            color: #3c4043;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 6px 8px;
+            cursor: pointer;
+        }
+
+        div:nth-child(1) {
+            color: #3f50b5;
+            border-bottom: 2px solid #3f50b5;
+        }
+    }
+}

@@ -1,0 +1,60 @@
+@mixin flex-display {
+    display: flex;
+    align-items: center;
+}
+.recent-forms-section {
+    width: 100%;
+    padding: 26px 10%;
+    box-sizing: border-box;
+    background: #f0f3f4;
+
+    .recent-forms-banner {
+        @include flex-display();
+        justify-content: space-between;
+        height: 30px;
+        width: 100%;
+        margin: 0 0 16px 0;
+
+        .initiate-form {
+            color: #202124;
+            font-size: 16px;
+            font-weight: 400;
+            margin-left: 8px;
+            margin-bottom: 0px;
+        }
+
+        .action-btns {
+            @include flex-display();
+
+            div {
+                @include flex-display();
+                border: 1px solid transparent !important;
+                border-radius: 4px;
+                box-sizing: border-box;
+                font-weight: 400;
+                font-size: 14px;
+                padding: 10px 12px 10px 12px;
+                letter-spacing: 0.25px;
+                line-height: 16px;
+                cursor: pointer;
+            }
+
+            div:hover {
+                background: #bdc1c5;
+                transition: 0.1s linear;
+            }
+
+            button:hover {
+                background: #bdc1c5;
+                transition: 0.1s linear;
+            }
+        }
+    }
+
+    .recent-forms-gallery {
+        width: 100%;
+        display: flex;
+        gap: 24px;
+        // justify-content: flex-start;
+    }
+}

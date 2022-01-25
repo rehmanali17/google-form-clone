@@ -1,0 +1,45 @@
+<div class="outer-navbar">
+    <div class="navbar">
+        <div class="menu-items">
+            <img class="logo" src="../../../../assets/forms.png" alt="" />
+            <h3 class="menu-item-title">Forms</h3>
+            <button mat-icon-button>
+                <mat-icon>folder_open</mat-icon>
+            </button>
+            <button mat-icon-button>
+                <mat-icon>star_border</mat-icon>
+            </button>
+        </div>
+        <div class="action-btns">
+            <button mat-icon-button>
+                <mat-icon>palette</mat-icon>
+            </button>
+            <button mat-icon-button>
+                <mat-icon>remove_red_eye</mat-icon>
+            </button>
+            <button mat-icon-button>
+                <mat-icon>undo</mat-icon>
+            </button>
+            <button mat-icon-button>
+                <mat-icon>redo</mat-icon>
+            </button>
+            <button mat-flat-button color="primary">Publish</button>
+            <button mat-icon-button>
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <div class="user-image-container" [matMenuTriggerFor]="accountOptions">
+                <img class="user-image" src="{{ pictureURL }}" alt="User name" />
+            </div>
+            <mat-menu #accountOptions="matMenu" yPosition="below">
+                <button (click)="handleLogOut()" mat-menu-item>
+                    <mat-icon>exit_to_app</mat-icon>&nbsp;Sign Out
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+    <div class="genre">
+        <div>Questions</div>
+        <div>Responses</div>
+        <div>Settings</div>
+    </div>
+</div>

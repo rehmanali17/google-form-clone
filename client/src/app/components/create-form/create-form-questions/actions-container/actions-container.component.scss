@@ -1,0 +1,37 @@
+@mixin flex-display {
+    display: flex;
+    align-items: center;
+}
+.actions-container {
+    width: 100%;
+    @include flex-display();
+    justify-content: flex-end;
+    padding: 12px 0;
+    border-top: 1px solid #dadce0;
+    margin-top: 30px;
+
+    .action-btns {
+        width: 15%;
+        @include flex-display();
+        justify-content: space-around;
+        border-right: 1px solid #dadce0;
+        padding: 3px 0;
+    }
+
+    .validation-btns {
+        width: 25%;
+        @include flex-display();
+        justify-content: space-around;
+        padding: 3px 0;
+
+        span {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+            line-height: 20px;
+            color: #202124;
+            user-select: none;
+            margin: 0 8px;
+        }
+    }
+}
