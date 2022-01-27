@@ -1,15 +1,15 @@
 const router = require('express').Router();
-const AuthMiddleware = require('../../middleware/auth.middleware');
+const { googleAuthentication, jwtAuthentication } = require('../../middleware/auth.middleware');
 const passport = require('passport');
-const AuthController = require('../../controllers/auth.contoller');
-require('../../passport-setup/setup');
+const { googleLogin } = require('../../controllers/auth.contoller');
+require('../../config/passport-setup');
 
-router.get('/google', AuthMiddleware.googleAuthentication);
+router.get('/google', googleAuthentication);
 
-router.get('/google/redirect', passport.authenticate('oauth'), AuthController.googleLogin);
+router.get('/google/redirect', passport.authenticate('oauth'), googleLogin);
 
 // To test route protection strategy
-router.get('/test-route', AuthMiddleware.jwtAuthentication, (req, res) => {
+router.get('/test-route', jwtAuthentication, (req, res) => {
     res.json(req.user);
 });
 
