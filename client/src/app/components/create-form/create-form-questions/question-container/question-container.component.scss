@@ -27,4 +27,18 @@
     mat-form-field:nth-child(1) {
         width: 60%;
     }
+
+    @media screen and (max-width: 660px) {
+        flex-wrap: wrap;
+        mat-form-field:nth-child(1) {
+            width: 90%;
+        }
+    }
+
+    @media screen and (max-width: 500px) {
+        flex-wrap: wrap;
+        mat-form-field:nth-child(1) {
+            width: 85%;
+        }
+    }
 }

@@ -11,7 +11,7 @@
     .recent-forms-banner {
         @include flex-display();
         justify-content: space-between;
-        height: 30px;
+        min-height: 30px;
         width: 100%;
         margin: 0 0 16px 0;
 
@@ -49,12 +49,26 @@
                 transition: 0.1s linear;
             }
         }
+
+        @media screen and (max-width: 750px) {
+            flex-direction: column-reverse;
+            gap: 8px;
+            align-items: flex-start;
+
+            .action-btns {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
     }
 
     .recent-forms-gallery {
         width: 100%;
         display: flex;
+        flex-wrap: wrap;
         gap: 24px;
-        // justify-content: flex-start;
+        @media screen and (max-width: 939px) {
+            justify-content: center;
+        }
     }
 }

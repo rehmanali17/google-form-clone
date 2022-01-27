@@ -6,9 +6,16 @@ import { Component } from '@angular/core';
     styleUrls: ['./landing-page-navbar.component.scss'],
 })
 export class LandingPageNavbarComponent {
+    openDrawer = false;
     constructor() {}
 
     handleGoogleLogin() {
         window.location.href = 'http://localhost:8080/api/auth/google';
+    }
+
+    toggleDrawerMenu(event: Event) {
+        if (event.target === event.currentTarget) {
+            this.openDrawer = false;
+        }
     }
 }

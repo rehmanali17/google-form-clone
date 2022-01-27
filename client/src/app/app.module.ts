@@ -27,6 +27,7 @@ import { DashboardNavbarComponent } from '@components/dashboard/dashboard-navbar
 import { RecentFormsComponent } from '@components/dashboard/recent-forms/recent-forms.component';
 import { RecentFormsCardComponent } from '@components/dashboard/recent-forms/recent-forms-card/recent-forms-card.component';
 import { FormsListComponent } from '@components/dashboard/forms-list/forms-list.component';
+import { FormHeaderComponent } from '@components/dashboard/forms-list/form-header/form-header.component';
 import { FormItemComponent } from '@components/dashboard/forms-list/form-item/form-item.component';
 
 // Create Form Component
@@ -54,6 +55,7 @@ import { appReducer } from '@store/app.reducer';
         RecentFormsCardComponent,
         RecentFormsComponent,
         FormsListComponent,
+        FormHeaderComponent,
         FormItemComponent,
 
         CreateFormComponent,

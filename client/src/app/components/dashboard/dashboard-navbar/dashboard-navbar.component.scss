@@ -52,6 +52,7 @@
         }
 
         .search-form-input {
+            width: 100%;
             border: none;
             outline: none;
             background: inherit;
@@ -76,14 +77,63 @@
             place-items: center;
 
             .user-image {
-                @include set-width-height(75%, 75%);
+                @include set-width-height(85%, 85%);
                 cursor: pointer;
                 border-radius: 50%;
+                border: 4px solid transparent;
 
                 &:hover {
                     border: 4px solid #f0f0f0;
                 }
             }
+        }
+    }
+
+    @media screen and (max-width: 880px) {
+        padding: 8px 10px;
+        .search-forms-field {
+            width: 55%;
+        }
+        .account-btns {
+            width: 20%;
+        }
+    }
+    @media screen and (max-width: 660px) {
+        padding: 8px 5px;
+        .menu-items {
+            width: 30%;
+        }
+        .search-forms-field {
+            width: 52%;
+            padding: 2px 4px;
+        }
+        .account-btns {
+            width: 18%;
+        }
+    }
+    @media screen and (max-width: 550px) {
+        .menu-items {
+            width: 35%;
+        }
+        .search-forms-field {
+            width: 42%;
+        }
+        .account-btns {
+            width: 23%;
+        }
+    }
+    @media screen and (max-width: 450px) {
+        .menu-items {
+            width: 25%;
+            .menu-item-title {
+                display: none;
+            }
+        }
+        .search-forms-field {
+            width: 52%;
+        }
+        .account-btns {
+            width: 23%;
         }
     }
 }

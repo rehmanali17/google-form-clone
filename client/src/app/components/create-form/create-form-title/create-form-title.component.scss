@@ -4,7 +4,6 @@
     place-items: center;
 
     .form-information-container {
-        // margin-top: 200px;
         width: 50%;
         border: 1px solid #dadce0;
         border-radius: 8px;
@@ -17,14 +16,6 @@
         &:focus-within {
             border-left: 6px solid #4284f3;
         }
-
-        // .left-border {
-        //     position: absolute;
-        //     top: 0;
-        //     left: 0;
-        //     width: 60px;
-        //     background: #4284f3;
-        // }
 
         .form-title {
             width: 100%;
@@ -46,6 +37,27 @@
                 font-weight: 400;
                 font-size: 16px;
             }
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .form-information-container {
+            width: 65%;
+        }
+    }
+    @media screen and (max-width: 880px) {
+        .form-information-container {
+            width: 72%;
+        }
+    }
+    @media screen and (max-width: 770px) {
+        .form-information-container {
+            width: 80%;
+        }
+    }
+    @media screen and (max-width: 660px) {
+        .form-information-container {
+            width: 90%;
         }
     }
 }

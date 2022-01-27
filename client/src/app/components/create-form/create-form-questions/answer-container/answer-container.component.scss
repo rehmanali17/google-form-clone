@@ -12,6 +12,16 @@
         letter-spacing: 0.2px;
         line-height: 20px;
         color: #70757a;
+
+        @media screen and (max-width: 880px) {
+            width: 65%;
+        }
+        @media screen and (max-width: 770px) {
+            width: 72%;
+        }
+        @media screen and (max-width: 660px) {
+            width: 80%;
+        }
     }
 
     .choice {

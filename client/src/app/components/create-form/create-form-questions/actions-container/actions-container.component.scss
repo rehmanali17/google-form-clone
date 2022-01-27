@@ -11,18 +11,16 @@
     margin-top: 30px;
 
     .action-btns {
-        width: 15%;
         @include flex-display();
         justify-content: space-around;
         border-right: 1px solid #dadce0;
-        padding: 3px 0;
+        padding: 3px 10px;
     }
 
     .validation-btns {
-        width: 25%;
         @include flex-display();
         justify-content: space-around;
-        padding: 3px 0;
+        padding: 3px 10px;
 
         span {
             font-size: 14px;

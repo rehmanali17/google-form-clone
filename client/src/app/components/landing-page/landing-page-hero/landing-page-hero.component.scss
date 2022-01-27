@@ -4,21 +4,30 @@
 
 .hero-section {
     @include flex-display();
-    @apply box-border w-full pt-24 pb-4 px-16 border-b-2 border-solid;
+    @apply box-border w-full pt-24 pb-4 px-16 border-b-2 border-solid lg:flex-col lg:px-2;
     border-color: #d9dce0;
     background: #fbfbfb;
 
     .intro-content {
-        @apply w-1/2 mb-20 pr-20;
+        @apply w-1/2 mb-20 pr-20 lg:w-11/12 lg:mb-10 lg:pr-0 lg:px-4;
 
         .info-heading {
+            @apply lg:text-center;
             color: #202124;
             font-size: 60px;
             line-height: 72px;
+            @media screen and (max-width: 800px) {
+                font-size: 45px;
+                line-height: 55px;
+            }
+            @media screen and (max-width: 550px) {
+                font-size: 35px;
+                line-height: 42px;
+            }
         }
 
         .info-para {
-            @apply py-6 pr-20;
+            @apply py-6 pr-20 lg:text-center lg:pr-0;
             font-size: 20px;
             line-height: 28px;
             color: #5f6368;
@@ -27,11 +36,11 @@
 
         .call-to-action {
             @include flex-display();
-            @apply gap-6 py-3;
+            @apply gap-6 py-3 lg:justify-center xsm:flex-col;
             font-size: 16px;
 
             .go-to-forms-btn {
-                @apply px-7 py-3 border border-solid rounded cursor-pointer bg-white tracking-wide;
+                @apply px-7 py-3 border border-solid rounded cursor-pointer bg-white tracking-wide xsm:px-12;
                 border-color: #dadce0;
                 color: #1a73e8;
 
@@ -56,7 +65,7 @@
 
         .link-to-signup {
             @include flex-display();
-            @apply py-6 gap-2;
+            @apply py-6 gap-2 lg:justify-center lg:pb-0;
 
             div {
                 font-size: 16px;
@@ -79,10 +88,11 @@
     }
 
     .sample-image-container {
-        @apply w-2/3 mb-20;
+        @apply w-2/3 mb-20 lg:w-11/12 lg:px-6;
 
         .sample-image {
             width: 90%;
+            @apply lg:w-full;
         }
     }
 }
