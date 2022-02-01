@@ -6,6 +6,7 @@ const {
     renameForm,
     publishForm,
     fetchRecentForms,
+    updateForm,
 } = require('../services/user.service');
 
 const createForm = (req, res) => {
@@ -143,6 +144,33 @@ const updateFormStatus = (req, res) => {
     }
 };
 
+const editForm = (req, res) => {
+    try {
+        const { id } = req.params;
+        const updatedAt = new Date();
+        updateForm(id, { ...req.body.form, updatedAt })
+            .then(() => {
+                res.status(OK).json({
+                    message: 'Update successfully',
+                    statusCode: OK,
+                });
+            })
+            .catch((err) => {
+                res.status(BAD_REQUEST).json({
+                    message: 'Error updating the form',
+                    error: err.message,
+                    statusCode: BAD_REQUEST,
+                });
+            });
+    } catch (error) {
+        res.status(BAD_REQUEST).json({
+            message: 'Error updating the form',
+            error: error.message,
+            statusCode: BAD_REQUEST,
+        });
+    }
+};
+
 const getRecentForms = (req, res) => {
     try {
         fetchRecentForms()
@@ -168,4 +196,4 @@ const getRecentForms = (req, res) => {
     }
 };
 
-module.exports = { createForm, getAllForms, deleteForm, updateFormTitle, updateFormStatus, getRecentForms };
+module.exports = { createForm, getAllForms, deleteForm, updateFormTitle, updateFormStatus, getRecentForms, editForm };

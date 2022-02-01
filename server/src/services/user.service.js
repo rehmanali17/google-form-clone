@@ -23,6 +23,10 @@ const publishForm = (formId, status) => {
     return Form.findByIdAndUpdate(formId, { status, updatedAt });
 };
 
+const updateForm = (formId, form) => {
+    return Form.findByIdAndUpdate(formId, { ...form });
+};
+
 const fetchRecentForms = () => {
     return Form.aggregate([
         { $project: { _id: 1, imageString: 1, title: 1 } },
@@ -33,4 +37,4 @@ const fetchRecentForms = () => {
     ]);
 };
 
-module.exports = { saveForm, getForms, removeForm, renameForm, publishForm, fetchRecentForms };
+module.exports = { saveForm, getForms, removeForm, renameForm, publishForm, fetchRecentForms, updateForm };

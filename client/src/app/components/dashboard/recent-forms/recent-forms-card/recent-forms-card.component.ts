@@ -23,4 +23,8 @@ export class RecentFormsCardComponent implements OnInit {
     handleCreateForm() {
         this.router.navigateByUrl('/user/create-form');
     }
+
+    redirectToEditPage(id: string) {
+        this.router.navigate(['/user/edit-form', id]);
+    }
 }

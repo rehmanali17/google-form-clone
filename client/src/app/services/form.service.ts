@@ -11,6 +11,7 @@ import {
     GET_RECENT_FORMS_URL,
     RENAME_FORM_URL,
     PUBLISH_FORM_URL,
+    EDIT_FORM_URL,
 } from '@app/utils/request-url';
 
 @Injectable({
@@ -54,5 +55,12 @@ export class FormService {
     // Publish Form
     publishForm(id: string, status: string): Observable<any> {
         return this.httpClient.put<any>(`${PUBLISH_FORM_URL}/${id}`, { status });
+    }
+
+    // Create Forms
+    editForm(form: Form, id: string): Observable<any> {
+        return this.httpClient.put<any>(`${EDIT_FORM_URL}/${id}`, {
+            form,
+        });
     }
 }

@@ -3,6 +3,7 @@ const {
     createForm,
     getAllForms,
     deleteForm,
+    editForm,
     updateFormTitle,
     getRecentForms,
     updateFormStatus,
@@ -13,6 +14,8 @@ router.post('/create-form', createForm);
 router.get('/get-all-forms', getAllForms);
 
 router.get('/get-recent-forms', getRecentForms);
+
+router.put('/edit-form/:id', editForm);
 
 router.put('/update-form-title/:id', updateFormTitle);
 

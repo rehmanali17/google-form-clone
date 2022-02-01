@@ -27,7 +27,12 @@
                 <button mat-flat-button (click)="handleFormSubmit('draft')" color="primary">
                     Save
                 </button>
-                <button (click)="handleFormSubmit('published')" mat-flat-button color="primary">
+                <button
+                    *ngIf="formStatus !== 'published'"
+                    (click)="handleFormSubmit('published')"
+                    mat-flat-button
+                    color="primary"
+                >
                     Publish
                 </button>
             </ng-container>

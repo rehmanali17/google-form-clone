@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import * as AuthActions from '@store/auth/auth.actions';
 import { AppState } from '@models/app-state.model';
@@ -16,6 +16,7 @@ export class CreateFormNavbarComponent implements OnInit, OnDestroy {
     pictureURL = '';
     isSavingForm = false;
     authSubscription!: Subscription;
+    @Input() formStatus = '';
     constructor(private store: Store<AppState>, private router: Router) {}
 
     ngOnInit() {
@@ -38,7 +39,11 @@ export class CreateFormNavbarComponent implements OnInit, OnDestroy {
     }
 
     handleFormSubmit(status: string) {
-        this.saveForm.emit(status);
+        if (this.formStatus === 'published') {
+            this.saveForm.emit(this.formStatus);
+        } else {
+            this.saveForm.emit(status);
+        }
     }
 
     ngOnDestroy() {

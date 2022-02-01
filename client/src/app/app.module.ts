@@ -49,6 +49,16 @@ import { AnswerContainerComponent } from '@components/create-form/create-form-qu
 import { ActionsContainerComponent } from '@components/create-form/create-form-questions/actions-container/actions-container.component';
 import { SavedFormDialogComponent } from './components/create-form/saved-form-dialog/saved-form-dialog.component';
 
+// Edit Form Component
+import { EditFormComponent } from '@components/edit-form/edit-form.component';
+// import { EditFormNavbarComponent } from '@components/edit-form/edit-form-navbar/edit-form-navbar.component';
+// import { EditFormTitleComponent } from '@components/edit-form/edit-form-title/edit-form-title.component';
+// import { EditFormQuestionsComponent } from '@components/edit-form/edit-form-questions/edit-form-questions.component';
+// import { EditQuestionContainerComponent } from '@components/edit-form/edit-form-questions/edit-question-container/edit-question-container.component';
+// import { EditFormAnswerContainerComponent } from '@components/edit-form/edit-form-questions/edit-form-answer-container/edit-form-answer-container.component';
+// import { EditFormActionsContainerComponent } from '@components/edit-form/edit-form-questions/edit-form-actions-container/edit-form-actions-container.component';
+// import { SavedFormDialogComponent } from './components/create-form/saved-form-dialog/saved-form-dialog.component';
+
 // Importing Root Reducer
 import { appReducer } from '@store/app.reducer';
 import { AuthEffects } from '@store/auth/auth.effects';
@@ -81,6 +91,15 @@ import { FilterPipe } from './pipes/filter.pipe';
         AnswerContainerComponent,
         ActionsContainerComponent,
         SavedFormDialogComponent,
+
+        EditFormComponent,
+        // EditFormNavbarComponent,
+        // EditFormTitleComponent,
+        // EditFormQuestionsComponent,
+        // EditQuestionContainerComponent,
+        // EditFormAnswerContainerComponent,
+        // EditFormActionsContainerComponent,
+        // SavedFormDialogComponent,
 
         FilterPipe,
     ],

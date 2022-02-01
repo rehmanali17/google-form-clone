@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="handleSubmit()">
     <app-create-form-navbar
-        [formStatus]="''"
+        [formStatus]="formStatus"
         (saveForm)="saveForm($event)"
     ></app-create-form-navbar>
     <div #capture_screen>

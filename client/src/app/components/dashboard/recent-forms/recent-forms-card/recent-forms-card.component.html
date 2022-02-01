@@ -1,8 +1,8 @@
-<div class="card" *ngIf="!createNewForm; else existingForm">
+<div class="card" *ngIf="!createNewForm; else newForm" (click)="redirectToEditPage(form._id)">
     <img class="card-image" [src]="imageSource" alt="{{ form.title }}" />
     <p class="card-title">{{ form.title }}</p>
 </div>
-<ng-template #existingForm>
+<ng-template #newForm>
     <div class="card">
         <img
             (click)="handleCreateForm()"

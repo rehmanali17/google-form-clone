@@ -1,4 +1,5 @@
 import { CreateFormComponent } from '@components/create-form/create-form.component';
+import { EditFormComponent } from '@components/edit-form/edit-form.component';
 import { DashboardComponent } from '@components/dashboard/dashboard.component';
 import { LandingPageComponent } from '@components/landing-page/landing-page.component';
 import { NgModule } from '@angular/core';
@@ -16,6 +17,7 @@ const routes: Routes = [
                 component: DashboardComponent,
             },
             { path: 'create-form', component: CreateFormComponent },
+            { path: 'edit-form/:id', component: EditFormComponent },
         ],
     },
 ];

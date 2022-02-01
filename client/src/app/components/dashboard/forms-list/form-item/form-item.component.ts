@@ -7,6 +7,7 @@ import * as DialogBoxActions from '@store/dialog-box/dialog-box.actions';
 import * as AuthActions from '@store/auth/auth.actions';
 import * as FormActions from '@store/form/form.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-form-item',
@@ -19,6 +20,7 @@ export class FormItemComponent implements OnInit {
     constructor(
         private store: Store<AppState>,
         private formService: FormService,
+        private router: Router,
         private snackBar: MatSnackBar
     ) {}
 
@@ -56,5 +58,13 @@ export class FormItemComponent implements OnInit {
                 }
             }
         );
+    }
+
+    redirectToEditPage(event: Event, id: string) {
+        const element = event.target as HTMLElement;
+        if (element.tagName === 'BUTTON' || element.tagName === 'MAT-ICON') {
+            return;
+        }
+        this.router.navigate(['/user/edit-form', id]);
     }
 }
