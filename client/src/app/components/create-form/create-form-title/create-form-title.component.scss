@@ -7,7 +7,7 @@
         width: 50%;
         border: 1px solid #dadce0;
         border-radius: 8px;
-        height: 170px;
+        min-height: 150px;
         border-top: 10px solid #7349bc;
         padding: 0 22px;
         box-sizing: border-box;
@@ -30,7 +30,6 @@
         .form-description {
             width: 100%;
             position: relative;
-            top: -40px;
 
             mat-form-field {
                 width: 100%;
@@ -60,4 +59,19 @@
             width: 90%;
         }
     }
+}
+
+.out-of-focus {
+    ::ng-deep .mat-form-field-underline {
+        display: none;
+    }
+}
+
+.position-relative {
+    position: relative;
+    top: -50px;
+}
+
+.custom-height {
+    height: 150px;
 }

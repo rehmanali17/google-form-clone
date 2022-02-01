@@ -46,6 +46,7 @@
         width: 100%;
         @include flex-display();
         color: #bdbdbd;
+        margin-top: 12px;
 
         span {
             display: block;
@@ -53,6 +54,7 @@
             margin: 0 8px 3px;
             font-size: 14px;
             box-sizing: border-box;
+            cursor: pointer;
 
             &:hover {
                 border-bottom: 1.5px solid #bdbdbd;

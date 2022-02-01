@@ -3,32 +3,42 @@
         <div class="menu-items">
             <img class="logo" src="../../../../assets/forms.png" alt="" />
             <h3 class="menu-item-title">Forms</h3>
-            <button mat-icon-button>
+            <button type="button" mat-icon-button>
                 <mat-icon>folder_open</mat-icon>
             </button>
-            <button mat-icon-button>
+            <button type="button" mat-icon-button>
                 <mat-icon>star_border</mat-icon>
             </button>
         </div>
         <div class="action-btns">
-            <button mat-icon-button>
+            <button type="button" mat-icon-button>
                 <mat-icon>palette</mat-icon>
             </button>
-            <button mat-icon-button>
+            <button type="button" mat-icon-button>
                 <mat-icon>remove_red_eye</mat-icon>
             </button>
-            <button mat-icon-button>
+            <button type="button" mat-icon-button>
                 <mat-icon>undo</mat-icon>
             </button>
-            <button mat-icon-button>
+            <button type="button" mat-icon-button>
                 <mat-icon>redo</mat-icon>
             </button>
-            <button mat-flat-button color="primary">Publish</button>
-            <button mat-icon-button>
+            <ng-container *ngIf="!isSavingForm; else notSaving">
+                <button mat-flat-button (click)="handleFormSubmit('draft')" color="primary">
+                    Save
+                </button>
+                <button (click)="handleFormSubmit('published')" mat-flat-button color="primary">
+                    Publish
+                </button>
+            </ng-container>
+            <ng-template #notSaving>
+                <mat-spinner [diameter]="35"></mat-spinner>
+            </ng-template>
+            <button type="button" mat-icon-button>
                 <mat-icon>more_vert</mat-icon>
             </button>
             <div class="user-image-container" [matMenuTriggerFor]="accountOptions">
-                <img class="user-image" src="{{ pictureURL }}" alt="User name" />
+                <img class="user-image" src="{{ pictureURL }}" alt="{{ userName }}" />
             </div>
             <mat-menu #accountOptions="matMenu" yPosition="below">
                 <button (click)="handleLogOut()" mat-menu-item>

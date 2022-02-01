@@ -1,3 +1,6 @@
 <app-dashboard-navbar></app-dashboard-navbar>
 <app-recent-forms></app-recent-forms>
-<app-forms-list></app-forms-list>
+<div class="spinner-container" *ngIf="isLoading">
+    <mat-spinner [diameter]="40"></mat-spinner>
+</div>
+<app-forms-list *ngIf="!isLoading"></app-forms-list>

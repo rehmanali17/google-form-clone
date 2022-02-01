@@ -12,9 +12,12 @@
         letter-spacing: 0.25px;
     }
 
-    .form-owner {
+    .form-status {
         width: 20%;
         text-align: center;
+        font-weight: 500;
+        font-size: 16px;
+        color: #202124;
     }
 
     .form-modified-date {
@@ -51,7 +54,7 @@
         .form-title {
             width: 60%;
         }
-        .form-owner {
+        .form-status {
             width: 20%;
         }
         .form-modified-date {
@@ -69,7 +72,7 @@
         .form-title {
             width: 50%;
         }
-        .form-owner {
+        .form-status {
             width: 25%;
         }
         .form-modified-date {
@@ -81,7 +84,7 @@
         .form-title {
             width: 40%;
         }
-        .form-owner {
+        .form-status {
             width: 30%;
         }
         .form-modified-date {
@@ -93,11 +96,11 @@
         .form-title {
             width: 33%;
         }
-        .form-owner {
-            width: 33%;
+        .form-status {
+            width: 25%;
         }
         .form-modified-date {
-            width: 34%;
+            width: 42%;
         }
     }
 }

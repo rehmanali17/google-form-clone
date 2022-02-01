@@ -1,14 +1,16 @@
-<div class="custom-container">
+<form class="custom-container" [formGroup]="form">
     <div class="form-information-container">
         <div class="form-title">
             <mat-form-field appearance="legacy">
-                <input matInput value="Form Title" />
+                <input [errorStateMatcher]="matcher" formControlName="title" matInput autofocus />
+                <mat-error>{{ getErrorMessage('title', 'Form title') }}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-description">
             <mat-form-field appearance="legacy">
-                <input matInput value="Form Description" />
+                <input [errorStateMatcher]="matcher" formControlName="description" matInput />
             </mat-form-field>
+            <mat-error>{{ getErrorMessage('description', 'Form description') }}</mat-error>
         </div>
     </div>
-</div>
+</form>

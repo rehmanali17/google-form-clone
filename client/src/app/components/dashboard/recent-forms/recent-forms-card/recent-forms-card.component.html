@@ -1,9 +1,15 @@
-<div class="card">
-    <img
-        (click)="handleCreateForm()"
-        class="card-image"
-        src="../../../../../assets/google-plus-image.png"
-        alt="Form Title"
-    />
-    <p class="card-title">Form Title Form Title Form title</p>
+<div class="card" *ngIf="!createNewForm; else existingForm">
+    <img class="card-image" [src]="imageSource" alt="{{ form.title }}" />
+    <p class="card-title">{{ form.title }}</p>
 </div>
+<ng-template #existingForm>
+    <div class="card">
+        <img
+            (click)="handleCreateForm()"
+            class="card-image"
+            src="../../../../../assets/google-plus-image.png"
+            alt="Blank Form"
+        />
+        <p class="card-title" [innerText]="'Blank Form'"></p>
+    </div>
+</ng-template>

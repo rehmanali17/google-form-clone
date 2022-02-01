@@ -1,0 +1,13 @@
+<div class="edit-form-container">
+    <h1 mat-dialog-title class="title">Rename</h1>
+    <div mat-dialog-content class="description">Please Enter a new name for the item</div>
+    <form [formGroup]="form" (ngSubmit)="handleFormSubmit()">
+        <input #title class="form-title" formControlName="title" type="text" />
+        <mat-dialog-actions align="end">
+            <button type="button" class="cancel-btn" (click)="closeDialogBox()" cdkFocusInitial>
+                Cancel
+            </button>
+            <button type="submit" class="edit-btn" [disabled]="form.invalid">OK</button>
+        </mat-dialog-actions>
+    </form>
+</div>

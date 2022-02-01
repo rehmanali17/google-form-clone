@@ -33,7 +33,7 @@
         text-overflow: ellipsis;
     }
 
-    .form-owner {
+    .form-status {
         width: 20%;
         text-align: center;
         margin-bottom: 8px;
@@ -65,7 +65,7 @@
         .form-title {
             width: 54%;
         }
-        .form-owner {
+        .form-status {
             width: 20%;
         }
         .form-modified-date {
@@ -80,7 +80,7 @@
         .form-title {
             width: 44%;
         }
-        .form-owner {
+        .form-status {
             width: 25%;
         }
         .form-modified-date {
@@ -95,7 +95,7 @@
         .form-title {
             width: 32%;
         }
-        .form-owner {
+        .form-status {
             width: 30%;
         }
         .form-modified-date {
@@ -107,11 +107,11 @@
         .form-title {
             width: 25%;
         }
-        .form-owner {
-            width: 33%;
+        .form-status {
+            width: 25%;
         }
         .form-modified-date {
-            width: 31%;
+            width: 39%;
         }
     }
 }

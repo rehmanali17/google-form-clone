@@ -17,8 +17,6 @@ const initialState: AuthState = {
 export function authReducer(state = initialState, action: AuthActions.AuthActions) {
     switch (action.type) {
         case AuthActions.LOGIN_SUCCESS:
-            localStorage.setItem('accessToken', action.payload.accessToken);
-            localStorage.setItem('user', JSON.stringify(action.payload.user));
             return {
                 ...state,
                 isLoggedIn: true,
@@ -26,8 +24,6 @@ export function authReducer(state = initialState, action: AuthActions.AuthAction
                 user: action.payload.user,
             };
         case AuthActions.LOGOUT:
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('user');
             return {
                 ...state,
                 isLoggedIn: false,

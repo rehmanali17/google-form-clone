@@ -1,0 +1,26 @@
+.cancel-btn {
+    @apply px-8 border rounded mr-4;
+    color: #744abd;
+    font-weight: 300;
+    letter-spacing: 0.25px;
+}
+
+.try-again-btn,
+.end-btn {
+    @apply px-8;
+    background: #744abd;
+    color: white;
+    font-weight: 300;
+    letter-spacing: 0.25px;
+
+    &:hover {
+        background: #2b7de8;
+        transition: 0.1s linear;
+    }
+}
+
+.description {
+    color: #5f6368;
+    font-size: 16px;
+    font-weight: 400;
+}

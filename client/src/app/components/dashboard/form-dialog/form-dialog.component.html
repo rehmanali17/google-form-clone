@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Move to trash?</h1>
+<div mat-dialog-content class="description">
+    "{{ formTitle }}" will be moved to trash and will be permanently removed. Are you sure as it
+    can't be undone.
+</div>
+<mat-dialog-actions align="end">
+    <button class="cancel-btn" mat-button (click)="closeDialogBox()">Cancel</button>
+    <button class="remove-btn" mat-button (click)="deleteForm()">Remove</button>
+</mat-dialog-actions>

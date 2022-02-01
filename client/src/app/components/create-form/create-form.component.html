@@ -1,3 +1,18 @@
-<app-create-form-navbar></app-create-form-navbar>
-<app-create-form-title></app-create-form-title>
-<app-create-form-questions></app-create-form-questions>
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+    <app-create-form-navbar (saveForm)="saveForm($event)"></app-create-form-navbar>
+    <div #capture_screen>
+        <app-create-form-title [formOverview]="formOverview"></app-create-form-title>
+        <div formArrayName="questions">
+            <app-create-form-questions
+                *ngFor="let questionControl of getFormArray().controls; let i = index"
+                [formGroupName]="i"
+                [questionOverview]="getQuestionOverview(i)"
+                [options]="getOptions(i)"
+                [validations]="getValidations(i)"
+                (addQuestion)="handleAddQuestion(i)"
+                (deleteQuestion)="handleDeleteQuestion(i)"
+                (duplicateQuestion)="handleDuplicateQuestion(i)"
+            ></app-create-form-questions>
+        </div>
+    </div>
+</form>

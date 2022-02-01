@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{ isError ? 'Error' : 'Success' }}</h1>
+<div mat-dialog-content class="description">"{{ formTitle }}" {{ message }}.</div>
+<mat-dialog-actions align="end" *ngIf="isError; else redirectBtn">
+    <button class="cancel-btn" mat-button (click)="closeDialogBoxAndRedirect()">Cancel</button>
+    <button class="try-again-btn" mat-button (click)="closeDialogBox()">Try Again</button>
+</mat-dialog-actions>
+<ng-template #redirectBtn>
+    <mat-dialog-actions align="end">
+        <button class="end-btn" mat-button (click)="closeDialogBoxAndRedirect()">Ok</button>
+    </mat-dialog-actions>
+</ng-template>

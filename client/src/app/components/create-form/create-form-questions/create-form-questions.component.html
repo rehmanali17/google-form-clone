@@ -1,17 +1,18 @@
-<div class="custom-container">
+<form class="custom-container">
     <div class="question-container">
-        <app-question-container></app-question-container>
-        <app-answer-container [questionType]="'short'"></app-answer-container>
-        <app-actions-container></app-actions-container>
+        <app-question-container
+            [questionOverview]="questionOverview"
+            (typeChange)="handleTypeChange($event)"
+        ></app-question-container>
+        <app-answer-container
+            [options]="options"
+            [questionType]="questionType"
+        ></app-answer-container>
+        <app-actions-container
+            [validations]="validations"
+            (addQuestion)="handleAddQuestion()"
+            (deleteQuestion)="handleDeleteQuestion()"
+            (duplicateQuestion)="handleDuplicateQuestion()"
+        ></app-actions-container>
     </div>
-    <div class="question-container">
-        <app-question-container></app-question-container>
-        <app-answer-container [questionType]="'long'"></app-answer-container>
-        <app-actions-container></app-actions-container>
-    </div>
-    <div class="question-container">
-        <app-question-container></app-question-container>
-        <app-answer-container [questionType]="'multiple-choice'"></app-answer-container>
-        <app-actions-container></app-actions-container>
-    </div>
-</div>
+</form>

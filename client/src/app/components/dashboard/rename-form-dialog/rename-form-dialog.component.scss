@@ -1,0 +1,40 @@
+.edit-form-container {
+    @apply p-5;
+
+    .title {
+        font-weight: 300;
+    }
+
+    .description {
+        color: #5f6368;
+        font-size: 16px;
+        font-weight: 300;
+    }
+
+    .form-title {
+        @apply border border-gray-300 bg-white my-4 rounded focus:border-purple-400 px-2 py-1 w-full;
+        outline: none;
+        font-size: 14px;
+    }
+
+    .cancel-btn {
+        @apply py-1.5 px-6 bg-white border border-gray-300 rounded mr-5;
+        color: #8430ce;
+        &:hover {
+            @apply border-blue-400;
+            transition: 0.1s linear;
+            color: black;
+        }
+    }
+
+    .edit-btn {
+        @apply py-1.5 px-6 rounded;
+        background: #4d90fe;
+        color: white;
+
+        &:hover {
+            transition: 0.1s linear;
+            background: #488af4;
+        }
+    }
+}

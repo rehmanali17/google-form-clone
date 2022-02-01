@@ -1,15 +1,6 @@
 <div class="forms-list-header">
     <div class="form-title">Forms by title</div>
-    <div class="form-owner">
-        <button mat-button [matMenuTriggerFor]="formOwnerHeader">
-            Owned by me <mat-icon>arrow_drop_down</mat-icon>
-        </button>
-        <mat-menu #formOwnerHeader="matMenu" yPosition="below">
-            <button mat-menu-item>Owned by me</button>
-            <button mat-menu-item>Owned by anyone</button>
-            <button mat-menu-item>Not owned by me</button>
-        </mat-menu>
-    </div>
+    <div class="form-status">Status</div>
     <div class="form-modified-date">Last modified</div>
     <div class="form-header-action-btns">
         <h3>Form Actions:</h3>

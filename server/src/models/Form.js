@@ -9,20 +9,16 @@ const questionSchema = new Schema({
 });
 
 const formSchema = new Schema({
+    userId: mongoose.Types.ObjectId,
     title: String,
     description: String,
     status: String,
+    imageString: String,
     questions: {
         type: [questionSchema],
     },
-    createdAt: {
-        type: Date,
-        default: new Date(),
-    },
-    updatedAt: {
-        type: Date,
-        default: new Date(),
-    },
+    createdAt: Date,
+    updatedAt: Date,
 });
 
 module.exports = mongoose.model('Form', formSchema, 'forms');

@@ -4,14 +4,21 @@ import { environment } from '@environments/environment.prod';
 // Importing Modules
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CookieModule } from 'ngx-cookie';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './modules/material.module';
 import { AppRoutingModule } from '@modules/app-routing.module';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { NgxCaptureModule } from 'ngx-capture';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+
+// Importing Services
+import { HttpInterceptorService } from '@services/http-interceptor.service';
 
 // Importing Components
 import { AppComponent } from '@app/app.component';
@@ -29,6 +36,8 @@ import { RecentFormsCardComponent } from '@components/dashboard/recent-forms/rec
 import { FormsListComponent } from '@components/dashboard/forms-list/forms-list.component';
 import { FormHeaderComponent } from '@components/dashboard/forms-list/form-header/form-header.component';
 import { FormItemComponent } from '@components/dashboard/forms-list/form-item/form-item.component';
+import { FormDialogComponent } from '@components/dashboard/form-dialog/form-dialog.component';
+import { RenameFormDialogComponent } from './components/dashboard/rename-form-dialog/rename-form-dialog.component';
 
 // Create Form Component
 import { CreateFormComponent } from '@components/create-form/create-form.component';
@@ -38,10 +47,14 @@ import { CreateFormQuestionsComponent } from '@components/create-form/create-for
 import { QuestionContainerComponent } from '@components/create-form/create-form-questions/question-container/question-container.component';
 import { AnswerContainerComponent } from '@components/create-form/create-form-questions/answer-container/answer-container.component';
 import { ActionsContainerComponent } from '@components/create-form/create-form-questions/actions-container/actions-container.component';
+import { SavedFormDialogComponent } from './components/create-form/saved-form-dialog/saved-form-dialog.component';
 
 // Importing Root Reducer
 import { appReducer } from '@store/app.reducer';
+import { AuthEffects } from '@store/auth/auth.effects';
 
+// Importing Pipes
+import { FilterPipe } from './pipes/filter.pipe';
 @NgModule({
     declarations: [
         AppComponent,
@@ -57,6 +70,8 @@ import { appReducer } from '@store/app.reducer';
         FormsListComponent,
         FormHeaderComponent,
         FormItemComponent,
+        FormDialogComponent,
+        RenameFormDialogComponent,
 
         CreateFormComponent,
         CreateFormNavbarComponent,
@@ -65,19 +80,28 @@ import { appReducer } from '@store/app.reducer';
         QuestionContainerComponent,
         AnswerContainerComponent,
         ActionsContainerComponent,
+        SavedFormDialogComponent,
+
+        FilterPipe,
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         MaterialModule,
         HttpClientModule,
+        ReactiveFormsModule,
         CookieModule.forRoot(),
         AppRoutingModule,
         StoreModule.forRoot(appReducer),
+        EffectsModule.forRoot([AuthEffects]),
         StoreDevtoolsModule.instrument({ logOnly: environment.production }),
         StoreRouterConnectingModule.forRoot(),
+        NgxCaptureModule,
     ],
-    providers: [],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
+        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

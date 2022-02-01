@@ -7,16 +7,20 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #recentFormsOptions="matMenu" yPosition="below">
-                <button mat-menu-item>Hide all templates</button>
+                <button (click)="toggleTemplates()" mat-menu-item>
+                    {{ showTemplates ? 'Hide' : 'Show' }} all templates
+                </button>
             </mat-menu>
         </div>
     </div>
     <div class="recent-forms-gallery">
-        <app-recent-forms-card></app-recent-forms-card>
-        <app-recent-forms-card></app-recent-forms-card>
-        <app-recent-forms-card></app-recent-forms-card>
-        <app-recent-forms-card></app-recent-forms-card>
-        <app-recent-forms-card></app-recent-forms-card>
-        <app-recent-forms-card></app-recent-forms-card>
+        <app-recent-forms-card [createNewForm]="true"></app-recent-forms-card>
+        <ng-container *ngIf="showTemplates">
+            <app-recent-forms-card
+                *ngFor="let form of forms"
+                [createNewForm]="false"
+                [form]="form"
+            ></app-recent-forms-card>
+        </ng-container>
     </div>
 </div>

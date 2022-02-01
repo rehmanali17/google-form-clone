@@ -1,7 +1,12 @@
 <div class="forms-list">
     <app-form-header></app-form-header>
-    <app-form-item></app-form-item>
-    <app-form-item></app-form-item>
-    <app-form-item></app-form-item>
-    <app-form-item></app-form-item>
+    <ng-container *ngIf="!isError; else noForm">
+        <app-form-item
+            *ngFor="let form of forms | filter: filterTitle"
+            [form]="form"
+        ></app-form-item>
+    </ng-container>
+    <ng-template #noForm>
+        <div class="no-form">{{ message }}</div>
+    </ng-template>
 </div>

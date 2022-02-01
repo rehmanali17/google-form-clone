@@ -12,7 +12,7 @@ const googleLogin = (req, res) => {
             'payload',
             JSON.stringify({
                 user: req.user,
-                accessToken: `Bearer ${token}`,
+                accessToken: token,
                 statusCode: OK,
             })
         );

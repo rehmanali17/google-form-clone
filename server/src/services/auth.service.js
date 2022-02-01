@@ -35,7 +35,6 @@ const saveUser = async (authenticatedUser, done) => {
 const validateUser = async ({ id }, done) => {
     try {
         const user = await User.findById(id).select('-__v');
-        console.log(user);
         if (user === null) {
             done(null, false, {
                 message: 'User does not exist',

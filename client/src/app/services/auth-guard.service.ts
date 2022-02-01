@@ -2,7 +2,7 @@ import { AppState } from '@models/app-state.model';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { CanActivateChild, Router } from '@angular/router';
-import { map, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie';
 
 @Injectable({

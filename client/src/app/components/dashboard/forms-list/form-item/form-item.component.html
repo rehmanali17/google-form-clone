@@ -1,32 +1,38 @@
 <div class="forms-list-item">
     <div class="form-icon">
-        <img
-            class=""
-            src="../../../../assets/google-form-list-item-logo.png"
-            alt=""
-        />
+        <img class="" src="../../../../assets/google-form-list-item-logo.png" alt="" />
     </div>
     <div class="form-title">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto,
-        fuga! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Architecto, fuga!
+        {{ form.title }}
     </div>
-    <div class="form-owner">me</div>
-    <div class="form-modified-date">11:52 AM</div>
+    <div class="form-status">{{ form.status | titlecase }}</div>
+    <div *ngIf="isTodayModified; else isNotModifiedToday" class="form-modified-date">
+        {{ form.updatedAt | date: 'mediumTime' }}
+    </div>
+    <ng-template #isNotModifiedToday>
+        <div class="form-modified-date">
+            {{ form.updatedAt | date: 'mediumDate' }}
+        </div>
+    </ng-template>
     <div class="form-header-action-btns">
         <button mat-icon-button [matMenuTriggerFor]="formListItemOptions">
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #formListItemOptions="matMenu" yPosition="below">
-            <button mat-menu-item>
+            <button (click)="renameForm(form._id!, form.title)" mat-menu-item>
                 <mat-icon>text_fields</mat-icon>&nbsp;Rename
             </button>
-            <button mat-menu-item>
+            <button (click)="removeForm(form._id!, form.title)" mat-menu-item>
                 <mat-icon>delete_outline</mat-icon>&nbsp;Remove
             </button>
-            <button mat-menu-item>
-                <mat-icon>open_in_new</mat-icon>&nbsp;Open in new tab
+            <button
+                [disabled]="form.status === 'published'"
+                (click)="publishForm(form._id!)"
+                mat-menu-item
+            >
+                <mat-icon>publish</mat-icon>&nbsp;Publish
             </button>
+            <button mat-menu-item><mat-icon>open_in_new</mat-icon>&nbsp;Open in new tab</button>
         </mat-menu>
     </div>
 </div>
