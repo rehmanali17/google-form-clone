@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LOGIN_URL } from '@utils/request-url';
+import { REQUEST_URLS } from '@utils/constants';
 @Component({
     selector: 'app-landing-page-navbar',
     templateUrl: './landing-page-navbar.component.html',
@@ -10,7 +10,7 @@ export class LandingPageNavbarComponent {
     constructor() {}
 
     handleGoogleLogin() {
-        window.location.href = LOGIN_URL;
+        window.location.href = REQUEST_URLS.LOGIN_URL;
     }
 
     toggleDrawerMenu(event: Event) {

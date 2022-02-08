@@ -2,12 +2,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Form } from '@models/form.model';
 
 @Pipe({
-    name: 'filter',
+    name: 'dropdown_filter',
 })
-export class FilterPipe implements PipeTransform {
+export class DropdownFilterPipe implements PipeTransform {
     transform(forms: Form[], filterTitle: string) {
         if (filterTitle === '') {
-            return forms;
+            return [];
         } else {
             return forms.filter((form) => form.title.includes(filterTitle));
         }

@@ -8,6 +8,7 @@ import { FormService } from '@services/form.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormDialogComponent } from '@components/dashboard/form-dialog/form-dialog.component';
 import { RenameFormDialogComponent } from '@components/dashboard/rename-form-dialog/rename-form-dialog.component';
+import { ShareFormDialogComponent } from '@components/dashboard/share-form-dialog/share-form-dialog.component';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -55,6 +56,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 this.dialog.open(FormDialogComponent);
             } else if (dialogBoxState.editDialogBox.status === true) {
                 this.dialog.open(RenameFormDialogComponent);
+            } else if (dialogBoxState.shareFormDialogBox.status === true) {
+                this.dialog.open(ShareFormDialogComponent, {
+                    width: '375px',
+                });
             } else {
                 this.dialog.closeAll();
             }

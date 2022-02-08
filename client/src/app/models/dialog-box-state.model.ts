@@ -15,4 +15,8 @@ export interface DialogBoxState {
         title: string;
         message: string;
     };
+    shareFormDialogBox: {
+        status: boolean;
+        link: string;
+    };
 }

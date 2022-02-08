@@ -37,4 +37,12 @@ const fetchRecentForms = () => {
     ]);
 };
 
-module.exports = { saveForm, getForms, removeForm, renameForm, publishForm, fetchRecentForms, updateForm };
+module.exports = {
+    saveForm,
+    getForms,
+    removeForm,
+    renameForm,
+    publishForm,
+    fetchRecentForms,
+    updateForm,
+};

@@ -1,0 +1,99 @@
+.custom-container {
+    width: 100%;
+    display: grid;
+    place-items: center;
+
+    .form-information-container {
+        width: 50%;
+        border: 1px solid #dadce0;
+        border-radius: 8px;
+        border-top: 10px solid #3c8f2e;
+        box-sizing: border-box;
+        margin-bottom: 12px;
+
+        .form-title {
+            width: 100%;
+            color: #202124;
+            font-weight: 400;
+            font-size: 32px;
+            border-bottom: 1px solid #dadce0;
+            padding: 22px;
+            line-height: 40px;
+            word-break: break-all;
+            text-align: justify;
+        }
+
+        .form-description {
+            padding: 16px 22px;
+            font-size: 16px;
+            color: #202124;
+            word-break: break-all;
+            text-align: justify;
+        }
+    }
+
+    .image-container {
+        width: 50%;
+        height: 160px;
+        border: 1px solid #dadce0;
+        border-radius: 8px;
+        margin: 12px 0;
+        background-image: url('../../../../assets/fill-form-bg-image.png');
+        background-size: cover;
+        background-position: center;
+    }
+
+    @media screen and (max-width: 992px) {
+        .form-information-container,
+        .image-container {
+            width: 65%;
+        }
+    }
+    @media screen and (max-width: 880px) {
+        .form-information-container,
+        .image-container {
+            width: 72%;
+
+            .form-title {
+                font-size: 28px;
+                line-height: 30px;
+            }
+        }
+    }
+    @media screen and (max-width: 770px) {
+        .form-information-container,
+        .image-container {
+            width: 80%;
+            .form-title {
+                font-size: 26px;
+                line-height: 28px;
+            }
+        }
+    }
+    @media screen and (max-width: 660px) {
+        .form-information-container,
+        .image-container {
+            width: 90%;
+
+            .form-title {
+                font-size: 25px;
+                line-height: 28px;
+            }
+        }
+    }
+}
+
+.out-of-focus {
+    ::ng-deep .mat-form-field-underline {
+        display: none;
+    }
+}
+
+.position-relative {
+    position: relative;
+    top: -50px;
+}
+
+.custom-height {
+    height: 150px;
+}

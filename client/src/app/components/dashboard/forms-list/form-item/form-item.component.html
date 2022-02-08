@@ -32,7 +32,14 @@
             >
                 <mat-icon>publish</mat-icon>&nbsp;Publish
             </button>
-            <button mat-menu-item><mat-icon>open_in_new</mat-icon>&nbsp;Open in new tab</button>
+            <button
+                [disabled]="form.status !== 'published'"
+                (click)="shareForm(form._id!)"
+                mat-menu-item
+            >
+                <mat-icon>share</mat-icon>&nbsp;Share
+            </button>
+            <!-- <button mat-menu-item><mat-icon>open_in_new</mat-icon>&nbsp;Open in new tab</button> -->
         </mat-menu>
     </div>
 </div>

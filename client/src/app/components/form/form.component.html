@@ -1,0 +1,9 @@
+<form *ngIf="!isLoading; else spinner">
+    <app-form-title [title]="userForm.title" [description]="userForm.description"></app-form-title>
+    <app-form-questions [form]="form" [questions]="userForm.questions"></app-form-questions>
+</form>
+<ng-template #spinner>
+    <div class="grid place-items-center w-full h-full">
+        <mat-spinner [diameter]="50"></mat-spinner>
+    </div>
+</ng-template>

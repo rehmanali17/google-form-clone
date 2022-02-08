@@ -18,6 +18,10 @@ const initialState: DialogBoxState = {
         title: '',
         message: '',
     },
+    shareFormDialogBox: {
+        status: false,
+        link: '',
+    },
 };
 
 export function dialogBoxReducer(state = initialState, action: DialogBoxActions.DialogBoxActions) {
@@ -76,6 +80,22 @@ export function dialogBoxReducer(state = initialState, action: DialogBoxActions.
                     isError: false,
                     title: '',
                     message: '',
+                },
+            };
+        case DialogBoxActions.OPEN_SHARE_FORM_DIALOG_BOX:
+            return {
+                ...state,
+                shareFormDialogBox: {
+                    status: true,
+                    link: action.payload.link,
+                },
+            };
+        case DialogBoxActions.CLOSE_SHARE_FORM_DIALOG_BOX:
+            return {
+                ...state,
+                shareFormDialogBox: {
+                    status: false,
+                    link: '',
                 },
             };
         default:

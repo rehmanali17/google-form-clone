@@ -1,0 +1,59 @@
+@mixin flex-display {
+    display: flex;
+    align-items: center;
+}
+.custom-container {
+    width: 100%;
+    display: grid;
+    place-items: center;
+
+    .questions-container {
+        width: 50%;
+        border: 1px solid #dadce0;
+        border-radius: 8px;
+        min-height: 130px;
+        padding: 30px 22px;
+        box-sizing: border-box;
+        margin-bottom: 12px;
+    }
+
+    .btns-container {
+        @include flex-display();
+        width: 50%;
+        justify-content: space-between;
+        margin-bottom: 50px;
+        button {
+            letter-spacing: 0.3px;
+            padding: 0px 24px;
+        }
+        .btn-color {
+            color: white;
+            background: #3c8f2e;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .questions-container,
+        .btns-container {
+            width: 65%;
+        }
+    }
+    @media screen and (max-width: 880px) {
+        .questions-container,
+        .btns-container {
+            width: 72%;
+        }
+    }
+    @media screen and (max-width: 770px) {
+        .questions-container,
+        .btns-container {
+            width: 80%;
+        }
+    }
+    @media screen and (max-width: 660px) {
+        .questions-container,
+        .btns-container {
+            width: 90%;
+        }
+    }
+}

@@ -2,7 +2,7 @@
     <app-form-header></app-form-header>
     <ng-container *ngIf="!isError; else noForm">
         <app-form-item
-            *ngFor="let form of forms | filter: filterTitle"
+            *ngFor="let form of forms | forms_filter: filterTitle"
             [form]="form"
         ></app-form-item>
     </ng-container>

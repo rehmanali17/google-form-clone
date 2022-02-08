@@ -1,0 +1,27 @@
+<div class="outer-container">
+    <div class="dialog-container">
+        <h1 mat-dialog-title>Send Form</h1>
+        <button mat-icon-button (click)="closeDialogBox()"><mat-icon>close</mat-icon></button>
+    </div>
+    <div class="collect-emails-container">
+        <mat-checkbox color="primary">Collect Emails</mat-checkbox>
+    </div>
+    <div class="share-btns-container">
+        <p class="share">Send Via</p>
+        <div><mat-icon>mail_outline</mat-icon></div>
+        <div><mat-icon>link</mat-icon></div>
+        <div><mat-icon>code</mat-icon></div>
+    </div>
+    <div class="link-text">Link</div>
+    <div class="form-link-container">
+        <mat-form-field class="link-field" appearance="legacy">
+            <input matInput (click)="selectText($event)" [value]="link" />
+        </mat-form-field>
+    </div>
+    <mat-dialog-actions class="btns-container" align="end">
+        <button class="cancel-btn" mat-button (click)="closeDialogBox()">Cancel</button>
+        <button class="copy-btn" (click)="toggleSnackBar()" [cdkCopyToClipboard]="link">
+            Copy
+        </button>
+    </mat-dialog-actions>
+</div>

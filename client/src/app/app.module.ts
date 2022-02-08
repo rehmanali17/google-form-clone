@@ -48,23 +48,25 @@ import { QuestionContainerComponent } from '@components/create-form/create-form-
 import { AnswerContainerComponent } from '@components/create-form/create-form-questions/answer-container/answer-container.component';
 import { ActionsContainerComponent } from '@components/create-form/create-form-questions/actions-container/actions-container.component';
 import { SavedFormDialogComponent } from './components/create-form/saved-form-dialog/saved-form-dialog.component';
+import { ShareFormDialogComponent } from './components/dashboard/share-form-dialog/share-form-dialog.component';
 
 // Edit Form Component
 import { EditFormComponent } from '@components/edit-form/edit-form.component';
-// import { EditFormNavbarComponent } from '@components/edit-form/edit-form-navbar/edit-form-navbar.component';
-// import { EditFormTitleComponent } from '@components/edit-form/edit-form-title/edit-form-title.component';
-// import { EditFormQuestionsComponent } from '@components/edit-form/edit-form-questions/edit-form-questions.component';
-// import { EditQuestionContainerComponent } from '@components/edit-form/edit-form-questions/edit-question-container/edit-question-container.component';
-// import { EditFormAnswerContainerComponent } from '@components/edit-form/edit-form-questions/edit-form-answer-container/edit-form-answer-container.component';
-// import { EditFormActionsContainerComponent } from '@components/edit-form/edit-form-questions/edit-form-actions-container/edit-form-actions-container.component';
-// import { SavedFormDialogComponent } from './components/create-form/saved-form-dialog/saved-form-dialog.component';
+
+// Form Component
+import { FormComponent } from '@components/form/form.component';
+import { FormTitleComponent } from '@components/form/form-title/form-title.component';
+import { FormQuestionsComponent } from './components/form/form-questions/form-questions.component';
+import { QuestionComponent } from './components/form/form-questions/question/question.component';
 
 // Importing Root Reducer
 import { appReducer } from '@store/app.reducer';
 import { AuthEffects } from '@store/auth/auth.effects';
 
 // Importing Pipes
-import { FilterPipe } from './pipes/filter.pipe';
+import { DropdownFilterPipe } from './pipes/dropdown-filter.pipe';
+import { FormsFilterPipe } from './pipes/forms-filter.pipe';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -82,6 +84,7 @@ import { FilterPipe } from './pipes/filter.pipe';
         FormItemComponent,
         FormDialogComponent,
         RenameFormDialogComponent,
+        ShareFormDialogComponent,
 
         CreateFormComponent,
         CreateFormNavbarComponent,
@@ -93,15 +96,14 @@ import { FilterPipe } from './pipes/filter.pipe';
         SavedFormDialogComponent,
 
         EditFormComponent,
-        // EditFormNavbarComponent,
-        // EditFormTitleComponent,
-        // EditFormQuestionsComponent,
-        // EditQuestionContainerComponent,
-        // EditFormAnswerContainerComponent,
-        // EditFormActionsContainerComponent,
-        // SavedFormDialogComponent,
 
-        FilterPipe,
+        FormComponent,
+        FormTitleComponent,
+        FormQuestionsComponent,
+        QuestionComponent,
+
+        DropdownFilterPipe,
+        FormsFilterPipe,
     ],
     imports: [
         BrowserModule,
