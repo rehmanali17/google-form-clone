@@ -1,0 +1,9 @@
+<form class="custom-container" [formGroup]="form" (ngSubmit)="handleSubmit()">
+    <div class="questions-container" *ngFor="let question of questions; let i = index">
+        <app-question [form]="getAnswer(i)" [question]="question"></app-question>
+    </div>
+    <div class="btns-container">
+        <button class="btn-color" mat-raised-button>Submit</button>
+        <button (click)="resetForm()" type="button" mat-button>Clear Form</button>
+    </div>
+</form>

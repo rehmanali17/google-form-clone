@@ -12,18 +12,14 @@ import {
     RENAME_FORM_URL,
     PUBLISH_FORM_URL,
     EDIT_FORM_URL,
+    GET_FORM_URL,
 } from '@app/utils/request-url';
 
 @Injectable({
     providedIn: 'root',
 })
 export class FormService {
-    accessToken = '';
-    constructor(private httpClient: HttpClient, private store: Store<AppState>) {
-        this.store.select('auth').subscribe((authState) => {
-            this.accessToken = authState.accessToken;
-        });
-    }
+    constructor(private httpClient: HttpClient) {}
 
     // Create Forms
     createForm(form: Form): Observable<any> {
@@ -35,6 +31,11 @@ export class FormService {
     // Get Forms
     getForms(): Observable<any> {
         return this.httpClient.get<any>(GET_FORMS_URL);
+    }
+
+    // Get Single Form
+    getForm(id: string): Observable<any> {
+        return this.httpClient.get<any>(`${GET_FORM_URL}/${id}`);
     }
 
     // Get Recent Forms
@@ -49,12 +50,12 @@ export class FormService {
 
     // Rename Form
     renameForm(id: string, title: string): Observable<any> {
-        return this.httpClient.put<any>(`${RENAME_FORM_URL}/${id}`, { title });
+        return this.httpClient.patch<any>(`${RENAME_FORM_URL}/${id}`, { title });
     }
 
     // Publish Form
     publishForm(id: string, status: string): Observable<any> {
-        return this.httpClient.put<any>(`${PUBLISH_FORM_URL}/${id}`, { status });
+        return this.httpClient.patch<any>(`${PUBLISH_FORM_URL}/${id}`, { status });
     }
 
     // Create Forms

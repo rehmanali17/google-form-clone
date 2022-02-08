@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const { NOT_FOUND } = require('../utils/status-codes');
+const { STATUS_CODES } = require('../utils/constants');
 
 // Google Authenticatation Service
 const saveUser = async (authenticatedUser, done) => {
@@ -38,7 +38,7 @@ const validateUser = async ({ id }, done) => {
         if (user === null) {
             done(null, false, {
                 message: 'User does not exist',
-                statudCode: NOT_FOUND,
+                statudCode: STATUS_CODES.NOT_FOUND,
             });
         } else {
             done(null, user);

@@ -11,6 +11,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const MaterialComponents = [
     MatButtonModule,
@@ -25,6 +29,10 @@ const MaterialComponents = [
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatAutocompleteModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    ClipboardModule,
+    MatTooltipModule,
 ];
 
 @NgModule({

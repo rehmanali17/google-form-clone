@@ -3,7 +3,7 @@ const cors = require('cors');
 const passport = require('passport');
 const path = require('path');
 const routes = require('./src/routes/index');
-const { dbConnection } = require('./src/database/connection');
+const { dbConnection } = require('./src/config/connection');
 
 const app = express();
 app.use(cors());

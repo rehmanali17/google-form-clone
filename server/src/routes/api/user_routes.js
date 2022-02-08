@@ -7,7 +7,7 @@ const {
     updateFormTitle,
     getRecentForms,
     updateFormStatus,
-} = require('../../controllers/user.controller');
+} = require('../../controllers/user_controller');
 
 router.post('/create-form', createForm);
 
@@ -17,9 +17,9 @@ router.get('/get-recent-forms', getRecentForms);
 
 router.put('/edit-form/:id', editForm);
 
-router.put('/update-form-title/:id', updateFormTitle);
+router.patch('/update-form-title/:id', updateFormTitle);
 
-router.put('/update-form-status/:id', updateFormStatus);
+router.patch('/update-form-status/:id', updateFormStatus);
 
 router.delete('/delete-form/:id', deleteForm);
 

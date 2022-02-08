@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
+const { STATUS_CODES } = require('../utils/constants');
 require('dotenv').config();
-const { PROCESS_EXIT } = require('../utils/status-codes');
 
 const mongoURi = process.env.mongoURi;
 const PORT = process.env.PORT;
@@ -17,7 +17,7 @@ const dbConnection = (app) => {
         })
         .catch((error) => {
             console.log(error.message);
-            process.exit(PROCESS_EXIT);
+            process.exit(STATUS_CODES.PROCESS_EXIT);
         });
 };
 

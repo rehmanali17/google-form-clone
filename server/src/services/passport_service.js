@@ -1,4 +1,4 @@
-const { saveUser, validateUser } = require('../services/auth.service');
+const { saveUser, validateUser } = require('./auth_service');
 
 const handleGoogleStrategy = (accessToken, refreshToken, profile, done) => {
     const authenticatedUser = {

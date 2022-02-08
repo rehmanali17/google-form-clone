@@ -1,0 +1,50 @@
+<form autocomplete="off" class="question-container" [formGroup]="form">
+    <div class="question">
+        {{ question.question }}
+        <span class="required" *ngIf="question.isRequired">*</span>
+    </div>
+    <mat-form-field
+        *ngIf="question.type === 'short'"
+        id="short-answer"
+        appearance="legacy"
+        floatLabel="never"
+    >
+        <mat-placeholder>Your Answer</mat-placeholder>
+        <input matInput formControlName="answer" [errorStateMatcher]="matcher" />
+        <mat-error>{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <mat-form-field
+        *ngIf="question.type === 'long'"
+        id="long-answer"
+        appearance="legacy"
+        floatLabel="never"
+        class="long-answer-field"
+    >
+        <mat-placeholder>Your Answer</mat-placeholder>
+        <input matInput formControlName="answer" [errorStateMatcher]="matcher" />
+        <mat-error>{{ getErrorMessage() }}</mat-error>
+    </mat-form-field>
+    <div id="multiple-choice" *ngIf="question.type === 'multiple-choice'">
+        <mat-radio-group class="choices" formControlName="answer">
+            <mat-radio-button *ngFor="let option of question.options" [value]="option">
+                {{ option }}
+            </mat-radio-button>
+            <mat-error
+                [ngClass]="{ 'mt-2': form.get('answer')?.hasError('required') }"
+                class="mt-2"
+                >{{ getErrorMessage() }}</mat-error
+            >
+        </mat-radio-group>
+        <div class="clear-btn-container">
+            <button
+                *ngIf="form.get('answer')?.value !== null"
+                type="button"
+                (click)="resetOption()"
+                class="clear-btn"
+                mat-button
+            >
+                Clear Selection
+            </button>
+        </div>
+    </div>
+</form>

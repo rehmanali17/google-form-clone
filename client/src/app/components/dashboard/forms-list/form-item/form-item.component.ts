@@ -60,6 +60,11 @@ export class FormItemComponent implements OnInit {
         );
     }
 
+    shareForm(id: string) {
+        const link = 'http://localhost:4200/fill-form/' + id;
+        this.store.dispatch(new DialogBoxActions.OpenShareFormDialogBox({ link }));
+    }
+
     redirectToEditPage(event: Event, id: string) {
         const element = event.target as HTMLElement;
         if (element.tagName === 'BUTTON' || element.tagName === 'MAT-ICON') {

@@ -51,8 +51,13 @@ import { SavedFormDialogComponent } from './components/create-form/saved-form-di
 
 // Edit Form Component
 import { EditFormComponent } from '@components/edit-form/edit-form.component';
+
+// Form Component
+import { FormComponent } from '@components/form/form.component';
 // import { EditFormNavbarComponent } from '@components/edit-form/edit-form-navbar/edit-form-navbar.component';
-// import { EditFormTitleComponent } from '@components/edit-form/edit-form-title/edit-form-title.component';
+import { FormTitleComponent } from '@components/form/form-title/form-title.component';
+import { FormQuestionsComponent } from './components/form/form-questions/form-questions.component';
+
 // import { EditFormQuestionsComponent } from '@components/edit-form/edit-form-questions/edit-form-questions.component';
 // import { EditQuestionContainerComponent } from '@components/edit-form/edit-form-questions/edit-question-container/edit-question-container.component';
 // import { EditFormAnswerContainerComponent } from '@components/edit-form/edit-form-questions/edit-form-answer-container/edit-form-answer-container.component';
@@ -65,6 +70,8 @@ import { AuthEffects } from '@store/auth/auth.effects';
 
 // Importing Pipes
 import { FilterPipe } from './pipes/filter.pipe';
+import { QuestionComponent } from './components/form/form-questions/question/question.component';
+import { ShareFormDialogComponent } from './components/dashboard/share-form-dialog/share-form-dialog.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -93,15 +100,14 @@ import { FilterPipe } from './pipes/filter.pipe';
         SavedFormDialogComponent,
 
         EditFormComponent,
-        // EditFormNavbarComponent,
-        // EditFormTitleComponent,
-        // EditFormQuestionsComponent,
-        // EditQuestionContainerComponent,
-        // EditFormAnswerContainerComponent,
-        // EditFormActionsContainerComponent,
-        // SavedFormDialogComponent,
+
+        FormComponent,
+        FormTitleComponent,
+        FormQuestionsComponent,
 
         FilterPipe,
+         QuestionComponent,
+         ShareFormDialogComponent,
     ],
     imports: [
         BrowserModule,

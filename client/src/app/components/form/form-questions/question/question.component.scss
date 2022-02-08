@@ -1,0 +1,79 @@
+@mixin flex-display {
+    display: flex;
+    align-items: center;
+}
+
+.question-container {
+    width: 100%;
+
+    .question {
+        font-size: 17px;
+        letter-spacing: 0.1px;
+        line-height: 24px;
+        color: #202124;
+        font-weight: 400;
+        word-break: break-all;
+        margin-bottom: 10px;
+
+        .required {
+            position: relative;
+            top: -3px;
+            color: red;
+            font-size: 1.2rem;
+        }
+    }
+
+    mat-form-field {
+        width: 50%;
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: 0.1px;
+        line-height: 20px;
+        color: #202124;
+
+        @media screen and (max-width: 880px) {
+            width: 65%;
+        }
+        @media screen and (max-width: 770px) {
+            width: 72%;
+        }
+        @media screen and (max-width: 660px) {
+            width: 80%;
+        }
+    }
+
+    .long-answer-field {
+        width: 100% !important;
+    }
+
+    .choices {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 20px;
+
+        mat-radio-button {
+            margin: 8px 0;
+
+            ::ng-deep .mat-radio-inner-circle {
+                background: #3c8f2e;
+            }
+        }
+    }
+
+    .clear-btn-container {
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+        margin: 4px 0;
+        .clear-btn {
+            margin-left: auto;
+            color: #5f6368;
+        }
+    }
+}
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle,
+.mat-radio-outer-circle {
+    border-color: #3c8f2e;
+}
