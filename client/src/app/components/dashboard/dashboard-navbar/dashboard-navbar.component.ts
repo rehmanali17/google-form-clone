@@ -38,7 +38,6 @@ export class DashboardNavbarComponent implements OnInit, OnDestroy {
 
         this.formControlSubscription = this.title.valueChanges.subscribe((value) => {
             this.filterTitle = value;
-            this.store.dispatch(new FormActions.SearchForms({ formTitle: this.filterTitle }));
         });
     }
 
@@ -49,6 +48,11 @@ export class DashboardNavbarComponent implements OnInit, OnDestroy {
 
     clearValue() {
         this.title.setValue('');
+        this.store.dispatch(new FormActions.SearchForms({ formTitle: '' }));
+    }
+
+    searchForms(title: string) {
+        this.store.dispatch(new FormActions.SearchForms({ formTitle: title }));
     }
 
     ngOnDestroy() {

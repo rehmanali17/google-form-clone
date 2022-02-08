@@ -2,10 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppState } from '@models/app-state.model';
 import { Store } from '@ngrx/store';
-import { FormService } from '@services/form.service';
 import { Subscription } from 'rxjs';
 import * as DialogBoxActions from '@store/dialog-box/dialog-box.actions';
-import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
     selector: 'app-share-form-dialog',
@@ -15,11 +13,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 export class ShareFormDialogComponent implements OnInit, OnDestroy {
     link = '';
     dialogBoxSubscription!: Subscription;
-    constructor(
-        private store: Store<AppState>,
-        private formService: FormService,
-        private snackBar: MatSnackBar
-    ) {}
+    constructor(private store: Store<AppState>, private snackBar: MatSnackBar) {}
 
     ngOnInit() {
         this.dialogBoxSubscription = this.store.select('dialogBox').subscribe((dialogBoxState) => {

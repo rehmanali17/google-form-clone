@@ -8,6 +8,7 @@ import * as AuthActions from '@store/auth/auth.actions';
 import * as FormActions from '@store/form/form.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { environment } from '@environments/environment';
 
 @Component({
     selector: 'app-form-item',
@@ -61,7 +62,7 @@ export class FormItemComponent implements OnInit {
     }
 
     shareForm(id: string) {
-        const link = 'http://localhost:4200/fill-form/' + id;
+        const link = environment.baseURL + '/fill-form/' + id;
         this.store.dispatch(new DialogBoxActions.OpenShareFormDialogBox({ link }));
     }
 

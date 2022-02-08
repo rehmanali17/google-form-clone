@@ -7,7 +7,7 @@
         <h3 class="menu-item-title">Forms</h3>
     </div>
     <form class="search-forms-field">
-        <button type="button" mat-icon-button>
+        <button type="button" (click)="searchForms(title.value)" mat-icon-button>
             <mat-icon>search</mat-icon>
         </button>
         <input
@@ -19,8 +19,14 @@
             [matAutocomplete]="auto"
         />
         <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let form of forms | filter: filterTitle" [value]="form.title">
-                {{ form.title }}
+            <mat-option
+                *ngFor="let form of forms | dropdown_filter: filterTitle"
+                [value]="form.title"
+            >
+                <div (click)="searchForms(form.title)" class="autocomplete-dropdown">
+                    <div>{{ form.title }}</div>
+                    <div>{{ form.updatedAt | date: 'shortTime' }}</div>
+                </div>
             </mat-option>
         </mat-autocomplete>
         <button (click)="clearValue()" *ngIf="title.value !== ''" type="button" mat-icon-button>
