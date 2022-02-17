@@ -8,6 +8,7 @@ import { ShowErrorStateMatcher } from '@utils/error-state-matcher';
     styleUrls: ['./answer-container.component.scss'],
 })
 export class AnswerContainerComponent implements OnChanges {
+    @Input() darkModeEnabled!: boolean;
     @Input() questionType = '';
     // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('options') form!: FormGroup;

@@ -1,24 +1,41 @@
-<div class="recent-forms-section">
+<div class="recent-forms-section" [ngClass]="{ 'dark-recent-forms-section': darkModeEnabled }">
     <div class="recent-forms-banner">
-        <p class="initiate-form">Start a new form</p>
+        <p class="initiate-form" [ngClass]="{ 'dark-initiate-form': darkModeEnabled }">
+            Start a new form
+        </p>
         <div class="action-btns">
-            <div>Template Gallery &nbsp; <mat-icon>unfold_more</mat-icon></div>
-            <button mat-icon-button [matMenuTriggerFor]="recentFormsOptions">
+            <div [ngClass]="{ 'dark-hover': darkModeEnabled }">
+                Template Gallery &nbsp;
+                <mat-icon>unfold_more</mat-icon>
+            </div>
+            <button
+                [ngClass]="{ 'dark-hover': darkModeEnabled }"
+                mat-icon-button
+                [matMenuTriggerFor]="recentFormsOptions"
+            >
                 <mat-icon>more_vert</mat-icon>
             </button>
-            <mat-menu #recentFormsOptions="matMenu" yPosition="below">
-                <button (click)="toggleTemplates()" mat-menu-item>
+            <mat-menu class="dark:bg-[#5a6582]" #recentFormsOptions="matMenu" yPosition="below">
+                <button
+                    class="dark:text-white dark:hover:bg-[#353d58]"
+                    (click)="toggleTemplates()"
+                    mat-menu-item
+                >
                     {{ showTemplates ? 'Hide' : 'Show' }} all templates
                 </button>
             </mat-menu>
         </div>
     </div>
     <div class="recent-forms-gallery">
-        <app-recent-forms-card [createNewForm]="true"></app-recent-forms-card>
+        <app-recent-forms-card
+            [createNewForm]="true"
+            [darkModeEnabled]="darkModeEnabled"
+        ></app-recent-forms-card>
         <ng-container *ngIf="showTemplates">
             <app-recent-forms-card
                 *ngFor="let form of forms"
                 [createNewForm]="false"
+                [darkModeEnabled]="darkModeEnabled"
                 [form]="form"
             ></app-recent-forms-card>
         </ng-container>

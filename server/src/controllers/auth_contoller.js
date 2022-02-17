@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const { STATUS_CODES } = require('../utils/constants');
+const { STATUS_CODES } = require(process.cwd() + '/src/utils/constants');
 
 const googleLogin = (req, res) => {
     try {

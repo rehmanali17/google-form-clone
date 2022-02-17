@@ -1,34 +1,42 @@
-<div class="outer-navbar">
+<div class="outer-navbar" [ngClass]="{ 'dark-outer-navbar': darkModeEnabled }">
     <div class="navbar">
         <div class="menu-items">
             <img class="logo" src="../../../../assets/forms.png" alt="" />
-            <h3 class="menu-item-title">Forms</h3>
-            <button type="button" mat-icon-button>
+            <h3 class="menu-item-title" [ngClass]="{ 'dark-text-color': darkModeEnabled }">
+                Forms
+            </h3>
+            <button [ngClass]="{ 'dark-btn': darkModeEnabled }" type="button" mat-icon-button>
                 <mat-icon>folder_open</mat-icon>
             </button>
-            <button type="button" mat-icon-button>
+            <button [ngClass]="{ 'dark-btn': darkModeEnabled }" type="button" mat-icon-button>
                 <mat-icon>star_border</mat-icon>
             </button>
         </div>
         <div class="action-btns">
-            <button type="button" mat-icon-button>
+            <button type="button" [ngClass]="{ 'dark-btn': darkModeEnabled }" mat-icon-button>
                 <mat-icon>palette</mat-icon>
             </button>
-            <button type="button" mat-icon-button>
+            <button type="button" [ngClass]="{ 'dark-btn': darkModeEnabled }" mat-icon-button>
                 <mat-icon>remove_red_eye</mat-icon>
             </button>
-            <button type="button" mat-icon-button>
+            <button type="button" [ngClass]="{ 'dark-btn': darkModeEnabled }" mat-icon-button>
                 <mat-icon>undo</mat-icon>
             </button>
-            <button type="button" mat-icon-button>
+            <button type="button" [ngClass]="{ 'dark-btn': darkModeEnabled }" mat-icon-button>
                 <mat-icon>redo</mat-icon>
             </button>
             <ng-container *ngIf="!isSavingForm; else notSaving">
-                <button mat-flat-button (click)="handleFormSubmit('draft')" color="primary">
+                <button
+                    mat-flat-button
+                    [ngClass]="{ 'dark-flat-btn': darkModeEnabled }"
+                    (click)="handleFormSubmit('draft')"
+                    color="primary"
+                >
                     Save
                 </button>
                 <button
                     *ngIf="formStatus !== 'published'"
+                    [ngClass]="{ 'dark-flat-btn': darkModeEnabled }"
                     (click)="handleFormSubmit('published')"
                     mat-flat-button
                     color="primary"
@@ -39,20 +47,29 @@
             <ng-template #notSaving>
                 <mat-spinner [diameter]="35"></mat-spinner>
             </ng-template>
-            <button type="button" mat-icon-button>
+            <button type="button" [ngClass]="{ 'dark-btn': darkModeEnabled }" mat-icon-button>
                 <mat-icon>more_vert</mat-icon>
             </button>
             <div class="user-image-container" [matMenuTriggerFor]="accountOptions">
-                <img class="user-image" src="{{ pictureURL }}" alt="{{ userName }}" />
+                <img
+                    class="user-image"
+                    [ngClass]="{ 'dark-user-image': darkModeEnabled }"
+                    src="{{ pictureURL }}"
+                    alt="{{ userName }}"
+                />
             </div>
-            <mat-menu #accountOptions="matMenu" yPosition="below">
-                <button (click)="handleLogOut()" mat-menu-item>
-                    <mat-icon>exit_to_app</mat-icon>&nbsp;Sign Out
+            <mat-menu class="dark:bg-[#5a6582]" #accountOptions="matMenu" yPosition="below">
+                <button
+                    class="dark:text-white dark:hover:bg-[#353d58]"
+                    (click)="handleLogOut()"
+                    mat-menu-item
+                >
+                    <mat-icon class="dark:text-white">exit_to_app</mat-icon>&nbsp;Sign Out
                 </button>
             </mat-menu>
         </div>
     </div>
-    <div class="genre">
+    <div class="genre" [ngClass]="{ 'dark-genre': darkModeEnabled }">
         <div>Questions</div>
         <div>Responses</div>
         <div>Settings</div>

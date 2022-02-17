@@ -1,4 +1,12 @@
-import { Component, OnDestroy, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+    ElementRef,
+    AfterViewInit,
+    Inject,
+} from '@angular/core';
 import { AppState } from '@models/app-state.model';
 import { Store } from '@ngrx/store';
 import { FormService } from '@services/form.service';
@@ -8,6 +16,8 @@ import * as DialogBoxActions from '@store/dialog-box/dialog-box.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
     selector: 'app-rename-form-dialog',
@@ -16,6 +26,7 @@ import { Subscription } from 'rxjs';
 })
 export class RenameFormDialogComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('title') title!: ElementRef;
+    darkModeEnabled = false;
     dialogBoxSubscription!: Subscription;
     form = new FormGroup({
         title: new FormControl(null, [Validators.required]),
@@ -25,8 +36,21 @@ export class RenameFormDialogComponent implements OnInit, OnDestroy, AfterViewIn
     constructor(
         private store: Store<AppState>,
         private formService: FormService,
-        private snackBar: MatSnackBar
-    ) {}
+        private snackBar: MatSnackBar,
+        private overlayContainer: OverlayContainer,
+        @Inject(MAT_DIALOG_DATA) darkModeEnabled: boolean
+    ) {
+        this.darkModeEnabled = darkModeEnabled;
+        if (this.darkModeEnabled === true) {
+            (<HTMLElement>(
+                this.overlayContainer.getContainerElement().children[3].children[0].children[0]
+            )).style.backgroundColor = '#353D58';
+        } else {
+            (<HTMLElement>(
+                this.overlayContainer.getContainerElement().children[3].children[0].children[0]
+            )).style.backgroundColor = 'white';
+        }
+    }
 
     ngOnInit() {
         this.dialogBoxSubscription = this.store.select('dialogBox').subscribe((dialogBoxState) => {

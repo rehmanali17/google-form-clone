@@ -11,6 +11,18 @@
         background: #f9f9f9;
     }
 
+    .drag-indicator-container {
+        display: grid;
+        place-content: center;
+
+        .drag-indicator {
+            height: fit-content;
+            width: fit-content;
+            transform: rotate(90deg);
+            cursor: all-scroll;
+        }
+    }
+
     .question-container {
         width: 50%;
         border: 1px solid #dadce0;
@@ -36,6 +48,12 @@
         }
         @media screen and (max-width: 660px) {
             width: 90%;
+        }
+    }
+
+    .dark-question-container {
+        &:focus-within {
+            border-left: 6px solid #687596;
         }
     }
 }

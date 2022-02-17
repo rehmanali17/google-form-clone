@@ -8,6 +8,7 @@ import { ShowErrorStateMatcher } from '@utils/error-state-matcher';
     styleUrls: ['./question-container.component.scss'],
 })
 export class QuestionContainerComponent {
+    @Input() darkModeEnabled!: boolean;
     // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('questionOverview') form!: FormGroup;
     @Output() typeChange = new EventEmitter<string>();

@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./create-form-navbar.component.scss'],
 })
 export class CreateFormNavbarComponent implements OnInit, OnDestroy {
+    @Input() darkModeEnabled!: boolean;
     @Output() saveForm = new EventEmitter<string>();
     userName = '';
     pictureURL = '';

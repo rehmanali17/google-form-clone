@@ -11,6 +11,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { SavedFormDialogComponent } from '@components/create-form/saved-form-dialog/saved-form-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DarkModeService } from '@services/dark-mode.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-create-form',
@@ -21,6 +23,7 @@ export class CreateFormComponent implements OnInit, OnDestroy {
     @ViewChild('capture_screen', { static: true }) captureScreen: any;
     formStatus = '';
     imageString = '';
+    darkModeEnabled = false;
 
     formOverview = this.formBuilder.group({
         title: ['Form Title', [Validators.required, Validators.pattern(/^[a-zA-Z _-]+$/)]],
@@ -31,6 +34,7 @@ export class CreateFormComponent implements OnInit, OnDestroy {
     });
 
     dialogBoxSubscription!: Subscription;
+    darkModeSubscription!: Subscription;
 
     form = this.formBuilder.group({
         'form-overview': this.formOverview,
@@ -56,17 +60,32 @@ export class CreateFormComponent implements OnInit, OnDestroy {
         private captureService: NgxCaptureService,
         private store: Store<AppState>,
         private dialog: MatDialog,
+        private darkModeService: DarkModeService,
         private snackBar: MatSnackBar
     ) {}
 
     ngOnInit() {
         this.dialogBoxHandler();
+        this.toggleDarkMode();
+    }
+
+    toggleDarkMode() {
+        this.darkModeSubscription = this.darkModeService.darkMode.subscribe((mode) => {
+            if (mode === true) {
+                this.darkModeEnabled = true;
+            } else {
+                this.darkModeEnabled = false;
+            }
+        });
     }
 
     dialogBoxHandler() {
         this.dialogBoxSubscription = this.store.select('dialogBox').subscribe((dialogBoxState) => {
             if (dialogBoxState.formDialogBox.status === true) {
-                this.dialog.open(SavedFormDialogComponent);
+                this.dialog.open(SavedFormDialogComponent, {
+                    autoFocus: true,
+                    data: this.darkModeEnabled,
+                });
             } else {
                 this.dialog.closeAll();
             }
@@ -152,6 +171,14 @@ export class CreateFormComponent implements OnInit, OnDestroy {
         );
     }
 
+    drop(event: any) {
+        moveItemInArray(
+            (<FormArray>this.form.get('questions')).controls,
+            event.previousIndex,
+            event.currentIndex
+        );
+    }
+
     handleSubmit() {
         if (this.form.valid) {
             this.store.dispatch(new FormActions.ToggleFormSavingStatus({ status: true }));
@@ -216,5 +243,6 @@ export class CreateFormComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.dialogBoxSubscription.unsubscribe();
+        this.darkModeSubscription.unsubscribe();
     }
 }

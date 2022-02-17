@@ -1,3 +1,5 @@
+$text_color: white;
+
 .forms-list-item {
     display: flex;
     align-items: center;
@@ -58,6 +60,12 @@
         }
     }
 
+    .dark-btn {
+        &:hover {
+            background: #192039 !important;
+        }
+    }
+
     @media screen and (max-width: 850px) {
         .form-icon {
             width: 6%;
@@ -114,4 +122,15 @@
             width: 39%;
         }
     }
+}
+
+.dark-forms-list-item {
+    &:hover {
+        background: #353d58 !important;
+        border-color: #353d58 !important;
+    }
+}
+
+.dark-text-color {
+    color: $text_color !important;
 }

@@ -1,6 +1,6 @@
 const passport = require('passport');
-const { STATUS_CODES } = require('../utils/constants');
-require('../config/passport_setup');
+const { STATUS_CODES } = require(process.cwd() + '/src/utils/constants');
+require(process.cwd() + '/src/config/passport_setup');
 
 // Google Authentication Middleware
 const googleAuthentication = (req, res, next) => {
@@ -27,7 +27,7 @@ const googleAuthentication = (req, res, next) => {
 
 // Validate Token Middleware || Route Protection Middleware
 const jwtAuthentication = (req, res, next) => {
-    passport.authenticate('jwt', (err, user, info) => {
+    passport.authenticate('jwt', (err, user) => {
         if (err || !user) {
             res.status(STATUS_CODES.UNAUTHORIZED).json({
                 message: 'User is not authorized',

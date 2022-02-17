@@ -6,8 +6,9 @@ const {
     publishForm,
     fetchRecentForms,
     updateForm,
+    fetchFormsPics,
 } = require('../services/user_service');
-const { STATUS_CODES } = require('../utils/constants');
+const { STATUS_CODES } = require(process.cwd() + '/src/utils/constants');
 
 const createForm = async (req, res) => {
     try {
@@ -32,7 +33,13 @@ const createForm = async (req, res) => {
 
 const getAllForms = async (req, res) => {
     try {
-        const forms = await getForms(req.user._id);
+        const docs = await getForms(req.user._id);
+        const forms = docs.map((doc) => {
+            return {
+                ...doc._doc,
+                imageString: '',
+            };
+        });
         res.status(STATUS_CODES.OK).json({
             forms,
             statusCode: STATUS_CODES.OK,
@@ -133,6 +140,29 @@ const getRecentForms = async (req, res) => {
     }
 };
 
+const fetchFormsImages = async (req, res) => {
+    try {
+        const forms = await fetchFormsPics();
+        let formImages = {};
+        forms.forEach((form) => {
+            formImages = {
+                ...formImages,
+                [form['_id']]: form.imageString,
+            };
+        });
+        res.status(STATUS_CODES.OK).json({
+            formImages,
+            statusCode: STATUS_CODES.OK,
+        });
+    } catch (error) {
+        res.status(STATUS_CODES.BAD_REQUEST).json({
+            message: 'Error fetching the forms images',
+            error: error.message,
+            statusCode: STATUS_CODES.BAD_REQUEST,
+        });
+    }
+};
+
 module.exports = {
     createForm,
     getAllForms,
@@ -141,4 +171,5 @@ module.exports = {
     updateFormStatus,
     getRecentForms,
     editForm,
+    fetchFormsImages,
 };

@@ -7,11 +7,14 @@ const {
     updateFormTitle,
     getRecentForms,
     updateFormStatus,
-} = require('../../controllers/user_controller');
+    fetchFormsImages,
+} = require(process.cwd() + '/src/controllers/user_controller');
 
 router.post('/create-form', createForm);
 
 router.get('/get-all-forms', getAllForms);
+
+router.get('/get-forms-pics', fetchFormsImages);
 
 router.get('/get-recent-forms', getRecentForms);
 

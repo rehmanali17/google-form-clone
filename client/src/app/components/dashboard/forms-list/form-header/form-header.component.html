@@ -1,16 +1,77 @@
-<div class="forms-list-header">
-    <div class="form-title">Forms by title</div>
-    <div class="form-status">Status</div>
-    <div class="form-modified-date">Last modified</div>
+<div class="forms-list-header" [ngClass]="{ 'justify-between': viewType === 'grid' }">
+    <div class="form-title" [ngClass]="{ 'dark-text-color': darkModeEnabled }">Forms by title</div>
+    <div
+        class="form-status"
+        [ngClass]="{ 'dark-text-color': darkModeEnabled }"
+        *ngIf="viewType === 'list'"
+    >
+        Status
+    </div>
+    <div
+        class="form-modified-date"
+        [ngClass]="{ 'dark-text-color': darkModeEnabled }"
+        *ngIf="viewType === 'list'"
+    >
+        Last modified
+    </div>
     <div class="form-header-action-btns">
         <h3>Form Actions:</h3>
-        <button mat-icon-button>
-            <mat-icon>grid_on</mat-icon>
+        <button
+            [ngClass]="{ 'dark-mat-icon': darkModeEnabled }"
+            (click)="toggleView()"
+            mat-icon-button
+        >
+            <mat-icon *ngIf="viewType === 'list'">calendar_view_month</mat-icon>
+            <mat-icon *ngIf="viewType === 'grid'">view_list</mat-icon>
         </button>
-        <button mat-icon-button>
-            <mat-icon>arrow_drop_up</mat-icon>
+        <button
+            [ngClass]="{ 'dark-mat-icon': darkModeEnabled }"
+            class="sort-btns"
+            [matMenuTriggerFor]="sortOptions"
+        >
+            <div class="dark:text-white">A</div>
+            <div class="arrows">
+                <mat-icon>arrow_drop_up</mat-icon>
+                <mat-icon>arrow_drop_down</mat-icon>
+            </div>
+            <div class="dark:text-white">Z</div>
         </button>
-        <button mat-icon-button>
+        <mat-menu class="dark:bg-[#5a6582]" #sortOptions="matMenu" yPosition="below">
+            <button
+                class="dark:text-white dark:hover:bg-[#353d58]"
+                mat-menu-item
+                (click)="handleSortForms('title')"
+            >
+                Title &nbsp;&nbsp;&nbsp;
+                <mat-icon class="dark:text-white" *ngIf="tickIconValue === 'title'">check</mat-icon>
+            </button>
+            <button
+                class="dark:text-white dark:hover:bg-[#353d58]"
+                mat-menu-item
+                (click)="handleSortForms('status')"
+            >
+                Status &nbsp;&nbsp;&nbsp;
+                <mat-icon class="dark:text-white" *ngIf="tickIconValue === 'status'"
+                    >check</mat-icon
+                >
+            </button>
+            <button
+                class="dark:text-white dark:hover:bg-[#353d58]"
+                mat-menu-item
+                (click)="handleSortForms('updatedAt')"
+            >
+                Last modified &nbsp;&nbsp;&nbsp;
+                <mat-icon class="dark:text-white" *ngIf="tickIconValue === 'updatedAt'"
+                    >check</mat-icon
+                >
+            </button>
+            <!-- <button mat-menu-item (click)="handleSortForms('createdAt')">
+                Date created &nbsp;&nbsp;&nbsp;
+                <mat-icon *ngIf="tickIconValue === 'createdAt'">check</mat-icon>
+            </button> -->
+            <!-- <button mat-menu-item><mat-icon>open_in_new</mat-icon>&nbsp;Open in new tab</button> -->
+        </mat-menu>
+        <button [ngClass]="{ 'dark-mat-icon': darkModeEnabled }" mat-icon-button>
             <mat-icon>folder_open</mat-icon>
         </button>
     </div>

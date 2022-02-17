@@ -1,7 +1,16 @@
-<h1 mat-dialog-title>{{ isError ? 'Error' : 'Success' }}</h1>
-<div mat-dialog-content class="description">"{{ formTitle }}" {{ message }}.</div>
+<h1 mat-dialog-title class="dark:text-white">{{ isError ? 'Error' : 'Success' }}</h1>
+<div mat-dialog-content class="description" [ngClass]="{ 'dark-text-color': darkModeEnabled }">
+    "{{ formTitle }}" {{ message }}.
+</div>
 <mat-dialog-actions align="end" *ngIf="isError; else redirectBtn">
-    <button class="cancel-btn" mat-button (click)="closeDialogBoxAndRedirect()">Cancel</button>
+    <button
+        class="cancel-btn"
+        [ngClass]="{ 'dark-text-color': darkModeEnabled }"
+        mat-button
+        (click)="closeDialogBoxAndRedirect()"
+    >
+        Cancel
+    </button>
     <button class="try-again-btn" mat-button (click)="closeDialogBox()">Try Again</button>
 </mat-dialog-actions>
 <ng-template #redirectBtn>

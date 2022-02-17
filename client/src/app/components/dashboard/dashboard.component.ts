@@ -11,6 +11,7 @@ import { RenameFormDialogComponent } from '@components/dashboard/rename-form-dia
 import { ShareFormDialogComponent } from '@components/dashboard/share-form-dialog/share-form-dialog.component';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DarkModeService } from '@services/dark-mode.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -19,14 +20,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
     isLoading = true;
+    darkModeEnabled = false;
+
     dialogBoxSubscription!: Subscription;
     formsSubscription!: Subscription;
     recentFormsSubscription!: Subscription;
+    darkModeSubscription!: Subscription;
 
     constructor(
         private cookieService: CookieService,
         private store: Store<AppState>,
         private formService: FormService,
+        private darkModeService: DarkModeService,
         private dialog: MatDialog,
         private snackBar: MatSnackBar
     ) {}
@@ -39,6 +44,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.getForms();
 
         this.getRecentForms();
+
+        this.toggleDarkMode();
     }
 
     getCookiePayload() {
@@ -53,12 +60,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
     dialogBoxHandler() {
         this.dialogBoxSubscription = this.store.select('dialogBox').subscribe((dialogBoxState) => {
             if (dialogBoxState.deleteDialogBox.status === true) {
-                this.dialog.open(FormDialogComponent);
+                this.dialog.open(FormDialogComponent, {
+                    data: this.darkModeEnabled,
+                    autoFocus: true,
+                });
             } else if (dialogBoxState.editDialogBox.status === true) {
-                this.dialog.open(RenameFormDialogComponent);
+                this.dialog.open(RenameFormDialogComponent, {
+                    data: this.darkModeEnabled,
+                    autoFocus: true,
+                });
             } else if (dialogBoxState.shareFormDialogBox.status === true) {
                 this.dialog.open(ShareFormDialogComponent, {
                     width: '375px',
+                    data: this.darkModeEnabled,
+                    autoFocus: true,
                 });
             } else {
                 this.dialog.closeAll();
@@ -99,9 +114,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
         );
     }
 
+    toggleDarkMode() {
+        this.darkModeSubscription = this.darkModeService.darkMode.subscribe((mode) => {
+            if (mode === true) {
+                this.darkModeEnabled = true;
+            } else {
+                this.darkModeEnabled = false;
+            }
+        });
+    }
+
     ngOnDestroy() {
         this.dialogBoxSubscription.unsubscribe();
         this.formsSubscription.unsubscribe();
         this.recentFormsSubscription.unsubscribe();
+        this.darkModeSubscription.unsubscribe();
     }
 }

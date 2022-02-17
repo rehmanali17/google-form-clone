@@ -5,6 +5,7 @@ export const REQUEST_URLS = {
     CREATE_FORM_URL: `${environment.apiURL}/api/user/create-form`,
     GET_FORMS_URL: `${environment.apiURL}/api/user/get-all-forms`,
     GET_RECENT_FORMS_URL: `${environment.apiURL}/api/user/get-recent-forms`,
+    GET_FORMS_PICS_URL: `${environment.apiURL}/api/user/get-forms-pics`,
     DELETE_FORM_URL: `${environment.apiURL}/api/user/delete-form`,
     RENAME_FORM_URL: `${environment.apiURL}/api/user/update-form-title`,
     PUBLISH_FORM_URL: `${environment.apiURL}/api/user/update-form-status`,

@@ -24,6 +24,11 @@ export class FormService {
         return this.httpClient.get<any>(REQUEST_URLS.GET_FORMS_URL);
     }
 
+    // Get Forms
+    getFormsPics(): Observable<any> {
+        return this.httpClient.get<any>(REQUEST_URLS.GET_FORMS_PICS_URL);
+    }
+
     // Get Single Form
     getForm(id: string): Observable<any> {
         return this.httpClient.get<any>(`${REQUEST_URLS.GET_FORM_URL}/${id}`);

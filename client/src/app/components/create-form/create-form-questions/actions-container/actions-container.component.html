@@ -1,20 +1,20 @@
 <form class="actions-container" [formGroup]="form">
     <div class="action-btns">
         <button (click)="handleDuplicateQuestion()" type="button" mat-icon-button>
-            <mat-icon>filter_none</mat-icon>
+            <mat-icon class="dark:text-white">filter_none</mat-icon>
         </button>
         <button (click)="handleDeleteQuestion()" type="button" mat-icon-button>
-            <mat-icon>delete_outline</mat-icon>
+            <mat-icon class="dark:text-white">delete_outline</mat-icon>
         </button>
         <button type="button" (click)="handleAddQuestion()" mat-icon-button>
-            <mat-icon>add_circle_outline</mat-icon>
+            <mat-icon class="dark:text-white">add_circle_outline</mat-icon>
         </button>
     </div>
-    <div class="validation-btns">
-        <span>Required</span>
+    <div class="validation-btns" [ngClass]="{ 'dark-toggle': darkModeEnabled }">
+        <span [ngClass]="{ 'dark-text-color': true }">Required</span>
         <mat-slide-toggle formControlName="isRequired" color="primary"></mat-slide-toggle>
         <button type="button" mat-icon-button>
-            <mat-icon>more_vert</mat-icon>
+            <mat-icon class="dark:text-white">more_vert</mat-icon>
         </button>
     </div>
 </form>

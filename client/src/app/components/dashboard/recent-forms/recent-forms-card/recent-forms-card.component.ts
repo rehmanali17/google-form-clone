@@ -11,6 +11,7 @@ import { RecentForm } from '@models/recent-form.model';
 export class RecentFormsCardComponent implements OnInit {
     @Input() form!: RecentForm;
     @Input() createNewForm!: boolean;
+    @Input() darkModeEnabled!: boolean;
     imageSource!: SafeResourceUrl;
     constructor(private router: Router, private sanitizer: DomSanitizer) {}
 

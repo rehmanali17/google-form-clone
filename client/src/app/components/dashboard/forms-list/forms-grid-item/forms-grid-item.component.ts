@@ -1,39 +1,43 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AppState } from '@models/app-state.model';
 import { Form } from '@models/form.model';
-import { Store } from '@ngrx/store';
-import { FormService } from '@services/form.service';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import * as DialogBoxActions from '@store/dialog-box/dialog-box.actions';
 import * as AuthActions from '@store/auth/auth.actions';
 import * as FormActions from '@store/form/form.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
+import { Store } from '@ngrx/store';
+import { AppState } from '@models/app-state.model';
+import { FormService } from '@services/form.service';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
-    selector: 'app-form-item',
-    templateUrl: './form-item.component.html',
-    styleUrls: ['./form-item.component.scss'],
+    selector: 'app-forms-grid-item',
+    templateUrl: './forms-grid-item.component.html',
+    styleUrls: ['./forms-grid-item.component.scss'],
 })
-export class FormItemComponent implements OnInit {
+export class FormsGridItemComponent implements OnInit {
     @Input() darkModeEnabled!: boolean;
     @Input() form!: Form;
-    isTodayModified = true;
+    @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
+    imageSource!: SafeResourceUrl;
+
     constructor(
-        private store: Store<AppState>,
-        private formService: FormService,
+        private sanitizer: DomSanitizer,
         private router: Router,
-        private snackBar: MatSnackBar
+        private store: Store<AppState>,
+        private snackBar: MatSnackBar,
+        private formService: FormService
     ) {}
 
     ngOnInit() {
-        const date = new Date().getDate();
-        const month = new Date().getMonth();
-        const formModifiedDate = new Date(this.form.updatedAt!).getDate();
-        const formModifiedMonth = new Date(this.form.updatedAt!).getMonth();
-        if (date > formModifiedDate || month > formModifiedMonth) {
-            this.isTodayModified = false;
-        }
+        this.imageSource = this.sanitizer.bypassSecurityTrustResourceUrl(this.form.imageString!);
+    }
+
+    triggerMatMenu(event: Event) {
+        event.preventDefault();
+        this.trigger.openMenu();
     }
 
     removeForm(id: string, title: string) {

@@ -3,7 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 require('dotenv').config();
-const { handleGoogleStrategy, handleJWTStrategy } = require('../services/passport_service');
+const { handleGoogleStrategy, handleJWTStrategy } = require(process.cwd() + '/src/services/passport_service');
 
 passport.serializeUser((user, done) => {
     done(null, user);

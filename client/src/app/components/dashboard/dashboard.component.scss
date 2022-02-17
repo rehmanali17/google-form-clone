@@ -1,3 +1,10 @@
 .spinner-container {
-    @apply flex justify-center mt-12;
+    @apply flex justify-center pt-12;
+    height: 55.9vh;
+    box-sizing: border-box;
 }
+
+// .spinner-container ::ng-deep .mat-progress-spinner circle,
+// .mat-spinner circle {
+//     stroke: white;
+// }

@@ -1,5 +1,5 @@
-const User = require('../models/User');
-const { STATUS_CODES } = require('../utils/constants');
+const User = require(process.cwd() + '/src/models/User');
+const { STATUS_CODES } = require(process.cwd() + '/src/utils/constants');
 
 // Google Authenticatation Service
 const saveUser = async (authenticatedUser, done) => {

@@ -1,5 +1,5 @@
-const { fetchSingleForm } = require('../services/form_service');
-const { STATUS_CODES } = require('../utils/constants');
+const { fetchSingleForm } = require(process.cwd() + '/src/services/form_service');
+const { STATUS_CODES } = require(process.cwd() + '/src/utils/constants');
 
 const getForm = async (req, res) => {
     try {

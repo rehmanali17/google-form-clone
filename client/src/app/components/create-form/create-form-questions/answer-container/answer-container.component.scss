@@ -67,3 +67,16 @@
         }
     }
 }
+
+.dark-icon-color {
+    color: white !important;
+}
+
+.dark-input {
+    ::ng-deep .mat-form-field-underline {
+        background-color: white !important;
+    }
+    ::ng-deep .mat-form-field-ripple {
+        background-color: #353d58 !important;
+    }
+}

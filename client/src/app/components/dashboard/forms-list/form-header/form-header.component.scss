@@ -1,3 +1,4 @@
+$text_color: white;
 .forms-list-header {
     display: flex;
     align-items: center;
@@ -103,4 +104,54 @@
             width: 42%;
         }
     }
+}
+
+.material-icons-sharp {
+    border-radius: 0 !important;
+}
+
+.sort-btns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    font-weight: 500;
+    color: #5f6367;
+
+    div:nth-child(1) {
+        position: relative;
+        left: 10px;
+    }
+
+    div:nth-child(3) {
+        position: relative;
+        right: 10px;
+    }
+
+    .arrows {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+}
+
+mat-icon {
+    color: #5f6367;
+}
+
+.dark-mat-icon {
+    mat-icon {
+        color: $text_color;
+    }
+
+    &:hover {
+        background: #353d58 !important;
+    }
+}
+
+.dark-text-color {
+    color: $text_color !important;
 }

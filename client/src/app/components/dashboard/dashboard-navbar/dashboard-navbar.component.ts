@@ -3,10 +3,11 @@ import * as AuthActions from '@store/auth/auth.actions';
 import * as FormActions from '@store/form/form.actions';
 import { AppState } from '@models/app-state.model';
 import { Store } from '@ngrx/store';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Form } from '@models/form.model';
 import { FormControl } from '@angular/forms';
+import { DarkModeService } from '@services/dark-mode.service';
 
 @Component({
     selector: 'app-dashboard-navbar',
@@ -14,6 +15,7 @@ import { FormControl } from '@angular/forms';
     styleUrls: ['./dashboard-navbar.component.scss'],
 })
 export class DashboardNavbarComponent implements OnInit, OnDestroy {
+    @Input() darkModeEnabled!: boolean;
     userName = '';
     pictureURL = '';
     forms: Form[] = [];
@@ -24,7 +26,11 @@ export class DashboardNavbarComponent implements OnInit, OnDestroy {
     formControlSubscription!: Subscription;
 
     filterTitle = '';
-    constructor(private store: Store<AppState>, private router: Router) {}
+    constructor(
+        private store: Store<AppState>,
+        private router: Router,
+        private darkModeService: DarkModeService
+    ) {}
 
     ngOnInit() {
         this.authSubscription = this.store.select('auth').subscribe((authState) => {
@@ -46,12 +52,19 @@ export class DashboardNavbarComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/');
     }
 
+    toggleDarkMode() {
+        this.darkModeService.toggleDarkMode();
+    }
+
     clearValue() {
         this.title.setValue('');
         this.store.dispatch(new FormActions.SearchForms({ formTitle: '' }));
     }
 
     searchForms(title: string) {
+        if (title === '') {
+            return;
+        }
         this.store.dispatch(new FormActions.SearchForms({ formTitle: title }));
     }
 

@@ -66,6 +66,7 @@ import { AuthEffects } from '@store/auth/auth.effects';
 // Importing Pipes
 import { DropdownFilterPipe } from './pipes/dropdown-filter.pipe';
 import { FormsFilterPipe } from './pipes/forms-filter.pipe';
+import { FormsGridItemComponent } from './components/dashboard/forms-list/forms-grid-item/forms-grid-item.component';
 
 @NgModule({
     declarations: [
@@ -104,6 +105,7 @@ import { FormsFilterPipe } from './pipes/forms-filter.pipe';
 
         DropdownFilterPipe,
         FormsFilterPipe,
+        FormsGridItemComponent,
     ],
     imports: [
         BrowserModule,

@@ -13,6 +13,7 @@ import { SavedFormDialogComponent } from '@components/create-form/saved-form-dia
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Form } from '@models/form.model';
+import { DarkModeService } from '@services/dark-mode.service';
 
 @Component({
     selector: 'app-edit-form',
@@ -25,6 +26,7 @@ export class EditFormComponent implements OnInit, OnDestroy {
     editFormStatus = '';
     imageString = '';
     userForm!: Form;
+    darkModeEnabled = false;
 
     formOverview = this.formBuilder.group({
         title: ['', [Validators.required, Validators.pattern(/^[a-zA-Z _-]+$/)]],
@@ -33,6 +35,7 @@ export class EditFormComponent implements OnInit, OnDestroy {
 
     dialogBoxSubscription!: Subscription;
     formsSubscription!: Subscription;
+    darkModeSubscription!: Subscription;
 
     form = this.formBuilder.group({
         'form-overview': this.formOverview,
@@ -47,6 +50,7 @@ export class EditFormComponent implements OnInit, OnDestroy {
         private dialog: MatDialog,
         private router: Router,
         private route: ActivatedRoute,
+        private darkModeService: DarkModeService,
         private snackBar: MatSnackBar
     ) {}
 
@@ -54,6 +58,17 @@ export class EditFormComponent implements OnInit, OnDestroy {
         this.dialogBoxHandler();
         const formId = this.route.snapshot.params['id'];
         this.loadForm(formId);
+        this.toggleDarkMode();
+    }
+
+    toggleDarkMode() {
+        this.darkModeSubscription = this.darkModeService.darkMode.subscribe((mode) => {
+            if (mode === true) {
+                this.darkModeEnabled = true;
+            } else {
+                this.darkModeEnabled = false;
+            }
+        });
     }
 
     dialogBoxHandler() {
@@ -252,5 +267,6 @@ export class EditFormComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.dialogBoxSubscription.unsubscribe();
         this.formsSubscription.unsubscribe();
+        this.darkModeSubscription.unsubscribe();
     }
 }

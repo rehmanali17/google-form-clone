@@ -1,4 +1,4 @@
-const Form = require('../models/Form');
+const Form = require(process.cwd() + '/src/models/Form');
 
 const saveForm = (payload) => {
     const form = new Form(payload);
@@ -37,6 +37,10 @@ const fetchRecentForms = () => {
     ]);
 };
 
+const fetchFormsPics = () => {
+    return Form.find().select(['_id', 'imageString']);
+};
+
 module.exports = {
     saveForm,
     getForms,
@@ -45,4 +49,5 @@ module.exports = {
     publishForm,
     fetchRecentForms,
     updateForm,
+    fetchFormsPics,
 };

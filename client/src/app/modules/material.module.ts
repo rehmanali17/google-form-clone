@@ -15,6 +15,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const MaterialComponents = [
     MatButtonModule,
@@ -33,6 +34,7 @@ const MaterialComponents = [
     MatCheckboxModule,
     ClipboardModule,
     MatTooltipModule,
+    DragDropModule,
 ];
 
 @NgModule({

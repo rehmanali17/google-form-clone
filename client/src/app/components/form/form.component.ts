@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
     id = '';
     userForm!: Form;
     isLoading = true;
@@ -54,5 +54,9 @@ export class FormComponent implements OnInit {
                 this.router.navigateByUrl('/');
             }
         );
+    }
+
+    ngOnDestroy() {
+        this.formsSubcription.unsubscribe();
     }
 }

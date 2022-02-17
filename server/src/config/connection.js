@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { STATUS_CODES } = require('../utils/constants');
+const { STATUS_CODES } = require(process.cwd() + '/src/utils/constants');
 require('dotenv').config();
 
 const mongoURi = process.env.mongoURi;
