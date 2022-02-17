@@ -9,6 +9,7 @@ import * as FormActions from '@store/form/form.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
+import { LABELS, ROUTES } from '@app/constants';
 
 @Component({
     selector: 'app-form-item',
@@ -51,10 +52,10 @@ export class FormItemComponent implements OnInit {
                 this.store.dispatch(
                     new FormActions.PublishForm({ id, status, updatedAt: new Date() })
                 );
-                this.snackBar.open(res.message, 'Close');
+                this.snackBar.open(res.message, LABELS.DISMISS_SNACKBAR_TEXT);
             },
             (err) => {
-                this.snackBar.open(err.error.message, 'Close');
+                this.snackBar.open(err.error.message, LABELS.DISMISS_SNACKBAR_TEXT);
                 if (err.status === 401) {
                     this.store.dispatch(new AuthActions.Logout());
                 }
@@ -72,6 +73,6 @@ export class FormItemComponent implements OnInit {
         if (element.tagName === 'BUTTON' || element.tagName === 'MAT-ICON') {
             return;
         }
-        this.router.navigate(['/user/edit-form', id]);
+        this.router.navigate([ROUTES.EDIT_FORM, id]);
     }
 }

@@ -1,5 +1,13 @@
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    FormArray,
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    Validators,
+} from '@angular/forms';
 import { AppState } from '@models/app-state.model';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '@store/auth/auth.actions';
@@ -12,7 +20,7 @@ import { Subscription } from 'rxjs';
 import { SavedFormDialogComponent } from '@components/create-form/saved-form-dialog/saved-form-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DarkModeService } from '@services/dark-mode.service';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ALERTS, LABELS } from '@app/constants';
 
 @Component({
     selector: 'app-create-form',
@@ -171,12 +179,18 @@ export class CreateFormComponent implements OnInit, OnDestroy {
         );
     }
 
-    drop(event: any) {
-        moveItemInArray(
-            (<FormArray>this.form.get('questions')).controls,
-            event.previousIndex,
-            event.currentIndex
-        );
+    sortQuestions(event: any) {
+        const currentIndex = event.currentIndex;
+        const previousIndex = event.previousIndex;
+        const formArray = this.getFormArray();
+        const direction = currentIndex > previousIndex ? 1 : -1;
+
+        const control = formArray.at(previousIndex);
+        for (let i = previousIndex; i * direction < currentIndex * direction; i = i + direction) {
+            const currentControl = formArray.at(i + direction);
+            formArray.setControl(i, currentControl);
+        }
+        formArray.setControl(currentIndex, control);
     }
 
     handleSubmit() {
@@ -222,7 +236,7 @@ export class CreateFormComponent implements OnInit, OnDestroy {
                                 new FormActions.ToggleFormSavingStatus({ status: false })
                             );
                             if (err.status === 401) {
-                                this.snackBar.open(err.error.message, 'Close');
+                                this.snackBar.open(err.error.message, LABELS.DISMISS_SNACKBAR_TEXT);
                                 this.store.dispatch(new AuthActions.Logout());
                             } else {
                                 this.store.dispatch(
@@ -237,7 +251,7 @@ export class CreateFormComponent implements OnInit, OnDestroy {
                     );
                 });
         } else {
-            this.snackBar.open('Please fill all the fields correctly', 'Close');
+            this.snackBar.open(ALERTS.INVALID_FORM, LABELS.DISMISS_SNACKBAR_TEXT);
         }
     }
 

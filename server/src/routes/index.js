@@ -5,7 +5,7 @@ const formRoutes = require(process.cwd() + '/src/routes/api/form_routes');
 const { jwtAuthentication } = require(process.cwd() + '/src/middleware/auth_middleware');
 
 router.use('/auth', authRoutes);
-router.use('/user', jwtAuthentication, userRoutes);
+router.use('/user/form', jwtAuthentication, userRoutes);
 router.use('/form', formRoutes);
 
 module.exports = router;

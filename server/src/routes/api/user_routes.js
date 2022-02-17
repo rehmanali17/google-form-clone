@@ -10,20 +10,20 @@ const {
     fetchFormsImages,
 } = require(process.cwd() + '/src/controllers/user_controller');
 
-router.post('/create-form', createForm);
+router.post('/', createForm);
 
-router.get('/get-all-forms', getAllForms);
+router.get('/', getAllForms);
 
-router.get('/get-forms-pics', fetchFormsImages);
+router.get('/pics', fetchFormsImages);
 
-router.get('/get-recent-forms', getRecentForms);
+router.get('/recent', getRecentForms);
 
-router.put('/edit-form/:id', editForm);
+router.put('/:id', editForm);
 
-router.patch('/update-form-title/:id', updateFormTitle);
+router.patch('/:id/title', updateFormTitle);
 
-router.patch('/update-form-status/:id', updateFormStatus);
+router.patch('/:id/status', updateFormStatus);
 
-router.delete('/delete-form/:id', deleteForm);
+router.delete('/:id', deleteForm);
 
 module.exports = router;

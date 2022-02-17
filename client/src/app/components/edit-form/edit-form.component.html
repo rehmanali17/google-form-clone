@@ -13,7 +13,7 @@
             [formOverview]="formOverview"
             [darkModeEnabled]="darkModeEnabled"
         ></app-create-form-title>
-        <div formArrayName="questions">
+        <div cdkDropList formArrayName="questions" (cdkDropListDropped)="sortQuestions($event)">
             <app-create-form-questions
                 *ngFor="let questionControl of getFormArray().controls; let i = index"
                 [formGroupName]="i"
@@ -24,7 +24,12 @@
                 (addQuestion)="handleAddQuestion(i)"
                 (deleteQuestion)="handleDeleteQuestion(i)"
                 (duplicateQuestion)="handleDuplicateQuestion(i)"
-            ></app-create-form-questions>
+                cdkDrag
+            >
+                <mat-icon drag-handle cdkDragHandle class="dark:text-white"
+                    >drag_indicator</mat-icon
+                >
+            </app-create-form-questions>
         </div>
     </div>
 </form>

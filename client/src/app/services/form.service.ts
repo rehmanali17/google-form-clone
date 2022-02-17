@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Form } from '@models/form.model';
-import { REQUEST_URLS } from '@utils/constants';
+import { REQUEST_URLS } from '@app/constants';
 
 @Injectable({
     providedIn: 'root',
@@ -46,12 +46,14 @@ export class FormService {
 
     // Rename Form
     renameForm(id: string, title: string): Observable<any> {
-        return this.httpClient.patch<any>(`${REQUEST_URLS.RENAME_FORM_URL}/${id}`, { title });
+        return this.httpClient.patch<any>(`${REQUEST_URLS.RENAME_FORM_URL}/${id}/title`, { title });
     }
 
     // Publish Form
     publishForm(id: string, status: string): Observable<any> {
-        return this.httpClient.patch<any>(`${REQUEST_URLS.PUBLISH_FORM_URL}/${id}`, { status });
+        return this.httpClient.patch<any>(`${REQUEST_URLS.PUBLISH_FORM_URL}/${id}/status`, {
+            status,
+        });
     }
 
     // Create Forms

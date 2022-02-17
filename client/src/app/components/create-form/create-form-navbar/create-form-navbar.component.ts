@@ -4,6 +4,7 @@ import * as AuthActions from '@store/auth/auth.actions';
 import { AppState } from '@models/app-state.model';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { ROUTES } from '@app/constants';
 
 @Component({
     selector: 'app-create-form-navbar',
@@ -17,6 +18,7 @@ export class CreateFormNavbarComponent implements OnInit, OnDestroy {
     pictureURL = '';
     isSavingForm = false;
     authSubscription!: Subscription;
+    formSubscription = new Subscription();
     @Input() formStatus = '';
     constructor(private store: Store<AppState>, private router: Router) {}
 
@@ -25,7 +27,7 @@ export class CreateFormNavbarComponent implements OnInit, OnDestroy {
             this.userName = authState.user.name;
             this.pictureURL = authState.user.pictureURL;
         });
-        this.store.select('form').subscribe((formState) => {
+        this.formSubscription = this.store.select('form').subscribe((formState) => {
             if (formState.isSavingForm === true) {
                 this.isSavingForm = true;
             } else {
@@ -36,7 +38,7 @@ export class CreateFormNavbarComponent implements OnInit, OnDestroy {
 
     handleLogOut() {
         this.store.dispatch(new AuthActions.Logout());
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl(ROUTES.LANDING_PAGE);
     }
 
     handleFormSubmit(status: string) {
@@ -49,5 +51,6 @@ export class CreateFormNavbarComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.authSubscription.unsubscribe();
+        this.formSubscription.unsubscribe();
     }
 }

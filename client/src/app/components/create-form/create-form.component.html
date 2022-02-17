@@ -13,7 +13,7 @@
             [darkModeEnabled]="darkModeEnabled"
             [formOverview]="formOverview"
         ></app-create-form-title>
-        <div cdkDropList formArrayName="questions" (cdkDropListSorted)="drop($event)">
+        <div cdkDropList formArrayName="questions" (cdkDropListSorted)="sortQuestions($event)">
             <app-create-form-questions
                 *ngFor="let questionControl of getFormArray().controls; let i = index"
                 [formGroupName]="i"

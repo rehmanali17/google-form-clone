@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { LABELS } from '@app/constants';
 
 @Component({
     selector: 'app-form-dialog',
@@ -52,10 +53,10 @@ export class FormDialogComponent implements OnInit, OnDestroy {
         this.formService.deleteForm(this.formId).subscribe(
             (res) => {
                 this.store.dispatch(new FormActions.RemoveForm({ id: this.formId }));
-                this.snackBar.open(res.message, 'Close');
+                this.snackBar.open(res.message, LABELS.DISMISS_SNACKBAR_TEXT);
             },
             (err) => {
-                this.snackBar.open(err.error.message, 'Close');
+                this.snackBar.open(err.error.message, LABELS.DISMISS_SNACKBAR_TEXT);
                 if (err.status === 401) {
                     this.store.dispatch(new AuthActions.Logout());
                 }

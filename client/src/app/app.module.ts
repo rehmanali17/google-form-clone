@@ -36,6 +36,7 @@ import { RecentFormsCardComponent } from '@components/dashboard/recent-forms/rec
 import { FormsListComponent } from '@components/dashboard/forms-list/forms-list.component';
 import { FormHeaderComponent } from '@components/dashboard/forms-list/form-header/form-header.component';
 import { FormItemComponent } from '@components/dashboard/forms-list/form-item/form-item.component';
+import { FormsGridItemComponent } from './components/dashboard/forms-list/forms-grid-item/forms-grid-item.component';
 import { FormDialogComponent } from '@components/dashboard/form-dialog/form-dialog.component';
 import { RenameFormDialogComponent } from './components/dashboard/rename-form-dialog/rename-form-dialog.component';
 
@@ -66,7 +67,6 @@ import { AuthEffects } from '@store/auth/auth.effects';
 // Importing Pipes
 import { DropdownFilterPipe } from './pipes/dropdown-filter.pipe';
 import { FormsFilterPipe } from './pipes/forms-filter.pipe';
-import { FormsGridItemComponent } from './components/dashboard/forms-list/forms-grid-item/forms-grid-item.component';
 
 @NgModule({
     declarations: [
@@ -83,6 +83,7 @@ import { FormsGridItemComponent } from './components/dashboard/forms-list/forms-
         FormsListComponent,
         FormHeaderComponent,
         FormItemComponent,
+        FormsGridItemComponent,
         FormDialogComponent,
         RenameFormDialogComponent,
         ShareFormDialogComponent,
@@ -105,7 +106,6 @@ import { FormsGridItemComponent } from './components/dashboard/forms-list/forms-
 
         DropdownFilterPipe,
         FormsFilterPipe,
-        FormsGridItemComponent,
     ],
     imports: [
         BrowserModule,

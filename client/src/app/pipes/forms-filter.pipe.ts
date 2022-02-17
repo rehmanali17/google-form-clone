@@ -6,10 +6,10 @@ import { Form } from '@models/form.model';
 })
 export class FormsFilterPipe implements PipeTransform {
     transform(forms: Form[], filterTitle: string) {
-        if (filterTitle === '') {
-            return forms;
-        } else {
+        if (filterTitle) {
             return forms.filter((form) => form.title.includes(filterTitle));
+        } else {
+            return forms;
         }
     }
 }

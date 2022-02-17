@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '@models/app-state.model';
 import { FormService } from '@services/form.service';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { LABELS, ROUTES } from '@app/constants';
 
 @Component({
     selector: 'app-forms-grid-item',
@@ -55,10 +56,10 @@ export class FormsGridItemComponent implements OnInit {
                 this.store.dispatch(
                     new FormActions.PublishForm({ id, status, updatedAt: new Date() })
                 );
-                this.snackBar.open(res.message, 'Close');
+                this.snackBar.open(res.message, LABELS.DISMISS_SNACKBAR_TEXT);
             },
             (err) => {
-                this.snackBar.open(err.error.message, 'Close');
+                this.snackBar.open(err.error.message, LABELS.DISMISS_SNACKBAR_TEXT);
                 if (err.status === 401) {
                     this.store.dispatch(new AuthActions.Logout());
                 }
@@ -76,6 +77,6 @@ export class FormsGridItemComponent implements OnInit {
         if (element.tagName === 'BUTTON' || element.tagName === 'MAT-ICON') {
             return;
         }
-        this.router.navigate(['/user/edit-form', id]);
+        this.router.navigate([ROUTES.EDIT_FORM, id]);
     }
 }

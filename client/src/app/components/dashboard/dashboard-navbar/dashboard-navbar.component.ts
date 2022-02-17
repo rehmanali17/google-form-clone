@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { Form } from '@models/form.model';
 import { FormControl } from '@angular/forms';
 import { DarkModeService } from '@services/dark-mode.service';
+import { ROUTES } from '@app/constants';
 
 @Component({
     selector: 'app-dashboard-navbar',
@@ -49,7 +50,7 @@ export class DashboardNavbarComponent implements OnInit, OnDestroy {
 
     handleLogOut() {
         this.store.dispatch(new AuthActions.Logout());
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl(ROUTES.LANDING_PAGE);
     }
 
     toggleDarkMode() {
@@ -62,10 +63,9 @@ export class DashboardNavbarComponent implements OnInit, OnDestroy {
     }
 
     searchForms(title: string) {
-        if (title === '') {
-            return;
+        if (title) {
+            this.store.dispatch(new FormActions.SearchForms({ formTitle: title }));
         }
-        this.store.dispatch(new FormActions.SearchForms({ formTitle: title }));
     }
 
     ngOnDestroy() {

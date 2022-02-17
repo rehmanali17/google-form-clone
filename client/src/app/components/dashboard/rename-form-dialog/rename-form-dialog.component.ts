@@ -18,6 +18,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { LABELS } from '@app/constants';
 
 @Component({
     selector: 'app-rename-form-dialog',
@@ -72,10 +73,10 @@ export class RenameFormDialogComponent implements OnInit, OnDestroy, AfterViewIn
                 this.store.dispatch(
                     new FormActions.RenameForm({ id: this.formId, title, updatedAt: new Date() })
                 );
-                this.snackBar.open(res.message, 'Close');
+                this.snackBar.open(res.message, LABELS.DISMISS_SNACKBAR_TEXT);
             },
             (err) => {
-                this.snackBar.open(err.error.message, 'Close');
+                this.snackBar.open(err.error.message, LABELS.DISMISS_SNACKBAR_TEXT);
                 if (err.status === 401) {
                     this.store.dispatch(new AuthActions.Logout());
                 }

@@ -5,7 +5,7 @@ import { Form } from '@models/form.model';
 import { Subscription } from 'rxjs';
 import { FormService } from '@services/form.service';
 import * as FormActions from '@store/form/form.actions';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ALERTS } from '@app/constants';
 
 @Component({
     selector: 'app-forms-list',
@@ -17,11 +17,9 @@ export class FormsListComponent implements OnInit, OnDestroy {
     forms: Form[] = [];
     isError = false;
     message = '';
-    // imagesExist = false;
     loadImages = false;
     formsSubscription!: Subscription;
     searchFormsSubscription!: Subscription;
-    imageExistanceSubscription!: Subscription;
     filterTitle = '';
     viewType = 'list';
     imagesLoading = true;
@@ -35,7 +33,7 @@ export class FormsListComponent implements OnInit, OnDestroy {
             } else if (formState.forms.length === 0) {
                 this.imagesLoading = false;
                 this.isError = true;
-                this.message = 'No form has been created yet';
+                this.message = ALERTS.ZERO_FORM_EXIST;
             } else {
                 this.loadImages = formState.forms[0].imageString === '' ? true : false;
                 this.forms = [...formState.forms];
@@ -55,12 +53,10 @@ export class FormsListComponent implements OnInit, OnDestroy {
         if (viewType === 'grid' && this.loadImages) {
             this.formService.getFormsPics().subscribe(
                 (res) => {
-                    console.log('First');
                     this.imagesLoading = false;
                     this.store.dispatch(new FormActions.FetchFormsPicsSuccess(res.formImages));
                 },
                 (err) => {
-                    console.log('Second');
                     this.imagesLoading = false;
                     this.isError = true;
                     this.message = err.error.message;
@@ -69,7 +65,7 @@ export class FormsListComponent implements OnInit, OnDestroy {
         } else {
             if (this.forms.length === 0) {
                 this.isError = true;
-                this.message = 'No form has been created yet';
+                this.message = ALERTS.ZERO_FORM_EXIST;
             } else {
                 this.isError = false;
             }

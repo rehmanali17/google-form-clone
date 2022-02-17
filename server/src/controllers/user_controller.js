@@ -14,8 +14,7 @@ const createForm = async (req, res) => {
     try {
         const createdAt = new Date();
         const updatedAt = new Date();
-        const message =
-            req.body.form.status === 'draft' ? 'Form saved as draft successfully' : 'Form published successfully';
+        const message = req.body.form.status === 'draft' ? ' saved as draft successfully' : ' published successfully';
         const savedForm = await saveForm({ userId: req.user._id, ...req.body.form, createdAt, updatedAt });
         res.status(STATUS_CODES.CREATED).json({
             message,
@@ -112,7 +111,7 @@ const editForm = async (req, res) => {
         const updatedAt = new Date();
         await updateForm(id, { ...req.body.form, updatedAt });
         res.status(STATUS_CODES.OK).json({
-            message: 'Update successfully',
+            message: 'updated successfully',
             statusCode: STATUS_CODES.OK,
         });
     } catch (error) {

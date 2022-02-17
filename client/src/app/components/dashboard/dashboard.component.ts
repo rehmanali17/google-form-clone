@@ -12,6 +12,8 @@ import { ShareFormDialogComponent } from '@components/dashboard/share-form-dialo
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DarkModeService } from '@services/dark-mode.service';
+import { LABELS } from '@app/constants';
+import { AutoLogoutService } from '@services/auto-logout.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -31,6 +33,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         private cookieService: CookieService,
         private store: Store<AppState>,
         private formService: FormService,
+        private autoLogoutService: AutoLogoutService,
         private darkModeService: DarkModeService,
         private dialog: MatDialog,
         private snackBar: MatSnackBar
@@ -49,7 +52,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     getCookiePayload() {
-        if (this.cookieService.get('payload') !== undefined) {
+        if (this.cookieService.get('payload')) {
             this.store.dispatch(
                 new AuthActions.LoginSuccess(JSON.parse(this.cookieService.get('payload')))
             );
@@ -89,7 +92,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             },
             (err) => {
                 if (err.status === 401) {
-                    this.snackBar.open(err.error.message, 'Close');
+                    this.snackBar.open(err.error.message, LABELS.DISMISS_SNACKBAR_TEXT);
                     this.store.dispatch(new AuthActions.Logout());
                 }
                 this.store.dispatch(
@@ -106,7 +109,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 this.store.dispatch(new FormActions.FetchRecentForms(res.forms));
             },
             (err) => {
-                this.snackBar.open(err.error.message, 'Close');
+                this.snackBar.open(err.error.message, LABELS.DISMISS_SNACKBAR_TEXT);
                 if (err.status === 401) {
                     this.store.dispatch(new AuthActions.Logout());
                 }

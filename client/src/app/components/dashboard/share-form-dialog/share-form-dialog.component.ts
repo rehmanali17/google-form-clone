@@ -1,11 +1,12 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { AppState } from '@models/app-state.model';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import * as DialogBoxActions from '@store/dialog-box/dialog-box.actions';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ALERTS } from '@app/constants';
 
 @Component({
     selector: 'app-share-form-dialog',
@@ -15,6 +16,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class ShareFormDialogComponent implements OnInit, OnDestroy {
     darkModeEnabled = false;
     link = '';
+    snackBarRef!: MatSnackBarRef<any> | null;
     dialogBoxSubscription!: Subscription;
     constructor(
         private store: Store<AppState>,
@@ -43,10 +45,10 @@ export class ShareFormDialogComponent implements OnInit, OnDestroy {
     }
 
     toggleSnackBar() {
-        this.snackBar.open('Copied to clipboard.');
-        setTimeout(() => {
-            this.snackBar.dismiss();
-        }, 500);
+        this.snackBarRef = this.snackBar._openedSnackBarRef;
+        if (!this.snackBarRef) {
+            this.snackBar.open(ALERTS.MESSAGE_COPIED, undefined, { duration: 1000 });
+        }
     }
 
     selectText(event: Event) {

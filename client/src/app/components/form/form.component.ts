@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ALERTS, LABELS, ROUTES } from '@app/constants';
 import { Form } from '@models/form.model';
 import { FormService } from '@services/form.service';
 import { Subscription } from 'rxjs';
@@ -36,8 +37,8 @@ export class FormComponent implements OnInit, OnDestroy {
                 this.isLoading = false;
                 this.userForm = res.form;
                 if (this.userForm.status === 'draft') {
-                    this.snackBar.open('Form is not published yet', 'Ok');
-                    this.router.navigateByUrl('/');
+                    this.snackBar.open(ALERTS.UNPUBLISHED_FORM, LABELS.DISMISS_SNACKBAR_TEXT);
+                    this.router.navigateByUrl(ROUTES.LANDING_PAGE);
                 }
                 this.userForm.questions.forEach((formQuestion) => {
                     const validations =
@@ -50,8 +51,8 @@ export class FormComponent implements OnInit, OnDestroy {
             },
             (err) => {
                 this.isLoading = false;
-                this.snackBar.open(err.error.message, 'Ok');
-                this.router.navigateByUrl('/');
+                this.snackBar.open(err.error.message, LABELS.DISMISS_SNACKBAR_TEXT);
+                this.router.navigateByUrl(ROUTES.LANDING_PAGE);
             }
         );
     }

@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ALERTS } from '@app/constants';
 import { Question } from '@models/question.model';
 import { ShowErrorStateMatcher } from '@utils/error-state-matcher';
 
@@ -21,7 +22,7 @@ export class QuestionComponent {
 
     getErrorMessage() {
         return this.form.get('answer')?.hasError('required') && this.form.get('answer')?.touched
-            ? `This question is required`
+            ? ALERTS.REQUIRED_QUESTION
             : '';
     }
 }

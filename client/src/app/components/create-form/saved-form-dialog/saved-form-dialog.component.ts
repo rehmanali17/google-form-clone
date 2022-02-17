@@ -2,6 +2,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ROUTES } from '@app/constants';
 import { AppState } from '@models/app-state.model';
 import { Store } from '@ngrx/store';
 import * as DialogBoxActions from '@store/dialog-box/dialog-box.actions';
@@ -52,7 +53,7 @@ export class SavedFormDialogComponent implements OnInit, OnDestroy {
 
     closeDialogBoxAndRedirect() {
         this.store.dispatch(new DialogBoxActions.CloseFormDialogBox());
-        this.router.navigateByUrl('/user');
+        this.router.navigateByUrl(ROUTES.DASHBOARD);
     }
 
     ngOnDestroy() {
