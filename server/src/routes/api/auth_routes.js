@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const { googleAuthentication } = require(process.cwd() + '/src/middleware/auth_middleware');
+const { googleAuthentication } = require('../../middleware/auth_middleware');
 const passport = require('passport');
-const { googleLogin } = require(process.cwd() + '/src/controllers/auth_contoller');
-require(process.cwd() + '/src/config/passport_setup');
+const { googleLogin } = require('../../controllers/auth_contoller');
+require('../../config/passport_setup');
 
 router.get('/google', googleAuthentication);
 

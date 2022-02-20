@@ -1,6 +1,6 @@
 const passport = require('passport');
-const { STATUS_CODES } = require(process.cwd() + '/src/utils/constants');
-require(process.cwd() + '/src/config/passport_setup');
+const { STATUS_CODES, ALERTS } = require('../constants');
+require('../config/passport_setup');
 
 // Google Authentication Middleware
 const googleAuthentication = (req, res, next) => {
@@ -18,7 +18,7 @@ const googleAuthentication = (req, res, next) => {
         })(req, res, next);
     } catch (error) {
         res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: 'Google Authentication error',
+            message: ALERTS.AUTHENTICATION_FAILED,
             error: error.message,
             statusCode: STATUS_CODES.BAD_REQUEST,
         });
@@ -30,8 +30,8 @@ const jwtAuthentication = (req, res, next) => {
     passport.authenticate('jwt', (err, user) => {
         if (err || !user) {
             res.status(STATUS_CODES.UNAUTHORIZED).json({
-                message: 'User is not authorized',
-                error: 'Token is expired',
+                message: ALERTS.UNAUTHORIZED,
+                error: ALERTS.EXPIRED_TOKEN,
                 statusCode: STATUS_CODES.BAD_REQUEST,
             });
         } else {

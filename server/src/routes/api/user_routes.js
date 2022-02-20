@@ -8,7 +8,7 @@ const {
     getRecentForms,
     updateFormStatus,
     fetchFormsImages,
-} = require(process.cwd() + '/src/controllers/user_controller');
+} = require('../../controllers/user_controller');
 
 router.post('/', createForm);
 
