@@ -1,12 +1,37 @@
-<div class="forms-list">
-    <app-form-header></app-form-header>
+<div class="forms-list dark:bg-[#192039] dark:text-white">
+    <app-form-header
+        (toggleFormView)="toggleFormView($event)"
+        (sortForms)="sortForms($event)"
+        [darkModeEnabled]="darkModeEnabled"
+    ></app-form-header>
     <ng-container *ngIf="!isError; else noForm">
-        <app-form-item
-            *ngFor="let form of forms | forms_filter: filterTitle"
-            [form]="form"
-        ></app-form-item>
+        <ng-container *ngIf="viewType === 'list'">
+            <app-form-item
+                *ngFor="let form of forms | forms_filter: filterTitle"
+                [form]="form"
+                [darkModeEnabled]="darkModeEnabled"
+            ></app-form-item>
+        </ng-container>
+        <ng-container *ngIf="viewType === 'grid'">
+            <ng-container *ngIf="!imagesLoading; else spinner">
+                <ng-container *ngIf="!loadImages; else noForm">
+                    <div class="grid-view-container">
+                        <app-forms-grid-item
+                            *ngFor="let form of forms | forms_filter: filterTitle"
+                            [form]="form"
+                            [darkModeEnabled]="darkModeEnabled"
+                        ></app-forms-grid-item>
+                    </div>
+                </ng-container>
+            </ng-container>
+            <ng-template #spinner>
+                <div class="spinner-container">
+                    <mat-spinner [diameter]="40"></mat-spinner>
+                </div>
+            </ng-template>
+        </ng-container>
     </ng-container>
     <ng-template #noForm>
-        <div class="no-form">{{ message }}</div>
+        <div class="no-form" [ngClass]="{ 'dark-no-form': darkModeEnabled }">{{ message }}</div>
     </ng-template>
 </div>

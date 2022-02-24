@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const { STATUS_CODES } = require('../utils/constants');
+const { STATUS_CODES, ALERTS } = require('../constants');
 
 // Google Authenticatation Service
 const saveUser = async (authenticatedUser, done) => {
@@ -16,7 +16,7 @@ const saveUser = async (authenticatedUser, done) => {
                 })
                 .catch((error) => {
                     done(error, false, {
-                        message: 'Error while adding the user in the database',
+                        message: ALERTS.ERROR_SAVING_USER,
                         error: error.message,
                     });
                 });
@@ -25,7 +25,7 @@ const saveUser = async (authenticatedUser, done) => {
         }
     } catch (error) {
         done(error, false, {
-            message: 'An unknown error occured',
+            message: ALERTS.UNKNOWN_ERROR,
             error: error.message,
         });
     }
@@ -37,7 +37,7 @@ const validateUser = async ({ id }, done) => {
         const user = await User.findById(id).select('-__v');
         if (user === null) {
             done(null, false, {
-                message: 'User does not exist',
+                message: ALERTS.NO_USER,
                 statudCode: STATUS_CODES.NOT_FOUND,
             });
         } else {
@@ -45,7 +45,7 @@ const validateUser = async ({ id }, done) => {
         }
     } catch (error) {
         done(error, false, {
-            message: 'An unknown error occured',
+            message: ALERTS.UNKNOWN_ERROR,
             error: error.message,
         });
     }

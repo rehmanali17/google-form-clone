@@ -8,6 +8,7 @@ import { ShowErrorStateMatcher } from '@utils/error-state-matcher';
     styleUrls: ['./create-form-title.component.scss'],
 })
 export class CreateFormTitleComponent {
+    @Input() darkModeEnabled!: boolean;
     matcher = new ShowErrorStateMatcher();
     // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('formOverview') form!: FormGroup;

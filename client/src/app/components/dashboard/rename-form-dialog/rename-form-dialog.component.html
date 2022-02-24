@@ -1,10 +1,24 @@
 <div class="edit-form-container">
-    <h1 mat-dialog-title class="title">Rename</h1>
-    <div mat-dialog-content class="description">Please Enter a new name for the item</div>
+    <h1 mat-dialog-title class="title dark:text-white">Rename</h1>
+    <div mat-dialog-content class="description" [ngClass]="{ 'dark-text-color': darkModeEnabled }">
+        Please Enter a new name for the item
+    </div>
     <form [formGroup]="form" (ngSubmit)="handleFormSubmit()">
-        <input #title class="form-title" formControlName="title" type="text" />
+        <input
+            #title
+            class="form-title"
+            [ngClass]="{ 'dark-form-title': darkModeEnabled }"
+            formControlName="title"
+            type="text"
+        />
         <mat-dialog-actions align="end">
-            <button type="button" class="cancel-btn" (click)="closeDialogBox()" cdkFocusInitial>
+            <button
+                type="button"
+                class="cancel-btn"
+                [ngClass]="{ 'dark-cancel-btn': darkModeEnabled }"
+                (click)="closeDialogBox()"
+                cdkFocusInitial
+            >
                 Cancel
             </button>
             <button type="submit" class="edit-btn" [disabled]="form.invalid">OK</button>

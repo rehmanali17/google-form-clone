@@ -7,20 +7,23 @@ const {
     updateFormTitle,
     getRecentForms,
     updateFormStatus,
+    fetchFormsImages,
 } = require('../../controllers/user_controller');
 
-router.post('/create-form', createForm);
+router.post('/', createForm);
 
-router.get('/get-all-forms', getAllForms);
+router.get('/', getAllForms);
 
-router.get('/get-recent-forms', getRecentForms);
+router.get('/pics', fetchFormsImages);
 
-router.put('/edit-form/:id', editForm);
+router.get('/recent', getRecentForms);
 
-router.patch('/update-form-title/:id', updateFormTitle);
+router.put('/:id', editForm);
 
-router.patch('/update-form-status/:id', updateFormStatus);
+router.patch('/:id/title', updateFormTitle);
 
-router.delete('/delete-form/:id', deleteForm);
+router.patch('/:id/status', updateFormStatus);
+
+router.delete('/:id', deleteForm);
 
 module.exports = router;

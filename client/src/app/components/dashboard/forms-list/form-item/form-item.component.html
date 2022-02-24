@@ -1,45 +1,68 @@
-<div class="forms-list-item" (click)="redirectToEditPage($event, form._id!)">
+<div
+    class="forms-list-item dark:text-white"
+    [ngClass]="{ 'dark-forms-list-item': darkModeEnabled }"
+    (click)="redirectToEditPage($event, form._id!)"
+>
     <div class="form-icon">
         <img class="" src="../../../../assets/google-form-list-item-logo.png" alt="" />
     </div>
-    <div class="form-title">
+    <div class="form-title" [ngClass]="{ 'dark-text-color': darkModeEnabled }">
         {{ form.title }}
     </div>
-    <div class="form-status">{{ form.status | titlecase }}</div>
-    <div *ngIf="isTodayModified; else isNotModifiedToday" class="form-modified-date">
+    <div [ngClass]="{ 'dark-text-color:': darkModeEnabled }" class="form-status">
+        {{ form.status | titlecase }}
+    </div>
+    <div
+        [ngClass]="{ 'dark-text-color': darkModeEnabled }"
+        *ngIf="isTodayModified; else isNotModifiedToday"
+        class="form-modified-date"
+    >
         {{ form.updatedAt | date: 'mediumTime' }}
     </div>
     <ng-template #isNotModifiedToday>
-        <div class="form-modified-date">
+        <div [ngClass]="{ 'dark-text-color': darkModeEnabled }" class="form-modified-date">
             {{ form.updatedAt | date: 'mediumDate' }}
         </div>
     </ng-template>
     <div class="form-header-action-btns">
-        <button mat-icon-button [matMenuTriggerFor]="formListItemOptions">
+        <button
+            [ngClass]="{ 'dark-btn': darkModeEnabled }"
+            mat-icon-button
+            [matMenuTriggerFor]="formListItemOptions"
+        >
             <mat-icon>more_vert</mat-icon>
         </button>
-        <mat-menu #formListItemOptions="matMenu" yPosition="below">
-            <button (click)="renameForm(form._id!, form.title)" mat-menu-item>
-                <mat-icon>text_fields</mat-icon>&nbsp;Rename
+        <mat-menu class="dark:bg-[#5a6582]" #formListItemOptions="matMenu" yPosition="below">
+            <button
+                class="dark:text-white dark:hover:bg-[#353d58]"
+                (click)="renameForm(form._id!, form.title)"
+                mat-menu-item
+            >
+                <mat-icon class="dark:text-white mr-1">text_fields</mat-icon>Rename
             </button>
-            <button (click)="removeForm(form._id!, form.title)" mat-menu-item>
-                <mat-icon>delete_outline</mat-icon>&nbsp;Remove
+            <button
+                class="dark:text-white dark:hover:bg-[#353d58]"
+                (click)="removeForm(form._id!, form.title)"
+                mat-menu-item
+            >
+                <mat-icon class="dark:text-white mr-1">delete_outline</mat-icon>Remove
             </button>
             <button
                 [disabled]="form.status === 'published'"
                 (click)="publishForm(form._id!)"
+                class="dark:text-white dark:hover:bg-[#353d58]"
                 mat-menu-item
             >
-                <mat-icon>publish</mat-icon>&nbsp;Publish
+                <mat-icon class="dark:text-white mr-1">publish</mat-icon>Publish
             </button>
             <button
                 [disabled]="form.status !== 'published'"
                 (click)="shareForm(form._id!)"
+                class="dark:text-white dark:hover:bg-[#353d58]"
                 mat-menu-item
             >
-                <mat-icon>share</mat-icon>&nbsp;Share
+                <mat-icon class="dark:text-white mr-1">share</mat-icon>Share
             </button>
-            <!-- <button mat-menu-item><mat-icon>open_in_new</mat-icon>&nbsp;Open in new tab</button> -->
         </mat-menu>
     </div>
 </div>

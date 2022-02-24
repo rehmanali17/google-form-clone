@@ -1,0 +1,61 @@
+<div
+    class="card"
+    [ngClass]="{ 'dark-card': darkModeEnabled }"
+    (contextmenu)="triggerMatMenu($event)"
+    (click)="redirectToEditPage($event, form._id!)"
+>
+    <div class="card-image" [ngClass]="{ 'dark-card-image': darkModeEnabled }">
+        <img [src]="imageSource" [alt]="form.title" />
+    </div>
+    <div class="card-body">
+        <div class="form-title" [ngClass]="{ 'dark-text-color': darkModeEnabled }">
+            {{ form.title }}
+        </div>
+        <div class="actions-container">
+            <div class="logo">
+                <img src="../../../../../assets/forms.png" alt="Logo" />
+            </div>
+            <div class="modified-date">Modified {{ form.updatedAt | date: 'mediumDate' }}</div>
+            <button
+                class="dark:text-white dark:hover:bg-[#353d58]"
+                class="option-button"
+                mat-icon-button
+                [matMenuTriggerFor]="formGridItemOptions"
+            >
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu class="dark:bg-[#5a6582]" #formGridItemOptions="matMenu" yPosition="below">
+                <button
+                    class="dark:text-white dark:hover:bg-[#353d58]"
+                    (click)="renameForm(form._id!, form.title)"
+                    mat-menu-item
+                >
+                    <mat-icon class="dark:text-white mr-1">text_fields</mat-icon>Rename
+                </button>
+                <button
+                    class="dark:text-white dark:hover:bg-[#353d58]"
+                    (click)="removeForm(form._id!, form.title)"
+                    mat-menu-item
+                >
+                    <mat-icon class="dark:text-white mr-1">delete_outline</mat-icon>Remove
+                </button>
+                <button
+                    [disabled]="form.status === 'published'"
+                    (click)="publishForm(form._id!)"
+                    class="dark:text-white dark:hover:bg-[#353d58]"
+                    mat-menu-item
+                >
+                    <mat-icon class="dark:text-white mr-1">publish</mat-icon>Publish
+                </button>
+                <button
+                    [disabled]="form.status !== 'published'"
+                    (click)="shareForm(form._id!)"
+                    class="dark:text-white dark:hover:bg-[#353d58]"
+                    mat-menu-item
+                >
+                    <mat-icon class="dark:text-white mr-1"> share</mat-icon>Share
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+</div>

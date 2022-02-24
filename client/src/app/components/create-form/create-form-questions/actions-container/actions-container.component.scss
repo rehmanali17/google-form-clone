@@ -31,5 +31,18 @@
             user-select: none;
             margin: 0 8px;
         }
+
+        .dark-text-color {
+            color: white !important;
+        }
+    }
+}
+
+.dark-toggle {
+    ::ng-deep .mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-bar {
+        background-color: #353d58 !important;
+    }
+    ::ng-deep .mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-thumb {
+        background-color: #353d58 !important;
     }
 }

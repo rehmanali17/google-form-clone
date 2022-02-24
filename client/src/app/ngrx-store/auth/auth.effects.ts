@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ROUTES } from '@app/constants';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
+import { AutoLogoutService } from '@services/auto-logout.service';
 import * as AuthActions from '@store/auth/auth.actions';
 import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class AuthEffects {
-    constructor(private actions$: Actions, private router: Router) {}
+    constructor(
+        private actions$: Actions,
+        private router: Router,
+        private autoLogoutService: AutoLogoutService
+    ) {}
 
     loginSuccess = createEffect(
         () =>
@@ -25,9 +31,11 @@ export class AuthEffects {
             this.actions$.pipe(
                 ofType(AuthActions.LOGOUT),
                 tap(() => {
+                    this.autoLogoutService.clearTokenExpirationTimer();
                     localStorage.removeItem('accessToken');
+                    localStorage.removeItem('tokenExpirationDuration');
                     localStorage.removeItem('user');
-                    this.router.navigateByUrl('/');
+                    this.router.navigateByUrl(ROUTES.LANDING_PAGE);
                 })
             ),
         { dispatch: false }

@@ -11,7 +11,6 @@
     padding: 12px 20px 0;
     box-sizing: border-box;
     border-bottom: 1px solid #bdbdbd;
-    margin-bottom: 12px;
     background: white;
 
     .navbar {
@@ -83,6 +82,10 @@
                         border: 4px solid #f0f0f0;
                     }
                 }
+
+                .dark-user-image:hover {
+                    border: 4px solid #353d58;
+                }
             }
 
             @media screen and (max-width: 950px) {
@@ -123,4 +126,34 @@
             }
         }
     }
+
+    .dark-genre {
+        div {
+            color: white;
+        }
+
+        div:nth-child(1) {
+            color: white;
+            border-bottom: 2px solid white;
+        }
+    }
+}
+
+.dark-outer-navbar {
+    background: #192039;
+}
+
+.dark-text-color {
+    color: white !important;
+}
+
+.dark-btn {
+    color: white;
+    &:hover {
+        background: #353d58 !important;
+    }
+}
+
+.dark-flat-btn {
+    background: #353d58 !important;
 }

@@ -10,6 +10,7 @@ export const PUBLISH_FORM = 'PUBLISH_FORM';
 export const FETCH_RECENT_FORMS = 'FETCH_RECENT_FORMS';
 export const TOGGLE_FORM_SAVING_STATUS = 'TOGGLE_FORM_SAVING_STATUS';
 export const SEARCH_FORMS = 'SEARCH_FORMS';
+export const FETCH_FORMS_PICS_SUCCESS = 'FETCH_FORMS_PICS_SUCCESS';
 
 export class FetchFormsSuccess implements Action {
     readonly type = FETCH_FORMS_SUCCESS;
@@ -51,6 +52,11 @@ export class SearchForms implements Action {
     constructor(public payload: { formTitle: string }) {}
 }
 
+export class FetchFormsPicsSuccess implements Action {
+    readonly type = FETCH_FORMS_PICS_SUCCESS;
+    constructor(public payload: any) {}
+}
+
 export type FormActions =
     | FetchFormsSuccess
     | FetchFormsError
@@ -59,4 +65,5 @@ export type FormActions =
     | RenameForm
     | PublishForm
     | ToggleFormSavingStatus
-    | SearchForms;
+    | SearchForms
+    | FetchFormsPicsSuccess;

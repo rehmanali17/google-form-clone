@@ -5,6 +5,7 @@ export interface Form {
     title: string;
     description: string;
     status: string;
+    imageString?: string;
     questions: Question[];
     createdAt?: Date;
     updatedAt?: Date;

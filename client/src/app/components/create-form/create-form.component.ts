@@ -1,5 +1,13 @@
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    FormArray,
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    Validators,
+} from '@angular/forms';
 import { AppState } from '@models/app-state.model';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '@store/auth/auth.actions';
@@ -11,6 +19,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { SavedFormDialogComponent } from '@components/create-form/saved-form-dialog/saved-form-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DarkModeService } from '@services/dark-mode.service';
+import { ALERTS, LABELS } from '@app/constants';
 
 @Component({
     selector: 'app-create-form',
@@ -21,6 +31,7 @@ export class CreateFormComponent implements OnInit, OnDestroy {
     @ViewChild('capture_screen', { static: true }) captureScreen: any;
     formStatus = '';
     imageString = '';
+    darkModeEnabled = false;
 
     formOverview = this.formBuilder.group({
         title: ['Form Title', [Validators.required, Validators.pattern(/^[a-zA-Z _-]+$/)]],
@@ -31,6 +42,7 @@ export class CreateFormComponent implements OnInit, OnDestroy {
     });
 
     dialogBoxSubscription!: Subscription;
+    darkModeSubscription!: Subscription;
 
     form = this.formBuilder.group({
         'form-overview': this.formOverview,
@@ -56,17 +68,32 @@ export class CreateFormComponent implements OnInit, OnDestroy {
         private captureService: NgxCaptureService,
         private store: Store<AppState>,
         private dialog: MatDialog,
+        private darkModeService: DarkModeService,
         private snackBar: MatSnackBar
     ) {}
 
     ngOnInit() {
         this.dialogBoxHandler();
+        this.toggleDarkMode();
+    }
+
+    toggleDarkMode() {
+        this.darkModeSubscription = this.darkModeService.darkMode.subscribe((mode) => {
+            if (mode) {
+                this.darkModeEnabled = true;
+            } else {
+                this.darkModeEnabled = false;
+            }
+        });
     }
 
     dialogBoxHandler() {
         this.dialogBoxSubscription = this.store.select('dialogBox').subscribe((dialogBoxState) => {
-            if (dialogBoxState.formDialogBox.status === true) {
-                this.dialog.open(SavedFormDialogComponent);
+            if (dialogBoxState.formDialogBox.status) {
+                this.dialog.open(SavedFormDialogComponent, {
+                    autoFocus: true,
+                    data: this.darkModeEnabled,
+                });
             } else {
                 this.dialog.closeAll();
             }
@@ -152,6 +179,20 @@ export class CreateFormComponent implements OnInit, OnDestroy {
         );
     }
 
+    sortQuestions(event: any) {
+        const currentIndex = event.currentIndex;
+        const previousIndex = event.previousIndex;
+        const formArray = this.getFormArray();
+        const direction = currentIndex > previousIndex ? 1 : -1;
+
+        const control = formArray.at(previousIndex);
+        for (let i = previousIndex; i * direction < currentIndex * direction; i = i + direction) {
+            const currentControl = formArray.at(i + direction);
+            formArray.setControl(i, currentControl);
+        }
+        formArray.setControl(currentIndex, control);
+    }
+
     handleSubmit() {
         if (this.form.valid) {
             this.store.dispatch(new FormActions.ToggleFormSavingStatus({ status: true }));
@@ -195,7 +236,7 @@ export class CreateFormComponent implements OnInit, OnDestroy {
                                 new FormActions.ToggleFormSavingStatus({ status: false })
                             );
                             if (err.status === 401) {
-                                this.snackBar.open(err.error.message, 'Close');
+                                this.snackBar.open(err.error.message, LABELS.DISMISS_SNACKBAR_TEXT);
                                 this.store.dispatch(new AuthActions.Logout());
                             } else {
                                 this.store.dispatch(
@@ -210,11 +251,12 @@ export class CreateFormComponent implements OnInit, OnDestroy {
                     );
                 });
         } else {
-            this.snackBar.open('Please fill all the fields correctly', 'Close');
+            this.snackBar.open(ALERTS.INVALID_FORM, LABELS.DISMISS_SNACKBAR_TEXT);
         }
     }
 
     ngOnDestroy() {
         this.dialogBoxSubscription.unsubscribe();
+        this.darkModeSubscription.unsubscribe();
     }
 }

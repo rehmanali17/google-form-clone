@@ -1,13 +1,24 @@
-<form class="custom-container" [formGroup]="form">
-    <div class="form-information-container">
+<form class="custom-container" [formGroup]="form" autocomplete="off">
+    <div
+        class="form-information-container dark:bg-[#192039]"
+        [ngClass]="{ 'dark-form-information-container': darkModeEnabled }"
+    >
         <div class="form-title">
-            <mat-form-field appearance="legacy">
+            <mat-form-field
+                class="dark:text-white"
+                [ngClass]="{ 'dark-input': darkModeEnabled }"
+                appearance="legacy"
+            >
                 <input [errorStateMatcher]="matcher" formControlName="title" matInput autofocus />
                 <mat-error>{{ getErrorMessage('title', 'Form title') }}</mat-error>
             </mat-form-field>
         </div>
         <div class="form-description">
-            <mat-form-field appearance="legacy">
+            <mat-form-field
+                [ngClass]="{ 'dark-input': darkModeEnabled }"
+                class="dark:text-white"
+                appearance="legacy"
+            >
                 <input [errorStateMatcher]="matcher" formControlName="description" matInput />
             </mat-form-field>
             <mat-error>{{ getErrorMessage('description', 'Form description') }}</mat-error>

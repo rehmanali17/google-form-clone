@@ -36,6 +36,7 @@ import { RecentFormsCardComponent } from '@components/dashboard/recent-forms/rec
 import { FormsListComponent } from '@components/dashboard/forms-list/forms-list.component';
 import { FormHeaderComponent } from '@components/dashboard/forms-list/form-header/form-header.component';
 import { FormItemComponent } from '@components/dashboard/forms-list/form-item/form-item.component';
+import { FormsGridItemComponent } from './components/dashboard/forms-list/forms-grid-item/forms-grid-item.component';
 import { FormDialogComponent } from '@components/dashboard/form-dialog/form-dialog.component';
 import { RenameFormDialogComponent } from './components/dashboard/rename-form-dialog/rename-form-dialog.component';
 
@@ -82,6 +83,7 @@ import { FormsFilterPipe } from './pipes/forms-filter.pipe';
         FormsListComponent,
         FormHeaderComponent,
         FormItemComponent,
+        FormsGridItemComponent,
         FormDialogComponent,
         RenameFormDialogComponent,
         ShareFormDialogComponent,

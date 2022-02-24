@@ -1,33 +1,55 @@
 <div class="answer-container">
-    <mat-form-field *ngIf="questionType === 'short'" id="short-answer" appearance="legacy">
-        <input matInput disabled value="Short answer text" />
+    <mat-form-field
+        *ngIf="questionType === 'short'"
+        [ngClass]="{ 'dark-input': darkModeEnabled }"
+        id="short-answer"
+        appearance="legacy"
+    >
+        <input class="dark:text-white" matInput disabled value="Short answer text" />
     </mat-form-field>
-    <mat-form-field *ngIf="questionType === 'long'" id="long-answer" appearance="legacy">
-        <input matInput disabled value="Long answer text" />
+    <mat-form-field
+        *ngIf="questionType === 'long'"
+        id="long-answer"
+        [ngClass]="{ 'dark-input': darkModeEnabled }"
+        appearance="legacy"
+    >
+        <input class="dark:text-white" matInput disabled value="Long answer text" />
     </mat-form-field>
     <form
         [formGroup]="form"
         *ngIf="questionType === 'multiple-choice'"
         id="multiple-choice-container"
+        autocomplete="off"
     >
         <div id="multiple-choice" formArrayName="options">
             <div class="choice" *ngFor="let option of getFormArray().controls; let i = index">
-                <mat-icon class="custom-icon-color">radio_button_unchecked</mat-icon>
-                <mat-form-field appearance="legacy">
-                    <input [errorStateMatcher]="matcher" [formControlName]="i" matInput />
+                <mat-icon
+                    [ngClass]="{ 'dark-icon-color': darkModeEnabled }"
+                    class="custom-icon-color"
+                    >radio_button_unchecked</mat-icon
+                >
+                <mat-form-field appearance="legacy" [ngClass]="{ 'dark-input': darkModeEnabled }">
+                    <input
+                        [errorStateMatcher]="matcher"
+                        class="dark:text-white"
+                        [formControlName]="i"
+                        matInput
+                    />
                     <mat-error>{{ getErrorMessage(i) }}</mat-error>
                 </mat-form-field>
                 <button type="button" mat-icon-button>
-                    <mat-icon>crop_original</mat-icon>
+                    <mat-icon class="dark:text-white">crop_original</mat-icon>
                 </button>
                 <button (click)="removeOption(i)" type="button" mat-icon-button>
-                    <mat-icon>clear</mat-icon>
+                    <mat-icon class="dark:text-white">clear</mat-icon>
                 </button>
             </div>
         </div>
         <div class="multiple-choice-actions">
-            <mat-icon class="custom-icon-color">radio_button_unchecked</mat-icon>
-            <span (click)="addOption()">Add Option</span>
+            <mat-icon class="custom-icon-color" [ngClass]="{ 'dark-icon-color': darkModeEnabled }"
+                >radio_button_unchecked</mat-icon
+            >
+            <span class="dark:text-white" (click)="addOption()">Add Option</span>
         </div>
     </form>
 </div>

@@ -37,7 +37,7 @@
         </mat-radio-group>
         <div class="clear-btn-container">
             <button
-                *ngIf="form.get('answer')?.value !== null"
+                *ngIf="form.get('answer')?.value"
                 type="button"
                 (click)="resetOption()"
                 class="clear-btn"

@@ -1,65 +1,40 @@
-const {
-    saveForm,
-    getForms,
-    removeForm,
-    renameForm,
-    publishForm,
-    fetchRecentForms,
-    updateForm,
-} = require('../services/user_service');
-const { STATUS_CODES } = require('../utils/constants');
+const Form = require('../models/Form');
+const { STATUS_CODES, ALERTS } = require('../constants');
+const { successResponse, failedResponse } = require('../services/response_service');
 
 const createForm = async (req, res) => {
     try {
-        const createdAt = new Date();
-        const updatedAt = new Date();
-        const message =
-            req.body.form.status === 'draft' ? 'Form saved as draft successfully' : 'Form published successfully';
-        const savedForm = await saveForm({ userId: req.user._id, ...req.body.form, createdAt, updatedAt });
-        res.status(STATUS_CODES.CREATED).json({
-            message,
-            form: savedForm,
-            statusCode: STATUS_CODES.CREATED,
-        });
+        const message = req.body.form.status === 'draft' ? ' saved as draft successfully' : ' published successfully';
+        const form = new Form({ userId: req.user._id, ...req.body.form });
+        const savedForm = await form.save();
+        successResponse(res, { form: savedForm }, STATUS_CODES.CREATED, message);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: 'Error saving the form',
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.ERROR_SAVING_FORM, STATUS_CODES.BAD_REQUEST);
     }
 };
 
 const getAllForms = async (req, res) => {
     try {
-        const forms = await getForms(req.user._id);
-        res.status(STATUS_CODES.OK).json({
-            forms,
-            statusCode: STATUS_CODES.OK,
+        const docs = await Form.find({ userId: req.user._id }).select(['-__v', '-imageString']);
+        const forms = docs.map((doc) => {
+            return {
+                ...doc._doc,
+                imageString: '',
+            };
         });
+        successResponse(res, { forms }, STATUS_CODES.OK);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: 'Error retreiving the forms',
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.FORM_FETCH_ERROR, STATUS_CODES.BAD_REQUEST);
     }
 };
 
 const deleteForm = async (req, res) => {
     try {
         const { id } = req.params;
-        await removeForm(id);
-        res.status(STATUS_CODES.OK).json({
-            message: 'Form removed successfully',
-            statusCode: STATUS_CODES.OK,
-        });
+        await Form.deleteOne({ id });
+        successResponse(res, {}, STATUS_CODES.OK, ALERTS.FORM_REMOVE_SUCCESS);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: 'Error removing the form',
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.FORM_REMOVE_FAIL, STATUS_CODES.BAD_REQUEST);
     }
 };
 
@@ -67,17 +42,10 @@ const updateFormTitle = async (req, res) => {
     try {
         const { id } = req.params;
         const { title } = req.body;
-        await renameForm(id, title);
-        res.status(STATUS_CODES.OK).json({
-            message: 'Renamed successfully',
-            statusCode: STATUS_CODES.OK,
-        });
+        await Form.findByIdAndUpdate(id, { title }, { timestamps: { createdAt: false, updatedAt: true } });
+        successResponse(res, {}, STATUS_CODES.OK, ALERTS.FORM_RENAME_SUCCESS);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: 'Error renaming the form',
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.FORM_RENAME_FAIL, STATUS_CODES.BAD_REQUEST);
     }
 };
 
@@ -85,51 +53,51 @@ const updateFormStatus = async (req, res) => {
     try {
         const { id } = req.params;
         const { status } = req.body;
-        await publishForm(id, status);
-        res.status(STATUS_CODES.OK).json({
-            message: 'Published successfully',
-            statusCode: STATUS_CODES.OK,
-        });
+        await Form.findByIdAndUpdate(id, { status }, { timestamps: { createdAt: false, updatedAt: true } });
+        successResponse(res, {}, STATUS_CODES.OK, ALERTS.FORM_STATUS_UPDATE_SUCCESS);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: 'Error publishing the form',
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.FORM_STATUS_UPDATE_FAIL, STATUS_CODES.BAD_REQUEST);
     }
 };
 
 const editForm = async (req, res) => {
     try {
         const { id } = req.params;
-        const updatedAt = new Date();
-        await updateForm(id, { ...req.body.form, updatedAt });
-        res.status(STATUS_CODES.OK).json({
-            message: 'Update successfully',
-            statusCode: STATUS_CODES.OK,
-        });
+        await Form.findByIdAndUpdate(id, { ...req.body.form }, { timestamps: { createdAt: false, updatedAt: true } });
+        successResponse(res, {}, STATUS_CODES.OK, ALERTS.FORM_EDIT_SUCCESS);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: 'Error updating the form',
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.FORM_EDIT_FAIL, STATUS_CODES.BAD_REQUEST);
     }
 };
 
 const getRecentForms = async (req, res) => {
     try {
-        const forms = await fetchRecentForms();
-        res.status(STATUS_CODES.OK).json({
-            forms,
-            statusCode: STATUS_CODES.OK,
-        });
+        const forms = await Form.aggregate([
+            { $project: { _id: 1, imageString: 1, title: 1 } },
+            {
+                $sort: { updatedAt: -1 },
+            },
+            { $limit: 5 },
+        ]);
+        successResponse(res, { forms }, STATUS_CODES.OK);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: 'Error fetching the forms',
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
+        failedResponse(res, error.message, ALERTS.FORM_FETCH_ERROR, STATUS_CODES.BAD_REQUEST);
+    }
+};
+
+const fetchFormsImages = async (req, res) => {
+    try {
+        const forms = await Form.find().select(['_id', 'imageString']);
+        let formImages = {};
+        forms.forEach((form) => {
+            formImages = {
+                ...formImages,
+                [form['_id']]: form.imageString,
+            };
         });
+        successResponse(res, { formImages }, STATUS_CODES.OK);
+    } catch (error) {
+        failedResponse(res, error.message, ALERTS.FORM_IMAGES_FETCH_ERROR, STATUS_CODES.BAD_REQUEST);
     }
 };
 
@@ -141,4 +109,5 @@ module.exports = {
     updateFormStatus,
     getRecentForms,
     editForm,
+    fetchFormsImages,
 };

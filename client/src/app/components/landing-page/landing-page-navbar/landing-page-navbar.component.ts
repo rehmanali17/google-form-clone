@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { REQUEST_URLS } from '@utils/constants';
+import { REQUEST_URLS } from '@app/constants';
 @Component({
     selector: 'app-landing-page-navbar',
     templateUrl: './landing-page-navbar.component.html',

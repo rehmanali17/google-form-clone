@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ALERTS, FORM_STATUS, LABELS, ROUTES } from '@app/constants';
 import { Form } from '@models/form.model';
 import { FormService } from '@services/form.service';
 import { Subscription } from 'rxjs';
@@ -11,7 +12,7 @@ import { Subscription } from 'rxjs';
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
     id = '';
     userForm!: Form;
     isLoading = true;
@@ -35,13 +36,12 @@ export class FormComponent implements OnInit {
             (res) => {
                 this.isLoading = false;
                 this.userForm = res.form;
-                if (this.userForm.status === 'draft') {
-                    this.snackBar.open('Form is not published yet', 'Ok');
-                    this.router.navigateByUrl('/');
+                if (this.userForm.status === FORM_STATUS.DRAFT) {
+                    this.snackBar.open(ALERTS.UNPUBLISHED_FORM, LABELS.DISMISS_SNACKBAR_TEXT);
+                    this.router.navigateByUrl(ROUTES.LANDING_PAGE);
                 }
                 this.userForm.questions.forEach((formQuestion) => {
-                    const validations =
-                        formQuestion.isRequired === true ? [Validators.required] : [];
+                    const validations = formQuestion.isRequired ? [Validators.required] : [];
                     const answer = this.formBuilder.group({
                         answer: new FormControl(null, validations),
                     });
@@ -50,9 +50,13 @@ export class FormComponent implements OnInit {
             },
             (err) => {
                 this.isLoading = false;
-                this.snackBar.open(err.error.message, 'Ok');
-                this.router.navigateByUrl('/');
+                this.snackBar.open(err.error.message, LABELS.DISMISS_SNACKBAR_TEXT);
+                this.router.navigateByUrl(ROUTES.LANDING_PAGE);
             }
         );
+    }
+
+    ngOnDestroy() {
+        this.formsSubcription.unsubscribe();
     }
 }

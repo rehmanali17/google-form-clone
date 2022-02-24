@@ -1,6 +1,6 @@
-<app-dashboard-navbar></app-dashboard-navbar>
-<app-recent-forms></app-recent-forms>
-<div class="spinner-container" *ngIf="isLoading">
+<app-dashboard-navbar [darkModeEnabled]="darkModeEnabled"></app-dashboard-navbar>
+<app-recent-forms [darkModeEnabled]="darkModeEnabled"></app-recent-forms>
+<div class="spinner-container dark:bg-[#192039]" *ngIf="isLoading">
     <mat-spinner [diameter]="40"></mat-spinner>
 </div>
-<app-forms-list *ngIf="!isLoading"></app-forms-list>
+<app-forms-list [darkModeEnabled]="darkModeEnabled" *ngIf="!isLoading"></app-forms-list>

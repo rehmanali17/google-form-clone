@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const { STATUS_CODES } = require('../utils/constants');
+const { STATUS_CODES, ALERTS } = require('../constants');
+const { failedResponse } = require('../services/response_service');
 
 const googleLogin = (req, res) => {
     try {
@@ -17,10 +18,7 @@ const googleLogin = (req, res) => {
         );
         res.redirect(`${process.env.baseURL}/user`);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: 'Google authorization failed',
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.AUTHORIZATION_FAILED, STATUS_CODES.BAD_REQUEST);
     }
 };
 

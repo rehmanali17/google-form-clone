@@ -1,3 +1,8 @@
+$icon_hover: #353d58;
+$bg_color: white;
+$text_color: white;
+$input_field_color: #5a6582;
+
 @mixin flex-display {
     display: flex;
     align-items: center;
@@ -28,6 +33,13 @@
 
             &:active {
                 border-bottom: 2px solid #5f6368;
+            }
+        }
+
+        .dark-menu-item-title {
+            color: $text_color;
+            &:active {
+                border-bottom: 2px solid $bg_color;
             }
         }
     }
@@ -61,6 +73,26 @@
             margin-left: 5px;
         }
     }
+
+    .dark-search-forms-field {
+        background: $icon_hover;
+        color: $text_color;
+
+        &:focus-within {
+            background: $input_field_color;
+            box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background: $icon_hover;
+            transition: 0.1s linear;
+        }
+
+        ::placeholder {
+            color: $text_color;
+        }
+    }
+
     .account-btns {
         @include flex-display();
         justify-content: flex-end;
@@ -68,6 +100,16 @@
 
         button:hover {
             background: #f0f0f0;
+        }
+
+        .dark-btn-hover:hover {
+            background: $icon_hover;
+        }
+
+        @media screen and (max-width: 880px) {
+            button:nth-child(2) {
+                display: none;
+            }
         }
 
         .user-image-container {
@@ -85,6 +127,10 @@
                 &:hover {
                     border: 4px solid #f0f0f0;
                 }
+            }
+
+            .dark-user-image:hover {
+                border: 4px solid $icon_hover;
             }
         }
     }
@@ -142,4 +188,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.dark-autocomplete-options {
+    background: #192039;
+    border-bottom: 1px solid #5a6582;
+    &:hover {
+        background: #353d58;
+    }
 }

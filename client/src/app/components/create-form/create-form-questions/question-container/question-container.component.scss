@@ -3,18 +3,6 @@
     align-items: center;
 }
 
-.drag-indicator-container {
-    display: grid;
-    place-content: center;
-
-    .drag-indicator {
-        height: fit-content;
-        width: fit-content;
-        transform: rotate(90deg);
-        cursor: all-scroll;
-    }
-}
-
 .form-question-container {
     @include flex-display();
     justify-content: space-between;
@@ -40,5 +28,26 @@
         mat-form-field:nth-child(1) {
             width: 85%;
         }
+    }
+}
+
+.dark-mat-option {
+    &:hover {
+        background: #353d58 !important;
+    }
+}
+
+.dark-mat-select {
+    ::ng-deep .mat-select-value-text {
+        color: white !important;
+    }
+}
+
+.dark-input {
+    ::ng-deep .mat-form-field-underline::before {
+        background-color: white !important;
+    }
+    ::ng-deep .mat-form-field-ripple {
+        background-color: #353d58 !important;
     }
 }

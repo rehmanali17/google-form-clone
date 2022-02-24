@@ -1,21 +1,35 @@
 <form [formGroup]="form" (ngSubmit)="handleSubmit()">
     <app-create-form-navbar
         [formStatus]="formStatus"
+        [darkModeEnabled]="darkModeEnabled"
         (saveForm)="saveForm($event)"
     ></app-create-form-navbar>
-    <div #capture_screen>
-        <app-create-form-title [formOverview]="formOverview"></app-create-form-title>
-        <div formArrayName="questions">
+    <div
+        #capture_screen
+        class="form-container"
+        [ngClass]="{ 'dark-form-container': darkModeEnabled }"
+    >
+        <app-create-form-title
+            [formOverview]="formOverview"
+            [darkModeEnabled]="darkModeEnabled"
+        ></app-create-form-title>
+        <div cdkDropList formArrayName="questions" (cdkDropListDropped)="sortQuestions($event)">
             <app-create-form-questions
                 *ngFor="let questionControl of getFormArray().controls; let i = index"
                 [formGroupName]="i"
                 [questionOverview]="getQuestionOverview(i)"
                 [options]="getOptions(i)"
                 [validations]="getValidations(i)"
+                [darkModeEnabled]="darkModeEnabled"
                 (addQuestion)="handleAddQuestion(i)"
                 (deleteQuestion)="handleDeleteQuestion(i)"
                 (duplicateQuestion)="handleDuplicateQuestion(i)"
-            ></app-create-form-questions>
+                cdkDrag
+            >
+                <mat-icon drag-handle cdkDragHandle class="dark:text-white"
+                    >drag_indicator</mat-icon
+                >
+            </app-create-form-questions>
         </div>
     </div>
 </form>

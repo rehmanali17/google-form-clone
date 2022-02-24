@@ -17,6 +17,14 @@
         font-size: 14px;
     }
 
+    .dark-form-title {
+        background: #192039;
+        color: white;
+        &:focus {
+            @apply border-blue-400;
+        }
+    }
+
     .cancel-btn {
         @apply py-1.5 px-6 bg-white border border-gray-300 rounded mr-5;
         color: #8430ce;
@@ -25,6 +33,10 @@
             transition: 0.1s linear;
             color: black;
         }
+    }
+
+    .dark-cancel-btn {
+        color: #192039;
     }
 
     .edit-btn {
@@ -37,4 +49,8 @@
             background: #488af4;
         }
     }
+}
+
+.dark-text-color {
+    color: white !important;
 }

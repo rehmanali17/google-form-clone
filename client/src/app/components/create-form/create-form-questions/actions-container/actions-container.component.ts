@@ -7,6 +7,7 @@ import { FormGroup } from '@angular/forms';
     styleUrls: ['./actions-container.component.scss'],
 })
 export class ActionsContainerComponent {
+    @Input() darkModeEnabled!: boolean;
     // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('validations') form!: FormGroup;
     @Output() addQuestion = new EventEmitter();

@@ -7,6 +7,7 @@ import { FormGroup } from '@angular/forms';
     styleUrls: ['./create-form-questions.component.scss'],
 })
 export class CreateFormQuestionsComponent implements OnInit {
+    @Input() darkModeEnabled!: boolean;
     @Input() questionOverview!: FormGroup;
     @Input() options!: FormGroup;
     @Input() validations!: FormGroup;

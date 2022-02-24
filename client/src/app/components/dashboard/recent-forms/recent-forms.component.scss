@@ -1,3 +1,8 @@
+$icon_hover: #353d58;
+$bg_color: white;
+$text_color: white;
+$input_field_color: #5a6582;
+
 @mixin flex-display {
     display: flex;
     align-items: center;
@@ -21,6 +26,10 @@
             font-weight: 400;
             margin-left: 8px;
             margin-bottom: 0px;
+        }
+
+        .dark-initiate-form {
+            color: $text_color;
         }
 
         .action-btns {
@@ -48,6 +57,10 @@
                 background: #bdc1c5;
                 transition: 0.1s linear;
             }
+
+            .dark-hover:hover {
+                background: #192039 !important;
+            }
         }
 
         @media screen and (max-width: 750px) {
@@ -71,4 +84,9 @@
             justify-content: center;
         }
     }
+}
+
+.dark-recent-forms-section {
+    background: $icon_hover;
+    color: $text_color;
 }
