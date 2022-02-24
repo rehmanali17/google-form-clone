@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ALERTS } from '@app/constants';
 import { Question } from '@models/question.model';
@@ -18,6 +18,7 @@ export class QuestionComponent {
 
     resetOption() {
         this.form.get('answer')?.setValue('');
+        this.form.get('answer')?.markAsUntouched();
     }
 
     getErrorMessage() {

@@ -1,22 +1,15 @@
 const Form = require('../models/Form');
 const { STATUS_CODES, ALERTS } = require('../constants');
+const { successResponse, failedResponse } = require('../services/response_service');
 
 const createForm = async (req, res) => {
     try {
         const message = req.body.form.status === 'draft' ? ' saved as draft successfully' : ' published successfully';
         const form = new Form({ userId: req.user._id, ...req.body.form });
         const savedForm = await form.save();
-        res.status(STATUS_CODES.CREATED).json({
-            message,
-            form: savedForm,
-            statusCode: STATUS_CODES.CREATED,
-        });
+        successResponse(res, { form: savedForm }, STATUS_CODES.CREATED, message);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: ALERTS.ERROR_SAVING_FORM,
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.ERROR_SAVING_FORM, STATUS_CODES.BAD_REQUEST);
     }
 };
 
@@ -29,16 +22,9 @@ const getAllForms = async (req, res) => {
                 imageString: '',
             };
         });
-        res.status(STATUS_CODES.OK).json({
-            forms,
-            statusCode: STATUS_CODES.OK,
-        });
+        successResponse(res, { forms }, STATUS_CODES.OK);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: ALERTS.FORM_FETCH_ERROR,
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.FORM_FETCH_ERROR, STATUS_CODES.BAD_REQUEST);
     }
 };
 
@@ -46,16 +32,9 @@ const deleteForm = async (req, res) => {
     try {
         const { id } = req.params;
         await Form.deleteOne({ id });
-        res.status(STATUS_CODES.OK).json({
-            message: ALERTS.FORM_REMOVE_SUCCESS,
-            statusCode: STATUS_CODES.OK,
-        });
+        successResponse(res, {}, STATUS_CODES.OK, ALERTS.FORM_REMOVE_SUCCESS);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: ALERTS.FORM_REMOVE_FAIL,
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.FORM_REMOVE_FAIL, STATUS_CODES.BAD_REQUEST);
     }
 };
 
@@ -64,16 +43,9 @@ const updateFormTitle = async (req, res) => {
         const { id } = req.params;
         const { title } = req.body;
         await Form.findByIdAndUpdate(id, { title }, { timestamps: { createdAt: false, updatedAt: true } });
-        res.status(STATUS_CODES.OK).json({
-            message: ALERTS.FORM_RENAME_SUCCESS,
-            statusCode: STATUS_CODES.OK,
-        });
+        successResponse(res, {}, STATUS_CODES.OK, ALERTS.FORM_RENAME_SUCCESS);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: ALERTS.FORM_RENAME_FAIL,
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.FORM_RENAME_FAIL, STATUS_CODES.BAD_REQUEST);
     }
 };
 
@@ -82,16 +54,9 @@ const updateFormStatus = async (req, res) => {
         const { id } = req.params;
         const { status } = req.body;
         await Form.findByIdAndUpdate(id, { status }, { timestamps: { createdAt: false, updatedAt: true } });
-        res.status(STATUS_CODES.OK).json({
-            message: ALERTS.FORM_STATUS_UPDATE_SUCCESS,
-            statusCode: STATUS_CODES.OK,
-        });
+        successResponse(res, {}, STATUS_CODES.OK, ALERTS.FORM_STATUS_UPDATE_SUCCESS);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: ALERTS.FORM_STATUS_UPDATE_FAIL,
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.FORM_STATUS_UPDATE_FAIL, STATUS_CODES.BAD_REQUEST);
     }
 };
 
@@ -99,16 +64,9 @@ const editForm = async (req, res) => {
     try {
         const { id } = req.params;
         await Form.findByIdAndUpdate(id, { ...req.body.form }, { timestamps: { createdAt: false, updatedAt: true } });
-        res.status(STATUS_CODES.OK).json({
-            message: ALERTS.FORM_EDIT_SUCCESS,
-            statusCode: STATUS_CODES.OK,
-        });
+        successResponse(res, {}, STATUS_CODES.OK, ALERTS.FORM_EDIT_SUCCESS);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: ALERTS.FORM_EDIT_FAIL,
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.FORM_EDIT_FAIL, STATUS_CODES.BAD_REQUEST);
     }
 };
 
@@ -121,16 +79,9 @@ const getRecentForms = async (req, res) => {
             },
             { $limit: 5 },
         ]);
-        res.status(STATUS_CODES.OK).json({
-            forms,
-            statusCode: STATUS_CODES.OK,
-        });
+        successResponse(res, { forms }, STATUS_CODES.OK);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: ALERTS.FORM_FETCH_ERROR,
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.FORM_FETCH_ERROR, STATUS_CODES.BAD_REQUEST);
     }
 };
 
@@ -144,16 +95,9 @@ const fetchFormsImages = async (req, res) => {
                 [form['_id']]: form.imageString,
             };
         });
-        res.status(STATUS_CODES.OK).json({
-            formImages,
-            statusCode: STATUS_CODES.OK,
-        });
+        successResponse(res, { formImages }, STATUS_CODES.OK);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: ALERTS.FORM_IMAGES_FETCH_ERROR,
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.FORM_IMAGES_FETCH_ERROR, STATUS_CODES.BAD_REQUEST);
     }
 };
 

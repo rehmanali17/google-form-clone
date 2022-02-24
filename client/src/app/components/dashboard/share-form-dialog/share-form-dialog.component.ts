@@ -25,7 +25,7 @@ export class ShareFormDialogComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) darkModeEnabled: boolean
     ) {
         this.darkModeEnabled = darkModeEnabled;
-        if (this.darkModeEnabled === true) {
+        if (this.darkModeEnabled) {
             (<HTMLElement>(
                 this.overlayContainer.getContainerElement().children[3].children[0].children[0]
             )).style.backgroundColor = '#353D58';
@@ -38,7 +38,7 @@ export class ShareFormDialogComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.dialogBoxSubscription = this.store.select('dialogBox').subscribe((dialogBoxState) => {
-            if (dialogBoxState.shareFormDialogBox.status === true) {
+            if (dialogBoxState.shareFormDialogBox.status) {
                 this.link = dialogBoxState.shareFormDialogBox.link;
             }
         });

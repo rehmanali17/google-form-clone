@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { ALERTS, LABELS } from '@app/constants';
 import { Question } from '@models/question.model';
 
@@ -12,6 +12,7 @@ import { Question } from '@models/question.model';
 export class FormQuestionsComponent {
     @Input() form!: FormGroup;
     @Input() questions: Question[] = [];
+    snackBarRef!: MatSnackBarRef<any> | null;
 
     constructor(private snackBar: MatSnackBar) {}
 
@@ -33,7 +34,10 @@ export class FormQuestionsComponent {
                     control.markAsTouched();
                 }
             });
-            this.snackBar.open(ALERTS.INVALID_FORM, LABELS.DISMISS_SNACKBAR_TEXT);
+            this.snackBarRef = this.snackBar._openedSnackBarRef;
+            if (!this.snackBarRef) {
+                this.snackBar.open(ALERTS.INVALID_FORM, LABELS.DISMISS_SNACKBAR_TEXT);
+            }
         }
     }
 }

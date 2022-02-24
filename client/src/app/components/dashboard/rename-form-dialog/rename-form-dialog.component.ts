@@ -42,7 +42,7 @@ export class RenameFormDialogComponent implements OnInit, OnDestroy, AfterViewIn
         @Inject(MAT_DIALOG_DATA) darkModeEnabled: boolean
     ) {
         this.darkModeEnabled = darkModeEnabled;
-        if (this.darkModeEnabled === true) {
+        if (this.darkModeEnabled) {
             (<HTMLElement>(
                 this.overlayContainer.getContainerElement().children[3].children[0].children[0]
             )).style.backgroundColor = '#353D58';
@@ -55,7 +55,7 @@ export class RenameFormDialogComponent implements OnInit, OnDestroy, AfterViewIn
 
     ngOnInit() {
         this.dialogBoxSubscription = this.store.select('dialogBox').subscribe((dialogBoxState) => {
-            if (dialogBoxState.editDialogBox.status === true) {
+            if (dialogBoxState.editDialogBox.status) {
                 this.formId = dialogBoxState.editDialogBox.id;
                 this.form.get('title')?.setValue(dialogBoxState.editDialogBox.title);
             }

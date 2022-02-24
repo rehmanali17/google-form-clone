@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-
+import { VIEW_TYPES } from '@app/constants';
 @Component({
     selector: 'app-form-header',
     templateUrl: './form-header.component.html',
@@ -10,7 +10,7 @@ export class FormHeaderComponent {
     @Output() sortForms = new EventEmitter<'title' | 'status' | 'updatedAt'>();
     @Output() toggleFormView = new EventEmitter<string>();
     tickIconValue = '';
-    viewType = 'list';
+    viewType = VIEW_TYPES.LIST;
     constructor() {}
 
     handleSortForms(type: 'title' | 'status' | 'updatedAt') {
@@ -19,10 +19,10 @@ export class FormHeaderComponent {
     }
 
     toggleView() {
-        if (this.viewType === 'list') {
-            this.viewType = 'grid';
+        if (this.viewType === VIEW_TYPES.LIST) {
+            this.viewType = VIEW_TYPES.GRID;
         } else {
-            this.viewType = 'list';
+            this.viewType = VIEW_TYPES.LIST;
         }
         this.toggleFormView.emit(this.viewType);
     }

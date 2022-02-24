@@ -5,7 +5,7 @@ import { Form } from '@models/form.model';
 import { Subscription } from 'rxjs';
 import { FormService } from '@services/form.service';
 import * as FormActions from '@store/form/form.actions';
-import { ALERTS } from '@app/constants';
+import { ALERTS, VIEW_TYPES } from '@app/constants';
 
 @Component({
     selector: 'app-forms-list',
@@ -21,21 +21,21 @@ export class FormsListComponent implements OnInit, OnDestroy {
     formsSubscription!: Subscription;
     searchFormsSubscription!: Subscription;
     filterTitle = '';
-    viewType = 'list';
+    viewType = VIEW_TYPES.LIST;
     imagesLoading = true;
     constructor(private store: Store<AppState>, private formService: FormService) {}
 
     ngOnInit() {
         this.formsSubscription = this.store.select('form').subscribe((formState) => {
-            if (formState.errorFetchingForms.status === true) {
+            if (formState.errorFetchingForms.status) {
                 this.isError = formState.errorFetchingForms.status;
                 this.message = formState.errorFetchingForms.message;
-            } else if (formState.forms.length === 0) {
+            } else if (!formState.forms.length) {
                 this.imagesLoading = false;
                 this.isError = true;
                 this.message = ALERTS.ZERO_FORM_EXIST;
             } else {
-                this.loadImages = formState.forms[0].imageString === '' ? true : false;
+                this.loadImages = formState.forms[0].imageString ? false : true;
                 this.forms = [...formState.forms];
             }
         });
@@ -50,7 +50,7 @@ export class FormsListComponent implements OnInit, OnDestroy {
     }
 
     toggleFormView(viewType: string) {
-        if (viewType === 'grid' && this.loadImages) {
+        if (viewType === VIEW_TYPES.GRID && this.loadImages) {
             this.formService.getFormsPics().subscribe(
                 (res) => {
                     this.imagesLoading = false;
@@ -63,7 +63,7 @@ export class FormsListComponent implements OnInit, OnDestroy {
                 }
             );
         } else {
-            if (this.forms.length === 0) {
+            if (!this.forms.length) {
                 this.isError = true;
                 this.message = ALERTS.ZERO_FORM_EXIST;
             } else {

@@ -11,6 +11,7 @@ export const REQUEST_URLS = {
     PUBLISH_FORM_URL: `${environment.apiURL}/api/user/form`,
     EDIT_FORM_URL: `${environment.apiURL}/api/user/form`,
     GET_FORM_URL: `${environment.apiURL}/api/form`,
+    FILL_FORM: '/fill-form/',
 };
 
 export const ALERTS = {
@@ -20,6 +21,7 @@ export const ALERTS = {
     REQUIRED_QUESTION: 'This question is required',
     REQUIRED_OPTION: 'Option field is required',
     UNPUBLISHED_FORM: 'Form is not published yet',
+    SESSION_TIMEOUT: 'Session expired',
 };
 
 export const LABELS = {
@@ -33,3 +35,20 @@ export const ROUTES = {
     EDIT_FORM: '/user/edit-form',
     FILL_FORM: '/fill-form',
 };
+
+export const ELEMENTS = {
+    BUTTON: 'BUTTON',
+    MAT_ICON: 'MAT-ICON',
+};
+
+export const FORM_STATUS = {
+    DRAFT: 'draft',
+    PUBLISHED: 'published',
+};
+
+export const VIEW_TYPES = {
+    GRID: 'grid',
+    LIST: 'list',
+};
+
+export const AUTH_PAYLOAD = 'payload';

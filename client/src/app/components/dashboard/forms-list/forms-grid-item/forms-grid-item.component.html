@@ -30,14 +30,14 @@
                     (click)="renameForm(form._id!, form.title)"
                     mat-menu-item
                 >
-                    <mat-icon class="dark:text-white">text_fields</mat-icon>&nbsp;Rename
+                    <mat-icon class="dark:text-white mr-1">text_fields</mat-icon>Rename
                 </button>
                 <button
                     class="dark:text-white dark:hover:bg-[#353d58]"
                     (click)="removeForm(form._id!, form.title)"
                     mat-menu-item
                 >
-                    <mat-icon class="dark:text-white">delete_outline</mat-icon>&nbsp;Remove
+                    <mat-icon class="dark:text-white mr-1">delete_outline</mat-icon>Remove
                 </button>
                 <button
                     [disabled]="form.status === 'published'"
@@ -45,7 +45,7 @@
                     class="dark:text-white dark:hover:bg-[#353d58]"
                     mat-menu-item
                 >
-                    <mat-icon class="dark:text-white">publish</mat-icon>&nbsp;Publish
+                    <mat-icon class="dark:text-white mr-1">publish</mat-icon>Publish
                 </button>
                 <button
                     [disabled]="form.status !== 'published'"
@@ -53,9 +53,8 @@
                     class="dark:text-white dark:hover:bg-[#353d58]"
                     mat-menu-item
                 >
-                    <mat-icon class="dark:text-white"> share</mat-icon>&nbsp;Share
+                    <mat-icon class="dark:text-white mr-1"> share</mat-icon>Share
                 </button>
-                <!-- <button mat-menu-item><mat-icon>open_in_new</mat-icon>&nbsp;Open in new tab</button> -->
             </mat-menu>
         </div>
     </div>

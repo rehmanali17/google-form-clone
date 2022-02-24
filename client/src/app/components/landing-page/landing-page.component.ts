@@ -16,7 +16,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.authSubscription = this.store.select('auth').subscribe((authState) => {
-            if (authState.isLoggedIn === true) {
+            if (authState.isLoggedIn) {
                 this.router.navigateByUrl(ROUTES.DASHBOARD);
             }
         });

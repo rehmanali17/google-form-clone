@@ -42,16 +42,22 @@
                 mat-menu-item
                 (click)="handleSortForms('title')"
             >
-                Title &nbsp;&nbsp;&nbsp;
-                <mat-icon class="dark:text-white" *ngIf="tickIconValue === 'title'">check</mat-icon>
+                Title
+                <mat-icon
+                    class="dark:text-white relative relative-top ml-2"
+                    *ngIf="tickIconValue === 'title'"
+                    >check</mat-icon
+                >
             </button>
             <button
                 class="dark:text-white dark:hover:bg-[#353d58]"
                 mat-menu-item
                 (click)="handleSortForms('status')"
             >
-                Status &nbsp;&nbsp;&nbsp;
-                <mat-icon class="dark:text-white" *ngIf="tickIconValue === 'status'"
+                Status
+                <mat-icon
+                    class="dark:text-white relative relative-top ml-2"
+                    *ngIf="tickIconValue === 'status'"
                     >check</mat-icon
                 >
             </button>
@@ -60,16 +66,13 @@
                 mat-menu-item
                 (click)="handleSortForms('updatedAt')"
             >
-                Last modified &nbsp;&nbsp;&nbsp;
-                <mat-icon class="dark:text-white" *ngIf="tickIconValue === 'updatedAt'"
+                Last modified
+                <mat-icon
+                    class="dark:text-white ml-2 relative relative-top"
+                    *ngIf="tickIconValue === 'updatedAt'"
                     >check</mat-icon
                 >
             </button>
-            <!-- <button mat-menu-item (click)="handleSortForms('createdAt')">
-                Date created &nbsp;&nbsp;&nbsp;
-                <mat-icon *ngIf="tickIconValue === 'createdAt'">check</mat-icon>
-            </button> -->
-            <!-- <button mat-menu-item><mat-icon>open_in_new</mat-icon>&nbsp;Open in new tab</button> -->
         </mat-menu>
         <button [ngClass]="{ 'dark-mat-icon': darkModeEnabled }" mat-icon-button>
             <mat-icon>folder_open</mat-icon>

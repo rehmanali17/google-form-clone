@@ -12,7 +12,7 @@ import { ShareFormDialogComponent } from '@components/dashboard/share-form-dialo
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DarkModeService } from '@services/dark-mode.service';
-import { LABELS } from '@app/constants';
+import { AUTH_PAYLOAD, LABELS } from '@app/constants';
 import { AutoLogoutService } from '@services/auto-logout.service';
 
 @Component({
@@ -52,29 +52,29 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     getCookiePayload() {
-        if (this.cookieService.get('payload')) {
+        if (this.cookieService.get(AUTH_PAYLOAD)) {
             this.store.dispatch(
-                new AuthActions.LoginSuccess(JSON.parse(this.cookieService.get('payload')))
+                new AuthActions.LoginSuccess(JSON.parse(this.cookieService.get(AUTH_PAYLOAD)))
             );
-            this.cookieService.remove('payload');
+            this.cookieService.remove(AUTH_PAYLOAD);
         }
     }
 
     dialogBoxHandler() {
         this.dialogBoxSubscription = this.store.select('dialogBox').subscribe((dialogBoxState) => {
-            if (dialogBoxState.deleteDialogBox.status === true) {
+            if (dialogBoxState.deleteDialogBox.status) {
                 this.dialog.open(FormDialogComponent, {
                     data: this.darkModeEnabled,
                     autoFocus: true,
                 });
-            } else if (dialogBoxState.editDialogBox.status === true) {
+            } else if (dialogBoxState.editDialogBox.status) {
                 this.dialog.open(RenameFormDialogComponent, {
                     data: this.darkModeEnabled,
                     autoFocus: true,
                 });
-            } else if (dialogBoxState.shareFormDialogBox.status === true) {
+            } else if (dialogBoxState.shareFormDialogBox.status) {
                 this.dialog.open(ShareFormDialogComponent, {
-                    width: '375px',
+                    width: '360px',
                     data: this.darkModeEnabled,
                     autoFocus: true,
                 });
@@ -119,7 +119,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     toggleDarkMode() {
         this.darkModeSubscription = this.darkModeService.darkMode.subscribe((mode) => {
-            if (mode === true) {
+            if (mode) {
                 this.darkModeEnabled = true;
             } else {
                 this.darkModeEnabled = false;

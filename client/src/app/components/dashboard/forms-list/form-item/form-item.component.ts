@@ -9,7 +9,7 @@ import * as FormActions from '@store/form/form.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
-import { LABELS, ROUTES } from '@app/constants';
+import { LABELS, ROUTES, REQUEST_URLS, ELEMENTS, FORM_STATUS } from '@app/constants';
 
 @Component({
     selector: 'app-form-item',
@@ -46,7 +46,7 @@ export class FormItemComponent implements OnInit {
     }
 
     publishForm(id: string) {
-        const status = 'published';
+        const status = FORM_STATUS.PUBLISHED;
         this.formService.publishForm(id, status).subscribe(
             (res) => {
                 this.store.dispatch(
@@ -64,13 +64,13 @@ export class FormItemComponent implements OnInit {
     }
 
     shareForm(id: string) {
-        const link = environment.baseURL + '/fill-form/' + id;
+        const link = environment.baseURL + REQUEST_URLS.FILL_FORM + id;
         this.store.dispatch(new DialogBoxActions.OpenShareFormDialogBox({ link }));
     }
 
     redirectToEditPage(event: Event, id: string) {
         const element = event.target as HTMLElement;
-        if (element.tagName === 'BUTTON' || element.tagName === 'MAT-ICON') {
+        if (element.tagName === ELEMENTS.BUTTON || element.tagName === ELEMENTS.MAT_ICON) {
             return;
         }
         this.router.navigate([ROUTES.EDIT_FORM, id]);

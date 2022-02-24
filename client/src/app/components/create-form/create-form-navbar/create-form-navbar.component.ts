@@ -4,7 +4,7 @@ import * as AuthActions from '@store/auth/auth.actions';
 import { AppState } from '@models/app-state.model';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { ROUTES } from '@app/constants';
+import { FORM_STATUS, ROUTES } from '@app/constants';
 
 @Component({
     selector: 'app-create-form-navbar',
@@ -28,7 +28,7 @@ export class CreateFormNavbarComponent implements OnInit, OnDestroy {
             this.pictureURL = authState.user.pictureURL;
         });
         this.formSubscription = this.store.select('form').subscribe((formState) => {
-            if (formState.isSavingForm === true) {
+            if (formState.isSavingForm) {
                 this.isSavingForm = true;
             } else {
                 this.isSavingForm = false;
@@ -42,7 +42,7 @@ export class CreateFormNavbarComponent implements OnInit, OnDestroy {
     }
 
     handleFormSubmit(status: string) {
-        if (this.formStatus === 'published') {
+        if (this.formStatus === FORM_STATUS.PUBLISHED) {
             this.saveForm.emit(this.formStatus);
         } else {
             this.saveForm.emit(status);

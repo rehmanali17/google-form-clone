@@ -17,7 +17,7 @@ export class RecentFormsCardComponent implements OnInit {
     constructor(private router: Router, private sanitizer: DomSanitizer) {}
 
     ngOnInit() {
-        if (this.createNewForm === false) {
+        if (!this.createNewForm) {
             this.imageSource = this.sanitizer.bypassSecurityTrustResourceUrl(this.form.imageString);
         }
     }

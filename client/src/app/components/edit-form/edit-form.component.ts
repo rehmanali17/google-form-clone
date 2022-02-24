@@ -64,7 +64,7 @@ export class EditFormComponent implements OnInit, OnDestroy {
 
     toggleDarkMode() {
         this.darkModeSubscription = this.darkModeService.darkMode.subscribe((mode) => {
-            if (mode === true) {
+            if (mode) {
                 this.darkModeEnabled = true;
             } else {
                 this.darkModeEnabled = false;
@@ -74,7 +74,7 @@ export class EditFormComponent implements OnInit, OnDestroy {
 
     dialogBoxHandler() {
         this.dialogBoxSubscription = this.store.select('dialogBox').subscribe((dialogBoxState) => {
-            if (dialogBoxState.formDialogBox.status === true) {
+            if (dialogBoxState.formDialogBox.status) {
                 this.dialog.open(SavedFormDialogComponent);
             } else {
                 this.dialog.closeAll();
@@ -90,7 +90,7 @@ export class EditFormComponent implements OnInit, OnDestroy {
                 const formIndex = formState.forms.findIndex((form) => form._id === formId);
 
                 this.userForm = formState.forms[formIndex];
-                if (formId === undefined || this.userForm === undefined) {
+                if (!formId || !this.userForm) {
                     this.router.navigateByUrl(ROUTES.DASHBOARD);
                 } else {
                     this.formStatus = this.userForm.status;

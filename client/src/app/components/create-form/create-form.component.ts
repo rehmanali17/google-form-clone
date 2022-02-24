@@ -79,7 +79,7 @@ export class CreateFormComponent implements OnInit, OnDestroy {
 
     toggleDarkMode() {
         this.darkModeSubscription = this.darkModeService.darkMode.subscribe((mode) => {
-            if (mode === true) {
+            if (mode) {
                 this.darkModeEnabled = true;
             } else {
                 this.darkModeEnabled = false;
@@ -89,7 +89,7 @@ export class CreateFormComponent implements OnInit, OnDestroy {
 
     dialogBoxHandler() {
         this.dialogBoxSubscription = this.store.select('dialogBox').subscribe((dialogBoxState) => {
-            if (dialogBoxState.formDialogBox.status === true) {
+            if (dialogBoxState.formDialogBox.status) {
                 this.dialog.open(SavedFormDialogComponent, {
                     autoFocus: true,
                     data: this.darkModeEnabled,

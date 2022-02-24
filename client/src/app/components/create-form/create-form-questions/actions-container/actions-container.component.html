@@ -11,7 +11,7 @@
         </button>
     </div>
     <div class="validation-btns" [ngClass]="{ 'dark-toggle': darkModeEnabled }">
-        <span [ngClass]="{ 'dark-text-color': true }">Required</span>
+        <span [ngClass]="{ 'dark-text-color': darkModeEnabled }">Required</span>
         <mat-slide-toggle formControlName="isRequired" color="primary"></mat-slide-toggle>
         <button type="button" mat-icon-button>
             <mat-icon class="dark:text-white">more_vert</mat-icon>

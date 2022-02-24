@@ -1,5 +1,6 @@
 const passport = require('passport');
 const { STATUS_CODES, ALERTS } = require('../constants');
+const { failedResponse } = require('../services/response_service');
 require('../config/passport_setup');
 
 // Google Authentication Middleware
@@ -7,21 +8,13 @@ const googleAuthentication = (req, res, next) => {
     try {
         passport.authenticate('oauth', { scope: ['profile', 'email'] }, (error, user, info) => {
             if (error) {
-                res.status(STATUS_CODES.UNAUTHORIZED).json({
-                    message: info.message,
-                    error: info.error,
-                    statusCode: STATUS_CODES.BAD_REQUEST,
-                });
+                failedResponse(res, info.error, info.message, STATUS_CODES.BAD_REQUEST);
             } else {
                 next();
             }
         })(req, res, next);
     } catch (error) {
-        res.status(STATUS_CODES.BAD_REQUEST).json({
-            message: ALERTS.AUTHENTICATION_FAILED,
-            error: error.message,
-            statusCode: STATUS_CODES.BAD_REQUEST,
-        });
+        failedResponse(res, error.message, ALERTS.AUTHENTICATION_FAILED, STATUS_CODES.BAD_REQUEST);
     }
 };
 
@@ -29,11 +22,7 @@ const googleAuthentication = (req, res, next) => {
 const jwtAuthentication = (req, res, next) => {
     passport.authenticate('jwt', (err, user) => {
         if (err || !user) {
-            res.status(STATUS_CODES.UNAUTHORIZED).json({
-                message: ALERTS.UNAUTHORIZED,
-                error: ALERTS.EXPIRED_TOKEN,
-                statusCode: STATUS_CODES.BAD_REQUEST,
-            });
+            failedResponse(res, ALERTS.EXPIRED_TOKEN, ALERTS.UNAUTHORIZED, STATUS_CODES.BAD_REQUEST);
         } else {
             req.user = user;
             next();

@@ -26,7 +26,7 @@ export class SavedFormDialogComponent implements OnInit, OnDestroy {
         @Inject(MAT_DIALOG_DATA) darkModeEnabled: boolean
     ) {
         this.darkModeEnabled = darkModeEnabled;
-        if (this.darkModeEnabled === true) {
+        if (this.darkModeEnabled) {
             (<HTMLElement>(
                 this.overlayContainer.getContainerElement().children[1].children[0].children[0]
             )).style.backgroundColor = '#353D58';
@@ -39,7 +39,7 @@ export class SavedFormDialogComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.dialogBoxSubscription = this.store.select('dialogBox').subscribe((dialogBoxState) => {
-            if (dialogBoxState.formDialogBox.status === true) {
+            if (dialogBoxState.formDialogBox.status) {
                 this.isError = dialogBoxState.formDialogBox.isError;
                 this.formTitle = dialogBoxState.formDialogBox.title;
                 this.message = dialogBoxState.formDialogBox.message;

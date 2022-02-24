@@ -34,11 +34,6 @@
         @apply flex justify-center pt-12;
         height: 43.8vh;
         box-sizing: border-box;
-
-        // ::ng-deep .mat-progress-spinner circle,
-        // .mat-spinner circle {
-        //     stroke: white;
-        // }
     }
 
     @media screen and (max-width: 992px) {
