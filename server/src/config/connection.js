@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { STATUS_CODES } = require('../utils/constants');
+const { STATUS_CODES, ALERTS } = require('../constants');
 require('dotenv').config();
 
 const mongoURi = process.env.mongoURi;
@@ -13,7 +13,7 @@ const dbConnection = (app) => {
         })
         .then(() => {
             console.log('Database connected');
-            app.listen(PORT, () => console.log(`Server is running at port: ${PORT}`));
+            app.listen(PORT, () => console.log(ALERTS.SERVER_RUNNING(PORT)));
         })
         .catch((error) => {
             console.log(error.message);

@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormArray, FormControl, Validators, FormGroup } from '@angular/forms';
+import { ALERTS } from '@app/constants';
 import { ShowErrorStateMatcher } from '@utils/error-state-matcher';
 
 @Component({
@@ -8,6 +9,7 @@ import { ShowErrorStateMatcher } from '@utils/error-state-matcher';
     styleUrls: ['./answer-container.component.scss'],
 })
 export class AnswerContainerComponent implements OnChanges {
+    @Input() darkModeEnabled!: boolean;
     @Input() questionType = '';
     // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('options') form!: FormGroup;
@@ -46,6 +48,6 @@ export class AnswerContainerComponent implements OnChanges {
 
     getErrorMessage(index: number) {
         const control = (<FormArray>this.form.get('options')).controls[index];
-        return control.hasError('required') && control.touched ? `Option field is required` : '';
+        return control.hasError('required') && control.touched ? ALERTS.REQUIRED_OPTION : '';
     }
 }

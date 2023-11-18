@@ -1,8 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AppState } from '@models/app-state.model';
 import { Store } from '@ngrx/store';
 import { Form } from '@models/form.model';
 import { Subscription } from 'rxjs';
+import { FormService } from '@services/form.service';
+import * as FormActions from '@store/form/form.actions';
+import { ALERTS, VIEW_TYPES } from '@app/constants';
 
 @Component({
     selector: 'app-forms-list',
@@ -10,30 +13,64 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./forms-list.component.scss'],
 })
 export class FormsListComponent implements OnInit, OnDestroy {
+    @Input() darkModeEnabled!: boolean;
     forms: Form[] = [];
     isError = false;
     message = '';
+    loadImages = false;
     formsSubscription!: Subscription;
     searchFormsSubscription!: Subscription;
     filterTitle = '';
-    constructor(private store: Store<AppState>) {}
+    viewType = VIEW_TYPES.LIST;
+    imagesLoading = true;
+    constructor(private store: Store<AppState>, private formService: FormService) {}
 
     ngOnInit() {
         this.formsSubscription = this.store.select('form').subscribe((formState) => {
-            if (formState.errorFetchingForms.status === true) {
+            if (formState.errorFetchingForms.status) {
                 this.isError = formState.errorFetchingForms.status;
                 this.message = formState.errorFetchingForms.message;
-            } else if (formState.forms.length === 0) {
+            } else if (!formState.forms.length) {
+                this.imagesLoading = false;
                 this.isError = true;
-                this.message = 'No form has been created yet';
+                this.message = ALERTS.ZERO_FORM_EXIST;
             } else {
-                this.forms = formState.forms;
+                this.loadImages = formState.forms[0].imageString ? false : true;
+                this.forms = [...formState.forms];
             }
         });
 
         this.searchFormsSubscription = this.store.select('form').subscribe((formState) => {
             this.filterTitle = formState.searchFormTitle;
         });
+    }
+
+    sortForms(type: 'title' | 'status' | 'updatedAt') {
+        this.forms.sort((a, b) => (a[type]! > b[type]! ? 1 : a[type]! < b[type]! ? -1 : 0));
+    }
+
+    toggleFormView(viewType: string) {
+        if (viewType === VIEW_TYPES.GRID && this.loadImages) {
+            this.formService.getFormsPics().subscribe(
+                (res) => {
+                    this.imagesLoading = false;
+                    this.store.dispatch(new FormActions.FetchFormsPicsSuccess(res.formImages));
+                },
+                (err) => {
+                    this.imagesLoading = false;
+                    this.isError = true;
+                    this.message = err.error.message;
+                }
+            );
+        } else {
+            if (!this.forms.length) {
+                this.isError = true;
+                this.message = ALERTS.ZERO_FORM_EXIST;
+            } else {
+                this.isError = false;
+            }
+        }
+        this.viewType = viewType;
     }
 
     ngOnDestroy() {

@@ -1,4 +1,12 @@
-import { Component, OnDestroy, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+    ElementRef,
+    AfterViewInit,
+    Inject,
+} from '@angular/core';
 import { AppState } from '@models/app-state.model';
 import { Store } from '@ngrx/store';
 import { FormService } from '@services/form.service';
@@ -8,6 +16,9 @@ import * as DialogBoxActions from '@store/dialog-box/dialog-box.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { LABELS } from '@app/constants';
 
 @Component({
     selector: 'app-rename-form-dialog',
@@ -16,6 +27,7 @@ import { Subscription } from 'rxjs';
 })
 export class RenameFormDialogComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('title') title!: ElementRef;
+    darkModeEnabled = false;
     dialogBoxSubscription!: Subscription;
     form = new FormGroup({
         title: new FormControl(null, [Validators.required]),
@@ -25,12 +37,25 @@ export class RenameFormDialogComponent implements OnInit, OnDestroy, AfterViewIn
     constructor(
         private store: Store<AppState>,
         private formService: FormService,
-        private snackBar: MatSnackBar
-    ) {}
+        private snackBar: MatSnackBar,
+        private overlayContainer: OverlayContainer,
+        @Inject(MAT_DIALOG_DATA) darkModeEnabled: boolean
+    ) {
+        this.darkModeEnabled = darkModeEnabled;
+        if (this.darkModeEnabled) {
+            (<HTMLElement>(
+                this.overlayContainer.getContainerElement().children[3].children[0].children[0]
+            )).style.backgroundColor = '#353D58';
+        } else {
+            (<HTMLElement>(
+                this.overlayContainer.getContainerElement().children[3].children[0].children[0]
+            )).style.backgroundColor = 'white';
+        }
+    }
 
     ngOnInit() {
         this.dialogBoxSubscription = this.store.select('dialogBox').subscribe((dialogBoxState) => {
-            if (dialogBoxState.editDialogBox.status === true) {
+            if (dialogBoxState.editDialogBox.status) {
                 this.formId = dialogBoxState.editDialogBox.id;
                 this.form.get('title')?.setValue(dialogBoxState.editDialogBox.title);
             }
@@ -48,10 +73,10 @@ export class RenameFormDialogComponent implements OnInit, OnDestroy, AfterViewIn
                 this.store.dispatch(
                     new FormActions.RenameForm({ id: this.formId, title, updatedAt: new Date() })
                 );
-                this.snackBar.open(res.message, 'Close');
+                this.snackBar.open(res.message, LABELS.DISMISS_SNACKBAR_TEXT);
             },
             (err) => {
-                this.snackBar.open(err.error.message, 'Close');
+                this.snackBar.open(err.error.message, LABELS.DISMISS_SNACKBAR_TEXT);
                 if (err.status === 401) {
                     this.store.dispatch(new AuthActions.Logout());
                 }

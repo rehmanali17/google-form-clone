@@ -37,6 +37,16 @@ export function formReducer(state = initialState, action: FormActions.FormAction
                 ...state,
                 recentForms: action.payload,
             };
+        case FormActions.FETCH_FORMS_PICS_SUCCESS:
+            return {
+                ...state,
+                forms: state.forms.map((form) => {
+                    return {
+                        ...form,
+                        imageString: action.payload[form._id!],
+                    };
+                }),
+            };
         case FormActions.REMOVE_FORM:
             return {
                 ...state,

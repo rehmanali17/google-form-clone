@@ -1,12 +1,14 @@
-<div class="navbar">
+<div class="navbar dark:bg-[#192039]">
     <div class="menu-items">
-        <button mat-icon-button>
+        <button class="dark:text-white" mat-icon-button>
             <mat-icon>menu</mat-icon>
         </button>
         <img class="logo" src="../../../../assets/forms.png" alt="" />
-        <h3 class="menu-item-title">Forms</h3>
+        <h3 class="menu-item-title" [ngClass]="{ 'dark-menu-item-title': darkModeEnabled }">
+            Forms
+        </h3>
     </div>
-    <form class="search-forms-field">
+    <form class="search-forms-field" [ngClass]="{ 'dark-search-forms-field': darkModeEnabled }">
         <button type="button" (click)="searchForms(title.value)" mat-icon-button>
             <mat-icon>search</mat-icon>
         </button>
@@ -22,8 +24,12 @@
             <mat-option
                 *ngFor="let form of forms | dropdown_filter: filterTitle"
                 [value]="form.title"
+                [ngClass]="{ 'dark-autocomplete-options': darkModeEnabled }"
             >
-                <div (click)="searchForms(form.title)" class="autocomplete-dropdown">
+                <div
+                    (click)="searchForms(form.title)"
+                    class="autocomplete-dropdown dark:text-white"
+                >
                     <div>{{ form.title }}</div>
                     <div>{{ form.updatedAt | date: 'shortTime' }}</div>
                 </div>
@@ -34,15 +40,37 @@
         </button>
     </form>
     <div class="account-btns">
-        <button mat-icon-button>
+        <button
+            [ngClass]="{ 'dark-btn-hover': darkModeEnabled }"
+            class="dark:text-white"
+            (click)="toggleDarkMode()"
+            mat-icon-button
+        >
+            <mat-icon *ngIf="darkModeEnabled">brightness_low</mat-icon>
+            <mat-icon *ngIf="!darkModeEnabled">brightness_high</mat-icon>
+        </button>
+        <button
+            [ngClass]="{ 'dark-btn-hover': darkModeEnabled }"
+            class="dark:text-white"
+            mat-icon-button
+        >
             <mat-icon>apps</mat-icon>
         </button>
         <div class="user-image-container" [matMenuTriggerFor]="accountOptions">
-            <img class="user-image" src="{{ pictureURL }}" alt="{{ userName }}" />
+            <img
+                class="user-image"
+                [ngClass]="{ 'dark-user-image': darkModeEnabled }"
+                src="{{ pictureURL }}"
+                alt="{{ userName }}"
+            />
         </div>
-        <mat-menu #accountOptions="matMenu" yPosition="below">
-            <button (click)="handleLogOut()" mat-menu-item>
-                <mat-icon>exit_to_app</mat-icon>&nbsp;Sign Out
+        <mat-menu class="dark:bg-[#5a6582]" #accountOptions="matMenu" yPosition="below">
+            <button
+                class="dark:text-white dark:hover:bg-[#353d58]"
+                (click)="handleLogOut()"
+                mat-menu-item
+            >
+                <mat-icon class="dark:text-white mr-1">exit_to_app</mat-icon>Sign Out
             </button>
         </mat-menu>
     </div>

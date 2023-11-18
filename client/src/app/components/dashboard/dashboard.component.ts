@@ -11,6 +11,9 @@ import { RenameFormDialogComponent } from '@components/dashboard/rename-form-dia
 import { ShareFormDialogComponent } from '@components/dashboard/share-form-dialog/share-form-dialog.component';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DarkModeService } from '@services/dark-mode.service';
+import { AUTH_PAYLOAD, LABELS } from '@app/constants';
+import { AutoLogoutService } from '@services/auto-logout.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -19,14 +22,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
     isLoading = true;
+    darkModeEnabled = false;
+
     dialogBoxSubscription!: Subscription;
     formsSubscription!: Subscription;
     recentFormsSubscription!: Subscription;
+    darkModeSubscription!: Subscription;
 
     constructor(
         private cookieService: CookieService,
         private store: Store<AppState>,
         private formService: FormService,
+        private autoLogoutService: AutoLogoutService,
+        private darkModeService: DarkModeService,
         private dialog: MatDialog,
         private snackBar: MatSnackBar
     ) {}
@@ -39,26 +47,36 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.getForms();
 
         this.getRecentForms();
+
+        this.toggleDarkMode();
     }
 
     getCookiePayload() {
-        if (this.cookieService.get('payload') !== undefined) {
+        if (this.cookieService.get(AUTH_PAYLOAD)) {
             this.store.dispatch(
-                new AuthActions.LoginSuccess(JSON.parse(this.cookieService.get('payload')))
+                new AuthActions.LoginSuccess(JSON.parse(this.cookieService.get(AUTH_PAYLOAD)))
             );
-            this.cookieService.remove('payload');
+            this.cookieService.remove(AUTH_PAYLOAD);
         }
     }
 
     dialogBoxHandler() {
         this.dialogBoxSubscription = this.store.select('dialogBox').subscribe((dialogBoxState) => {
-            if (dialogBoxState.deleteDialogBox.status === true) {
-                this.dialog.open(FormDialogComponent);
-            } else if (dialogBoxState.editDialogBox.status === true) {
-                this.dialog.open(RenameFormDialogComponent);
-            } else if (dialogBoxState.shareFormDialogBox.status === true) {
+            if (dialogBoxState.deleteDialogBox.status) {
+                this.dialog.open(FormDialogComponent, {
+                    data: this.darkModeEnabled,
+                    autoFocus: true,
+                });
+            } else if (dialogBoxState.editDialogBox.status) {
+                this.dialog.open(RenameFormDialogComponent, {
+                    data: this.darkModeEnabled,
+                    autoFocus: true,
+                });
+            } else if (dialogBoxState.shareFormDialogBox.status) {
                 this.dialog.open(ShareFormDialogComponent, {
-                    width: '375px',
+                    width: '360px',
+                    data: this.darkModeEnabled,
+                    autoFocus: true,
                 });
             } else {
                 this.dialog.closeAll();
@@ -74,7 +92,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
             },
             (err) => {
                 if (err.status === 401) {
-                    this.snackBar.open(err.error.message, 'Close');
+                    this.snackBar.open(err.error.message, LABELS.DISMISS_SNACKBAR_TEXT);
                     this.store.dispatch(new AuthActions.Logout());
                 }
                 this.store.dispatch(
@@ -91,7 +109,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 this.store.dispatch(new FormActions.FetchRecentForms(res.forms));
             },
             (err) => {
-                this.snackBar.open(err.error.message, 'Close');
+                this.snackBar.open(err.error.message, LABELS.DISMISS_SNACKBAR_TEXT);
                 if (err.status === 401) {
                     this.store.dispatch(new AuthActions.Logout());
                 }
@@ -99,9 +117,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
         );
     }
 
+    toggleDarkMode() {
+        this.darkModeSubscription = this.darkModeService.darkMode.subscribe((mode) => {
+            if (mode) {
+                this.darkModeEnabled = true;
+            } else {
+                this.darkModeEnabled = false;
+            }
+        });
+    }
+
     ngOnDestroy() {
         this.dialogBoxSubscription.unsubscribe();
         this.formsSubscription.unsubscribe();
         this.recentFormsSubscription.unsubscribe();
+        this.darkModeSubscription.unsubscribe();
     }
 }

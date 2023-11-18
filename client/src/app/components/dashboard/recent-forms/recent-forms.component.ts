@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AppState } from '@models/app-state.model';
 import { RecentForm } from '@models/recent-form.model';
 import { Store } from '@ngrx/store';
@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./recent-forms.component.scss'],
 })
 export class RecentFormsComponent implements OnInit, OnDestroy {
+    @Input() darkModeEnabled!: boolean;
     forms: RecentForm[] = [];
     recentFormsSubscription!: Subscription;
     showTemplates = true;

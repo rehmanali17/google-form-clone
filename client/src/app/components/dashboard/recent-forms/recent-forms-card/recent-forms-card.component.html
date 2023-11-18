@@ -1,15 +1,25 @@
 <div class="card" *ngIf="!createNewForm; else newForm" (click)="redirectToEditPage(form._id)">
-    <img class="card-image" [src]="imageSource" alt="{{ form.title }}" />
-    <p class="card-title">{{ form.title }}</p>
+    <img
+        class="card-image"
+        [ngClass]="{ 'dark-card-image': darkModeEnabled }"
+        [src]="imageSource"
+        alt="{{ form.title }}"
+    />
+    <p class="card-title" [ngClass]="{ 'dark-card-title': darkModeEnabled }">{{ form.title }}</p>
 </div>
 <ng-template #newForm>
     <div class="card">
         <img
             (click)="handleCreateForm()"
             class="card-image"
+            [ngClass]="{ 'dark-card-image': darkModeEnabled }"
             src="../../../../../assets/google-plus-image.png"
             alt="Blank Form"
         />
-        <p class="card-title" [innerText]="'Blank Form'"></p>
+        <p
+            class="card-title"
+            [ngClass]="{ 'dark-card-title': darkModeEnabled }"
+            [innerText]="'Blank Form'"
+        ></p>
     </div>
 </ng-template>

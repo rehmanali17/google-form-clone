@@ -1,15 +1,26 @@
 <form class="custom-container">
-    <div class="question-container">
+    <div
+        class="question-container dark:bg-[#192039]"
+        [ngClass]="{ 'dark-question-container': darkModeEnabled }"
+    >
+        <div class="drag-indicator-container">
+            <div class="drag-indicator">
+                <ng-content select="[drag-handle]"></ng-content>
+            </div>
+        </div>
         <app-question-container
             [questionOverview]="questionOverview"
+            [darkModeEnabled]="darkModeEnabled"
             (typeChange)="handleTypeChange($event)"
         ></app-question-container>
         <app-answer-container
             [options]="options"
             [questionType]="questionType"
+            [darkModeEnabled]="darkModeEnabled"
         ></app-answer-container>
         <app-actions-container
             [validations]="validations"
+            [darkModeEnabled]="darkModeEnabled"
             (addQuestion)="handleAddQuestion()"
             (deleteQuestion)="handleDeleteQuestion()"
             (duplicateQuestion)="handleDuplicateQuestion()"

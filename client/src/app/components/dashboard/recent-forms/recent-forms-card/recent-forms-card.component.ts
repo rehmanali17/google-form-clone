@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { RecentForm } from '@models/recent-form.model';
+import { ROUTES } from '@app/constants';
 
 @Component({
     selector: 'app-recent-forms-card',
@@ -11,20 +12,21 @@ import { RecentForm } from '@models/recent-form.model';
 export class RecentFormsCardComponent implements OnInit {
     @Input() form!: RecentForm;
     @Input() createNewForm!: boolean;
+    @Input() darkModeEnabled!: boolean;
     imageSource!: SafeResourceUrl;
     constructor(private router: Router, private sanitizer: DomSanitizer) {}
 
     ngOnInit() {
-        if (this.createNewForm === false) {
+        if (!this.createNewForm) {
             this.imageSource = this.sanitizer.bypassSecurityTrustResourceUrl(this.form.imageString);
         }
     }
 
     handleCreateForm() {
-        this.router.navigateByUrl('/user/create-form');
+        this.router.navigateByUrl(ROUTES.CREATE_FORM);
     }
 
     redirectToEditPage(id: string) {
-        this.router.navigate(['/user/edit-form', id]);
+        this.router.navigate([ROUTES.EDIT_FORM, id]);
     }
 }

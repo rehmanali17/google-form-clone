@@ -2,11 +2,10 @@ import { AuthState } from '@models/auth-state.model';
 import * as AuthActions from '@store/auth/auth.actions';
 
 const accessToken = localStorage.getItem('accessToken') ?? '';
-const isLoggedIn = accessToken === '' ? false : true;
-const user =
-    accessToken === ''
-        ? { _id: '', name: '', email: '', pictureURL: '', createdAt: new Date() }
-        : JSON.parse(localStorage.getItem('user')!);
+const isLoggedIn = accessToken ? true : false;
+const user = accessToken
+    ? JSON.parse(localStorage.getItem('user')!)
+    : { _id: '', name: '', email: '', pictureURL: '', createdAt: new Date() };
 
 const initialState: AuthState = {
     isLoggedIn,

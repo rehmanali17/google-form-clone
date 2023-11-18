@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { ROUTES } from '@app/constants';
 
 @Component({
     selector: 'app-landing-page',
@@ -15,8 +16,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.authSubscription = this.store.select('auth').subscribe((authState) => {
-            if (authState.isLoggedIn === true) {
-                this.router.navigateByUrl('/user');
+            if (authState.isLoggedIn) {
+                this.router.navigateByUrl(ROUTES.DASHBOARD);
             }
         });
     }

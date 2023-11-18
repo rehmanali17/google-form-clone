@@ -3,7 +3,10 @@ module.exports = {
         enabled: false,
         content: ['./src/**/*.{html,ts}'],
     },
-    darkMode: false, // or 'media' or 'class'
+    // // purge: [],
+    // content: ['./src/**/*.{html,ts}'],
+    // // content: ['./src/**/*.{html,ts}'],
+    darkMode: 'class', // or 'media' or 'class'
     theme: {
         screens: {
             xsm: { max: '576px' },

@@ -39,6 +39,13 @@
         }
     }
 
+    .dark-form-information-container {
+        border-top: 10px solid #5a6582;
+        &:focus-within {
+            border-left: 6px solid #687596;
+        }
+    }
+
     @media screen and (max-width: 992px) {
         .form-information-container {
             width: 65%;
@@ -74,4 +81,13 @@
 
 .custom-height {
     height: 150px;
+}
+
+.dark-input {
+    ::ng-deep .mat-form-field-underline {
+        background-color: white !important;
+    }
+    ::ng-deep .mat-form-field-ripple {
+        background-color: #353d58 !important;
+    }
 }
